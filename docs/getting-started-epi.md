@@ -17,7 +17,7 @@ Localization Provider for EPiServer consists from few components:
 * `DbLocalizationProvider.EPiServer` - core package for EPiServer integration giving you all necessary extension methods for working with resources or models in EPiServer environment.
 * `DbLocalizationProvider.AdminUI.EPiServer` - administrator user interface for editors and administrators to overview resources, manage translations, import / export and do other tasks.
 * `LocalizationProvider.MigrationTool` - tool to help migrate from Xml language files (default EPiServer localization approach) to database driven provider.
-* `LocalizationProvider.JsResourceHandler` - this package brings localized resources down to client-side as Json object easily accessible in javascipt.
+* `DbLocalizationProvider.EPiServer.JsResourceHandler` - this package brings localized resources down to client-side as Json object easily accessible in javascipt.
 
 
 ### Installing Provider
