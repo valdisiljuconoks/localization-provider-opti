@@ -1,3 +1,7 @@
+# DbLocalizationProvider for EPiServer
+
+[<img src="https://tech-fellow-consulting.visualstudio.com/_apis/public/build/definitions/7cf5a00f-7a74-440c-83bd-45d6c8a80602/11/badge"/>](https://tech-fellow-consulting.visualstudio.com/localization-provider-aspnet/_build/index?definitionId=11)
+
 ## What is the LocalizationProvider project?
 
 LocalizationProvider project is Episerver localization provider on steriods.
