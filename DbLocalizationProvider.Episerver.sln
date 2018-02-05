@@ -47,6 +47,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "docs", "docs", "{084EF582-B
 		docs\getting-started-epi.md = docs\getting-started-epi.md
 		docs\jsresourcehandler-epi.md = docs\jsresourcehandler-epi.md
 		docs\working-with-resources-epi.md = docs\working-with-resources-epi.md
+		docs\working-with-submodules.md = docs\working-with-submodules.md
 		docs\xml-migration-epi.md = docs\xml-migration-epi.md
 	EndProjectSection
 EndProject
