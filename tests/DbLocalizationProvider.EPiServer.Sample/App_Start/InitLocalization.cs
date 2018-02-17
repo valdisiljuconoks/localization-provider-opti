@@ -29,7 +29,7 @@ namespace DbLocalizationProvider.EPiServer.Sample
 
             UiConfigurationContext.Setup(_ =>
             {
-                _.DefaultView = ResourceListView.Tree;
+                //_.DefaultView = ResourceListView.Tree;
                 _.TreeViewExpandedByDefault = true;
                 _.ShowInvariantCulture = true;
 
@@ -39,7 +39,7 @@ namespace DbLocalizationProvider.EPiServer.Sample
                 //_.AuthorizedEditorRoles.Clear();
                 _.AuthorizedEditorRoles.Add("SomeFancyEditorRole");
 
-                _.DisableView(ResourceListView.Table);
+                //_.DisableView(ResourceListView.Table);
             });
         }
 

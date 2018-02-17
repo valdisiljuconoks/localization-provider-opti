@@ -260,6 +260,7 @@
     <Compile Include="HelpTextAttribute.cs" />
     <Compile Include="Infrastructure\Class1.cs" />
     <Compile Include="Infrastructure\StructureMapDependencyResolver.cs" />
+    <Compile Include="Models\Blocks\DefaultBlock1.cs" />
     <Compile Include="Models\Pages\StartPage.cs" />
     <Compile Include="Models\ViewModels\StartPageViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -268,7 +269,6 @@
     <Compile Include="Resources\SecretResources.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Models\Blocks\" />
     <Folder Include="Models\Media\" />
     <Folder Include="Models\Properties\" />
     <Folder Include="Static\" />
