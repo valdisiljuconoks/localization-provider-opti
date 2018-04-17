@@ -9,6 +9,8 @@ namespace DbLocalizationProvider.EPiServer.Sample.Controllers
 {
     public class StartPageController : PageController<StartPage>
     {
+        public StartPageController(/*LocalizationService service, */LocalizationProvider provider) { }
+
         public ActionResult Index(StartPage currentPage)
         {
             LogManager.GetLogger(typeof(StartPageController)).Log(Level.Information, "Test log message");
