@@ -60,7 +60,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CacheKeyTests.cs" />
-    <Compile Include="JsonConverterTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -75,6 +74,10 @@
     <ProjectReference Include="..\..\lib\aspnet\lib\localization-provider\src\DbLocalizationProvider\DbLocalizationProvider.csproj">
       <Project>{752e02df-ae33-4d30-9dfa-480cde49e46e}</Project>
       <Name>DbLocalizationProvider</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\lib\aspnet\src\DbLocalizationProvider.AspNet\DbLocalizationProvider.AspNet.csproj">
+      <Project>{bfff1d76-e64f-47be-b77e-e0873977b3b3}</Project>
+      <Name>DbLocalizationProvider.AspNet</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\src\DbLocalizationProvider.EPiServer.JsResourceHandler\DbLocalizationProvider.EPiServer.JsResourceHandler.csproj">
       <Project>{809f8979-893d-4145-9397-133e3b547e05}</Project>

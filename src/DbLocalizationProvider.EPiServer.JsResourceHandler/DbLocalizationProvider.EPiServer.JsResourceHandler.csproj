@@ -173,8 +173,6 @@
     <Compile Include="IResourceListProvider.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RegisterResourceListProvider.cs" />
-    <Compile Include="ResourceFilter.cs" />
-    <Compile Include="ResourceJsonConverter.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
@@ -191,6 +189,10 @@
     <ProjectReference Include="..\..\lib\aspnet\lib\localization-provider\src\DbLocalizationProvider\DbLocalizationProvider.csproj">
       <Project>{752e02df-ae33-4d30-9dfa-480cde49e46e}</Project>
       <Name>DbLocalizationProvider</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\lib\aspnet\src\DbLocalizationProvider.AspNet\DbLocalizationProvider.AspNet.csproj">
+      <Project>{bfff1d76-e64f-47be-b77e-e0873977b3b3}</Project>
+      <Name>DbLocalizationProvider.AspNet</Name>
     </ProjectReference>
     <ProjectReference Include="..\DbLocalizationProvider.EPiServer\DbLocalizationProvider.EPiServer.csproj">
       <Project>{86cbfec7-8763-4bba-b760-0a0c977c8c36}</Project>
