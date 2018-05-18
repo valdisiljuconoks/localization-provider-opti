@@ -5,7 +5,7 @@
     <id>$id$</id>
     <version>$version$</version>
     <title>$title$</title>
-    <authors>Valdis Iljuconoks, http://blog.tech-fellow.net</authors>
+    <authors>Valdis Iljuconoks, https://tech-fellow.net</authors>
     <owners>$author$</owners>
     <licenseUrl>https://github.com/valdisiljuconoks/LocalizationProvider/blob/master/LICENSE</licenseUrl>
     <projectUrl>https://github.com/valdisiljuconoks/LocalizationProvider/</projectUrl>
@@ -17,8 +17,8 @@
     <dependencies>
       <dependency id="LocalizationProvider.Abstractions" version="4.2.2" />
       <dependency id="LocalizationProvider" version="4.2.2" />
-      <dependency id="LocalizationProvider.AspNet" version="4.2.2" />
-      <dependency id="DbLocalizationProvider.EPiServer" version="4.3.2" />
+      <dependency id="LocalizationProvider.AspNet" version="4.2.3" />
+      <dependency id="DbLocalizationProvider.EPiServer" version="4.3.3" />
     </dependencies>
   </metadata>
 </package>
