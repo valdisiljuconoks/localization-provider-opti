@@ -6,7 +6,7 @@ using EPiServer.DataAnnotations;
 namespace DbLocalizationProvider.EPiServer.Sample.Models.Blocks
 {
     [ContentType(DisplayName = "DefaultBlock1", GUID = "25f4a73c-7e2b-407d-a0e3-03839167524c", Description = "")]
-    [LocalizedResource(Inherited = false)]
+    //[LocalizedResource(Inherited = false)]
     public class DefaultBlock1 : BlockData
     {
         [CultureSpecific]
