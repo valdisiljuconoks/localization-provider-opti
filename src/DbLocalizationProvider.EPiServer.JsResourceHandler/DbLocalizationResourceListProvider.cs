@@ -1,21 +1,49 @@
-﻿using System.Web;
+﻿// Copyright (c) 2018 Valdis Iljuconoks.
+// Permission is hereby granted, free of charge, to any person
+// obtaining a copy of this software and associated documentation
+// files (the "Software"), to deal in the Software without
+// restriction, including without limitation the rights to use,
+// copy, modify, merge, publish, distribute, sublicense, and/or sell
+// copies of the Software, and to permit persons to whom the
+// Software is furnished to do so, subject to the following
+// conditions:
+// The above copyright notice and this permission notice shall be
+// included in all copies or substantial portions of the Software.
+// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
+// EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES
+// OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
+// NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT
+// HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
+// WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
+// FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
+// OTHER DEALINGS IN THE SOFTWARE.
+
+using System.Web;
 using System.Web.Caching;
 using Newtonsoft.Json;
+using Newtonsoft.Json.Serialization;
 
 namespace DbLocalizationProvider.EPiServer.JsResourceHandler
 {
     public class DbLocalizationResourceListProvider : IResourceListProvider
     {
-        private readonly DbLocalizationProvider.AspNet.Json.JsonConverter _converter;
+        private readonly AspNet.Json.JsonConverter _converter;
 
-        public DbLocalizationResourceListProvider(DbLocalizationProvider.AspNet.Json.JsonConverter converter)
+        public DbLocalizationResourceListProvider(AspNet.Json.JsonConverter converter)
         {
             _converter = converter;
         }
 
-        public string GetJson(string filename, HttpContext context, string languageName, bool debugMode)
+        public string GetJson(string filename, HttpContext context, string languageName, bool debugMode, bool camelCase)
         {
-            return JsonConvert.SerializeObject(_converter.GetJson(filename, languageName), debugMode ? Formatting.Indented : Formatting.None);
+            var settings = new JsonSerializerSettings();
+            if(camelCase)
+                settings.ContractResolver = new CamelCasePropertyNamesContractResolver();
+
+            if(debugMode)
+                settings.Formatting = Formatting.Indented;
+
+            return JsonConvert.SerializeObject(_converter.GetJson(filename, languageName, camelCase), settings);
         }
 
         public CacheDependency GetCacheDependency()
