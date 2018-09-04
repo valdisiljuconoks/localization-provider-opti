@@ -10,14 +10,7 @@ namespace DbLocalizationProvider.EPiServer
 {
     public class DatabaseLocalizationProvider : global::EPiServer.Framework.Localization.LocalizationProvider
     {
-        public override IEnumerable<CultureInfo> AvailableLanguages
-        {
-            get
-            {
-                var q = new AvailableLanguages.Query();
-                return q.Execute();
-            }
-        }
+        public override IEnumerable<CultureInfo> AvailableLanguages => new AvailableLanguages.Query().Execute();
 
         public override string GetString(string originalKey, string[] normalizedKey, CultureInfo culture)
         {
