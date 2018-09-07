@@ -11,13 +11,14 @@
     <projectUrl>https://github.com/valdisiljuconoks/LocalizationProvider/</projectUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <description>$description$</description>
-    <releaseNotes>Inital version of DbLocalizationProvider package for EPiServer</releaseNotes>
+    <releaseNotes>DbLocalizationProvider package for EPiServer</releaseNotes>
     <copyright>Copyright 2018 (c) Valdis Iljuconoks, Tech Fellow</copyright>
     <tags>Localization EPiServer Provider DbLocalization DbLocalizationProvider LocalizationProvider</tags>
     <dependencies>
       <dependency id="LocalizationProvider.Abstractions" version="4.2.2" />
       <dependency id="LocalizationProvider" version="4.2.2" />
       <dependency id="LocalizationProvider.AspNet" version="4.2.2" />
+      <dependency id="EPiServer.CMS.UI.Core" version="[11.1.0, 12.0)" />
     </dependencies>
   </metadata>
   <files>

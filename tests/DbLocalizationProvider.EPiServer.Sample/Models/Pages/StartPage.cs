@@ -32,6 +32,10 @@ namespace DbLocalizationProvider.EPiServer.Sample.Models.Pages
         [EPiIgnore]
         public AddressViewModel Address { get; set; }
 
+        [LocalizedEnum(typeof(SomeValuesEnum))]
+        [BackingType(typeof(PropertyNumber))]
+        public virtual SomeValuesEnum SomeValue { get; set; }
+
     }
 
     [LocalizedModel(Inherited = false)]
@@ -45,5 +49,18 @@ namespace DbLocalizationProvider.EPiServer.Sample.Models.Pages
     {
         [HelpText]
         public string PostalCodeFromBase { get; set; }
+    }
+
+    [LocalizedResource]
+    public enum SomeValuesEnum
+    {
+        [Display(Name = "NOONE!")]
+        None = 0,
+        [Display(Name = "1st value")]
+        FirstValue = 1,
+        [Display(Name = "This is second")]
+        SecondValue = 2,
+        [Display(Name = "And here comes last (3rd)")]
+        ThirdOne = 3
     }
 }
