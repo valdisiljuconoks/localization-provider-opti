@@ -1,4 +1,4 @@
-﻿// Copyright © 2017 Valdis Iljuconoks.
+﻿// Copyright (c) 2018 Valdis Iljuconoks.
 // Permission is hereby granted, free of charge, to any person
 // obtaining a copy of this software and associated documentation
 // files (the "Software"), to deal in the Software without
@@ -19,6 +19,7 @@
 // OTHER DEALINGS IN THE SOFTWARE.
 
 using System;
+using System.Configuration;
 using System.Web.Mvc;
 using DbLocalizationProvider.AspNet.Cache;
 using DbLocalizationProvider.AspNet.Commands;
@@ -85,6 +86,8 @@ namespace DbLocalizationProvider.EPiServer
                 ctx.TypeFactory.ForCommand<ClearCache.Command>().SetHandler<ClearCacheHandler>();
             });
 
+            ConfigurationContext.Current.DbContextConnectionString = ConfigurationManager.ConnectionStrings[ConfigurationContext.Current.Connection].ConnectionString;
+
             var synchronizer = new ResourceSynchronizer();
             synchronizer.DiscoverAndRegister();
 
@@ -124,10 +127,10 @@ namespace DbLocalizationProvider.EPiServer
                 }
             }
 
-            // in cases when there has been already a call to LoclaizationProvider.Current (some static weird things)
+            // in cases when there has been already a call to LocalizationProvider.Current (some static weird things)
             // and only then setup configuration is ran - here we need to reset instance once again with new settings
             LocalizationProvider.Initialize();
-            _context.Services.AddSingleton<LocalizationProvider>(LocalizationProvider.Current);
+            _context.Services.AddSingleton(LocalizationProvider.Current);
         }
     }
 }

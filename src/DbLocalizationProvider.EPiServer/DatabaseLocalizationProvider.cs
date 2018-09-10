@@ -25,7 +25,7 @@ namespace DbLocalizationProvider.EPiServer
             if(ConfigurationContext.Current.DiagnosticsEnabled)
                 originalHandler = new EPiServerGetTranslation.HandlerWithLogging(new GetTranslationHandler());
 
-            return originalHandler.Execute(new GetTranslation.Query(originalKey, culture, false));
+            return originalHandler.Execute(new GetTranslation.Query(originalKey, culture, ConfigurationContext.Current.EnableInvariantCultureFallback));
         }
 
         public override IEnumerable<global::EPiServer.Framework.Localization.ResourceItem> GetAllStrings(string originalKey, string[] normalizedKey, CultureInfo culture)
