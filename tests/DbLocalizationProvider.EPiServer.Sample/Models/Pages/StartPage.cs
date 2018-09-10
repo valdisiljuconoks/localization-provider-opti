@@ -56,11 +56,15 @@ namespace DbLocalizationProvider.EPiServer.Sample.Models.Pages
     {
         [Display(Name = "NOONE!")]
         None = 0,
+
         [Display(Name = "1st value")]
         FirstValue = 1,
+
         [Display(Name = "This is second")]
         SecondValue = 2,
+
         [Display(Name = "And here comes last (3rd)")]
+        [TranslationForCulture("Tredje", "sv")]
         ThirdOne = 3
     }
 }
