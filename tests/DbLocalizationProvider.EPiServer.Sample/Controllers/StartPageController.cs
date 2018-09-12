@@ -33,10 +33,20 @@ namespace DbLocalizationProvider.EPiServer.Sample.Controllers
             var svcInv = _service.GetStringByCulture("DbLocalizationProvider.EPiServer.Sample.Models.Pages.SomeValuesEnum.SecondValue", CultureInfo.InvariantCulture);
             var svcLv = _service.GetStringByCulture("DbLocalizationProvider.EPiServer.Sample.Models.Pages.SomeValuesEnum.SecondValue", new CultureInfo("lv"));
 
-            var enumTr = SomeValuesEnum.FirstValue.Translate(CultureInfo.InvariantCulture);
+            var enumTr = SomeValuesEnum.FirstValue.Translate();
             var enumSv = SomeValuesEnum.FirstValue.TranslateByCulture(new CultureInfo("sv"));
             var enumInv = SomeValuesEnum.FirstValue.TranslateByCulture(CultureInfo.InvariantCulture);
             var enumLv = SomeValuesEnum.FirstValue.TranslateByCulture(new CultureInfo("lv"));
+
+            var thirdEnumTr = SomeValuesEnum.ThirdOne.Translate();
+            var thirdEnumSv = SomeValuesEnum.ThirdOne.TranslateByCulture(new CultureInfo("sv"));
+            var thirdEnumInv = SomeValuesEnum.ThirdOne.TranslateByCulture(CultureInfo.InvariantCulture);
+            var thirdEnumLv = SomeValuesEnum.ThirdOne.TranslateByCulture(new CultureInfo("lv"));
+
+            var thirdSvc = _service.GetString("DbLocalizationProvider.EPiServer.Sample.Models.Pages.SomeValuesEnum.ThirdOne");
+            var thirdSvcSv = _service.GetStringByCulture("DbLocalizationProvider.EPiServer.Sample.Models.Pages.SomeValuesEnum.ThirdOne", new CultureInfo("sv"));
+            var thirdSvcInv = _service.GetStringByCulture("DbLocalizationProvider.EPiServer.Sample.Models.Pages.SomeValuesEnum.ThirdOne", CultureInfo.InvariantCulture);
+            var thirdSvcLv = _service.GetStringByCulture("DbLocalizationProvider.EPiServer.Sample.Models.Pages.SomeValuesEnum.ThirdOne", new CultureInfo("lv"));
 
             return View(new StartPageViewModel(currentPage));
         }

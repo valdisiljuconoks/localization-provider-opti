@@ -65,6 +65,7 @@ namespace DbLocalizationProvider.EPiServer.Sample.Models.Pages
 
         [Display(Name = "And here comes last (3rd)")]
         [TranslationForCulture("Tredje", "sv")]
+        [TranslationForCulture("Third (EN)", "en")]
         ThirdOne = 3
     }
 }

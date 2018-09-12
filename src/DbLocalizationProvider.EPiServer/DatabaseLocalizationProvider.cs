@@ -5,11 +5,21 @@ using DbLocalizationProvider.Abstractions;
 using DbLocalizationProvider.AspNet.Queries;
 using DbLocalizationProvider.EPiServer.Queries;
 using DbLocalizationProvider.Queries;
+using EPiServer.Framework.Localization;
 
 namespace DbLocalizationProvider.EPiServer
 {
     public class DatabaseLocalizationProvider : global::EPiServer.Framework.Localization.LocalizationProvider
     {
+        private readonly IQueryHandler<GetTranslation.Query, string> _originalHandler;
+
+        public DatabaseLocalizationProvider()
+        {
+            _originalHandler = new GetTranslationHandler();
+            if(ConfigurationContext.Current.DiagnosticsEnabled)
+                _originalHandler = new EPiServerGetTranslation.HandlerWithLogging(new GetTranslationHandler());
+        }
+
         public override IEnumerable<CultureInfo> AvailableLanguages => new AvailableLanguages.Query().Execute();
 
         public override string GetString(string originalKey, string[] normalizedKey, CultureInfo culture)
@@ -18,14 +28,19 @@ namespace DbLocalizationProvider.EPiServer
             // if we would dispatch query and ask registered handler to execute
             // we would end up in stack-overflow as in EPiServer context
             // the same database localization provider is registered as the query handler
+            var foundTranslation = _originalHandler.Execute(new GetTranslation.Query(originalKey, culture, false));
 
-            // TODO: this seems to be odd, no point for decorators. needs to be reviewed
-            IQueryHandler<GetTranslation.Query, string> originalHandler = new GetTranslationHandler();
+            // this is last chance for Episerver to find translation (asked in translation fallback language)
+            // if no match is found and invariant fallback is configured - return invariant culture translation
+            if(string.IsNullOrEmpty(foundTranslation)
+               && LocalizationService.Current.FallbackBehavior.HasFlag(FallbackBehaviors.FallbackCulture)
+               && Equals(culture, LocalizationService.Current.FallbackCulture)
+               && ConfigurationContext.Current.EnableInvariantCultureFallback)
+            {
+                return _originalHandler.Execute(new GetTranslation.Query(originalKey, CultureInfo.InvariantCulture, false));
+            }
 
-            if(ConfigurationContext.Current.DiagnosticsEnabled)
-                originalHandler = new EPiServerGetTranslation.HandlerWithLogging(new GetTranslationHandler());
-
-            return originalHandler.Execute(new GetTranslation.Query(originalKey, culture, ConfigurationContext.Current.EnableInvariantCultureFallback));
+            return foundTranslation;
         }
 
         public override IEnumerable<global::EPiServer.Framework.Localization.ResourceItem> GetAllStrings(string originalKey, string[] normalizedKey, CultureInfo culture)
