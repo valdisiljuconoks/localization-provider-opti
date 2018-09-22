@@ -35,6 +35,12 @@
     <WarningLevel>4</WarningLevel>
     <DocumentationFile>bin\Release\DbLocalizationProvider.AdminUI.EPiServer.xml</DocumentationFile>
   </PropertyGroup>
+  <PropertyGroup>
+    <SignAssembly>true</SignAssembly>
+  </PropertyGroup>
+  <PropertyGroup>
+    <AssemblyOriginatorKeyFile>..\..\lib\aspnet\lib\localization-provider\strongname.snk</AssemblyOriginatorKeyFile>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="Castle.Core, Version=4.0.0.0, Culture=neutral, PublicKeyToken=407dd0808d44fbdc, processorArchitecture=MSIL">
       <HintPath>..\..\packages\Castle.Core.4.2.1\lib\net45\Castle.Core.dll</HintPath>
@@ -304,7 +310,7 @@
   <PropertyGroup>
     <PostBuildEvent>xcopy "$(SolutionDir)\src\DbLocalizationProvider.AdminUI.EPiServer\modules\_protected\DbLocalizationProvider.AdminUI.EPiServer\*.*" "$(SolutionDir)\Tests\DbLocalizationProvider.EPiServer.Sample\modules\_protected\DbLocalizationProvider.AdminUI.EPiServer" /e  /y</PostBuildEvent>
   </PropertyGroup>
-  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it.
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">
   </Target>
