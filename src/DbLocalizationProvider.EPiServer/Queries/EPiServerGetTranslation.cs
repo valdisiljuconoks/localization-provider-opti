@@ -22,23 +22,19 @@ namespace DbLocalizationProvider.EPiServer.Queries
             public string Execute(GetTranslation.Query query)
             {
                 var service = ServiceLocator.Current.GetInstance<LocalizationService>();
-
-                // this is a bit more trickier that initially might look like,
-                // if asked to return translation explicitly in InvariantCulture - Episerver will understand this as whichever fallback language is configured
-                // and will pass in that language to look translation for
-                // so we must check this explicitly here
-                if(Equals(query.Language, CultureInfo.InvariantCulture))
-                    return _originalHandler.Execute(new GetTranslation.Query(query.Key, CultureInfo.InvariantCulture, false));
-
                 var foundTranslation = service.GetStringByCulture(query.Key, query.Language);
 
-                // if I ask for fallback language and there is no resource translation for that language
-                // Episerver gonna return me string.Empty - LocalizationService.GetMissingFallbackResourceValue()
-
+                // * if asked for fallback language and there is no resource translation for that language
+                //   Episerver gonna return me string.Empty - LocalizationService.GetMissingFallbackResourceValue()
+                //   this is a bit more trickier that initially might look like
+                // * if asked to return translation explicitly in InvariantCulture
+                //   Episerver will understand this as whichever fallback language is configured
+                //   and will pass in that language to look for translation
+                //   so we must check this explicitly here
                 if(string.IsNullOrEmpty(foundTranslation)
                    && service.FallbackBehavior.HasFlag(FallbackBehaviors.FallbackCulture)
-                   && Equals(query.Language, service.FallbackCulture)
-                   && query.UseFallback)
+                   && query.UseFallback
+                   && (Equals(query.Language, service.FallbackCulture)) || Equals(query.Language.Parent, CultureInfo.InvariantCulture))
                 {
                     // no translation found for this language
                     // we need to respect fallback settings

@@ -32,10 +32,10 @@ namespace DbLocalizationProvider.EPiServer
 
             // this is last chance for Episerver to find translation (asked in translation fallback language)
             // if no match is found and invariant fallback is configured - return invariant culture translation
-            if(string.IsNullOrEmpty(foundTranslation)
+            if(foundTranslation == null
                && LocalizationService.Current.FallbackBehavior.HasFlag(FallbackBehaviors.FallbackCulture)
-               && Equals(culture, LocalizationService.Current.FallbackCulture)
-               && ConfigurationContext.Current.EnableInvariantCultureFallback)
+               && ConfigurationContext.Current.EnableInvariantCultureFallback
+               && (Equals(culture, LocalizationService.Current.FallbackCulture) || Equals(culture.Parent, CultureInfo.InvariantCulture)))
             {
                 return _originalHandler.Execute(new GetTranslation.Query(originalKey, CultureInfo.InvariantCulture, false));
             }
