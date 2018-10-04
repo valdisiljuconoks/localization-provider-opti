@@ -267,6 +267,7 @@
     <Compile Include="Infrastructure\Class1.cs" />
     <Compile Include="Infrastructure\StructureMapDependencyResolver.cs" />
     <Compile Include="Models\Blocks\DefaultBlock1.cs" />
+    <Compile Include="Models\Pages\SomeWeirdPage.cs" />
     <Compile Include="Models\Pages\StartPage.cs" />
     <Compile Include="Models\ViewModels\StartPageViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
