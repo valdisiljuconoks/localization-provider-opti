@@ -34,7 +34,7 @@ namespace DbLocalizationProvider.EPiServer.Queries
                 if(string.IsNullOrEmpty(foundTranslation)
                    && service.FallbackBehavior.HasFlag(FallbackBehaviors.FallbackCulture)
                    && query.UseFallback
-                   && (Equals(query.Language, service.FallbackCulture)) || Equals(query.Language.Parent, CultureInfo.InvariantCulture))
+                   && (Equals(query.Language, service.FallbackCulture) || Equals(query.Language.Parent, CultureInfo.InvariantCulture)))
                 {
                     // no translation found for this language
                     // we need to respect fallback settings

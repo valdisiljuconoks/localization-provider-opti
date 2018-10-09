@@ -1,4 +1,5 @@
 ﻿using System.Globalization;
+using System.Threading;
 using System.Web.Mvc;
 using DbLocalizationProvider.EPiServer.Sample.Models.Pages;
 using DbLocalizationProvider.EPiServer.Sample.Models.ViewModels;
@@ -19,8 +20,11 @@ namespace DbLocalizationProvider.EPiServer.Sample.Controllers
             _provider = provider;
         }
 
-        public ActionResult Index(StartPage currentPage)
+        public ActionResult Index(StartPage currentPage, string lg)
         {
+            if(!string.IsNullOrEmpty(lg))
+                CultureInfo.CurrentUICulture = new CultureInfo(lg);
+
             LogManager.GetLogger(typeof(StartPageController)).Log(Level.Information, "Test log message");
 
             var tr = _provider.GetString("DbLocalizationProvider.EPiServer.Sample.Models.Pages.SomeValuesEnum.SecondValue");
