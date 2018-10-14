@@ -297,6 +297,13 @@
                             <input class="epi-cmsButton-text epi-cmsButton-tools epi-cmsButton-Import" type="submit" id="importResources" value="<%= Html.Translate(() => Resources.ImportResources.Import) %>" title="<%= Html.Translate(() => Resources.ImportResources.Import) %>" onclick="$('#importLinkForm').submit();" /></span>
                     <%
                        } %>
+                    <% if (Model.AdminMode)
+                       {
+                    %>
+                        <span class="epi-cmsButton">
+                            <input class="epi-cmsButton-text epi-cmsButton-tools epi-cmsButton-AddFile" type="button" id="newResource" value="<%= Html.Translate(() => Resources.New) %>" title="<%= Html.Translate(() => Resources.New) %>" /></span>
+                    <%
+                       } %>
                 </div>
 
                 <form id="resourceFilterForm">
