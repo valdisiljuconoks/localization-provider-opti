@@ -24,19 +24,24 @@ using EPiServer.Shell.ObjectEditing;
 
 namespace DbLocalizationProvider.EPiServer
 {
-    public class LocalizedEnumAttribute : SelectOneAttribute, IMetadataAware
+    public class LocalizedEnumAttribute : Attribute, IMetadataAware
     {
-        public LocalizedEnumAttribute(Type enumType)
+        public LocalizedEnumAttribute(Type enumType, bool isManySelection = false)
         {
             EnumType = enumType ?? throw new ArgumentNullException(nameof(enumType));
+            IsManySelection = isManySelection;
         }
 
         public Type EnumType { get; set; }
+        public bool IsManySelection { get; }
 
-        public new void OnMetadataCreated(ModelMetadata metadata)
+        public void OnMetadataCreated(ModelMetadata metadata)
         {
-            SelectionFactoryType = typeof(LocalizedEnumSelectionFactory<>).MakeGenericType(EnumType);
-            base.OnMetadataCreated(metadata);
+            if(!(metadata is ExtendedMetadata extendedMetadata))
+                return;
+
+            extendedMetadata.ClientEditingClass = "epi-cms/contentediting/editors/" + (IsManySelection ? "CheckBoxListEditor" : "SelectionEditor");
+            extendedMetadata.SelectionFactoryType = typeof(LocalizedEnumSelectionFactory<>).MakeGenericType(EnumType);
         }
     }
 }

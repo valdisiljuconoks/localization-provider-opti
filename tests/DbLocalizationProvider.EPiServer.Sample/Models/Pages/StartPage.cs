@@ -36,6 +36,10 @@ namespace DbLocalizationProvider.EPiServer.Sample.Models.Pages
         [BackingType(typeof(PropertyNumber))]
         public virtual SomeValuesEnum SomeValue { get; set; }
 
+        [LocalizedEnum(typeof(SomeValuesEnum), true)]
+        [BackingType(typeof(PropertyNumber))]
+        public virtual SomeValuesEnum SomeValueMany { get; set; }
+
     }
 
     [LocalizedModel(Inherited = false)]
