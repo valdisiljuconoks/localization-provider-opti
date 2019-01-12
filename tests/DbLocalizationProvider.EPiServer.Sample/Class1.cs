@@ -8,6 +8,8 @@ namespace MyProject
         public static string FirstProperty => "One";
         public static string SecondProperty => "Two (EDIT)";
         public static string FifthProperty => "Fifth";
+
+        public string InstanceProperty = "Instance property";
     }
 
     [LocalizedResource]

@@ -9,10 +9,7 @@ namespace DbLocalizationProvider.EPiServer.Sample.Models.ViewModels
     {
         public StartPageViewModel(StartPage currentPage)
         {
-            if(currentPage == null)
-                throw new ArgumentNullException(nameof(currentPage));
-
-            CurrentPage = currentPage;
+            CurrentPage = currentPage ?? throw new ArgumentNullException(nameof(currentPage));
         }
 
         public StartPage CurrentPage { get; set; }

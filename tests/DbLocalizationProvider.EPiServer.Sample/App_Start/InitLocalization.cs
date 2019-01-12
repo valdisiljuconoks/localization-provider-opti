@@ -28,6 +28,7 @@ namespace DbLocalizationProvider.EPiServer.Sample
                                            _.EnableInvariantCultureFallback = true;
                                            _.DefaultResourceCulture = CultureInfo.InvariantCulture;
                                            _.CacheManager.OnRemove += CacheManagerOnOnRemove;
+                                           _.PopulateCacheOnStartup = false;
                                        });
 
             UiConfigurationContext.Setup(_ =>
