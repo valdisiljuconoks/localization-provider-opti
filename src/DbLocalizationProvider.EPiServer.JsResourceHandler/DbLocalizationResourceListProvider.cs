@@ -1,4 +1,4 @@
-﻿// Copyright (c) 2018 Valdis Iljuconoks.
+﻿// Copyright (c) 2019 Valdis Iljuconoks.
 // Permission is hereby granted, free of charge, to any person
 // obtaining a copy of this software and associated documentation
 // files (the "Software"), to deal in the Software without
@@ -27,9 +27,9 @@ namespace DbLocalizationProvider.EPiServer.JsResourceHandler
 {
     public class DbLocalizationResourceListProvider : IResourceListProvider
     {
-        private readonly AspNet.Json.JsonConverter _converter;
+        private readonly Json.JsonConverter _converter;
 
-        public DbLocalizationResourceListProvider(AspNet.Json.JsonConverter converter)
+        public DbLocalizationResourceListProvider(Json.JsonConverter converter)
         {
             _converter = converter;
         }

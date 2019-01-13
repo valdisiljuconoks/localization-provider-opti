@@ -1,6 +1,5 @@
 ﻿@using System.Globalization
 @using DbLocalizationProvider
-@using DbLocalizationProvider.AspNet
 @using DbLocalizationProvider.EPiServer.JsResourceHandler
 @using DbLocalizationProvider.EPiServer.Sample.Infrastructure
 @using DbLocalizationProvider.EPiServer.Sample.Resources
@@ -11,7 +10,7 @@
 @{
     Layout = null;
 
-    var localized = LocalizationProviderExtensions.Translate<MyProject.MyResources>(LocProvider.Current);
+    var localized = LocProvider.Current.Translate<MyProject.MyResources>();
 }
 
 <!DOCTYPE html>
@@ -19,10 +18,10 @@
 <html>
 <head>
     <title>title</title>
-    @*@Html.GetTranslations(typeof(MyProject.MyResources), alias: "m", debug: true)
+    @Html.GetTranslations(typeof(MyProject.MyResources), alias: "m", debug: true)
     @Html.GetTranslations(typeof(MyProject.AlternativeResources), alias: "ar", debug: true)
     @Html.GetTranslations(typeof(MyProject.ContainerClass.NestedClass.TheResourceClass))
-    @Html.GetTranslations(typeof(Class1), camelCase: true)*@
+    @Html.GetTranslations(typeof(Class1), camelCase: true)
 </head>
 <body>
 <div>Translate&lt;MyProject.MyResources&gt;() - @localized.InstanceProperty</div>
