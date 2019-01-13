@@ -10,8 +10,8 @@
     <projectUrl>https://github.com/valdisiljuconoks/LocalizationProvider/</projectUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <description>$description$</description>
-    <releaseNotes>Inital version of DbLocalizationProvider migration tool for EPiServer</releaseNotes>
-    <copyright>Copyright 2018 (c) Valdis Iljuconoks, Tech Fellow</copyright>
+    <releaseNotes>DbLocalizationProvider migration tool for EPiServer. Helps to extract XML resources and import into database.</releaseNotes>
+    <copyright>Copyright 2019 (c) Valdis Iljuconoks, Tech Fellow</copyright>
     <tags>Localization EPiServer Provider DbLocalization DbLocalizationProvider LocalizationProvider Migration</tags>
     <dependencies>
     </dependencies>
