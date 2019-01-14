@@ -264,6 +264,10 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="HelpTextAttribute.cs" />
+    <Compile Include="Infrastructure\Channels\DisplayResolutionBase.cs" />
+    <Compile Include="Infrastructure\Channels\DisplayResolutions.cs" />
+    <Compile Include="Infrastructure\Channels\MobileChannel.cs" />
+    <Compile Include="Infrastructure\Channels\WebChannel.cs" />
     <Compile Include="Infrastructure\Class1.cs" />
     <Compile Include="Infrastructure\StructureMapDependencyResolver.cs" />
     <Compile Include="Models\Blocks\DefaultBlock1.cs" />
