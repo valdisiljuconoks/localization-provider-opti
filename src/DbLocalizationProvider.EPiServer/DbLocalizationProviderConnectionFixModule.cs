@@ -19,6 +19,7 @@
 // OTHER DEALINGS IN THE SOFTWARE.
 
 using System.Configuration;
+using EPiServer.Data.Internal;
 using EPiServer.Framework;
 using EPiServer.Framework.Initialization;
 using EPiServer.ServiceLocation;
@@ -34,19 +35,19 @@ namespace DbLocalizationProvider.EPiServer
     /// </summary>
     [InitializableModule]
     [ModuleDependency(typeof(ServiceContainerInitialization))]
-    public class DbLocalizationProviderConnectionFixModule : IConfigurableModule
+    public class DbLocalizationProviderConnectionFixModule : IInitializableModule
     {
         public void Initialize(InitializationEngine context)
         {
-            ConfigurationContext.Setup(ctx => { ctx.Connection = "EPiServerDB"; });
+            var epiDataOptions = context.Locate.Advanced.GetInstance<DataAccessOptions>();
+
+            ConfigurationContext.Setup(ctx => { ctx.Connection = epiDataOptions.DefaultConnectionStringName; });
+
             foreach(ConnectionStringSettings connectionStringSettings in ConfigurationManager.ConnectionStrings)
                 if(connectionStringSettings.Name == ConfigurationContext.Current.Connection)
                     ConfigurationContext.Current.DbContextConnectionString = ConfigurationManager.ConnectionStrings[ConfigurationContext.Current.Connection].ConnectionString;
-
         }
 
         public void Uninitialize(InitializationEngine context) { }
-
-        public void ConfigureContainer(ServiceConfigurationContext context) { }
     }
 }

@@ -16,7 +16,6 @@ namespace DbLocalizationProvider.EPiServer.Sample
         {
             ConfigurationContext.Setup(_ =>
                                        {
-                                           _.Connection = "EPiServerDB2";
                                            _.DiagnosticsEnabled = true;
                                            _.ModelMetadataProviders.EnableLegacyMode = () => true;
                                            _.CustomAttributes = new[]

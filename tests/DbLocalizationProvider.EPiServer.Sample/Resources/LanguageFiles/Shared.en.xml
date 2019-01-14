@@ -7,6 +7,11 @@
         <description>This is Sample Category</description>
       </category>
     </categories>-->
+    <resolutions>
+      <standard>Standard</standard>
+      <ipadhorizontal>iPad (H)</ipadhorizontal>
+      <iphonevertical>iPad (V)</iphonevertical>
+    </resolutions>
     <Views>
       <Shared>
         <Header>
