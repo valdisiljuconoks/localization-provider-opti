@@ -4,6 +4,7 @@
 @using DbLocalizationProvider.EPiServer.Sample.Infrastructure
 @using DbLocalizationProvider.EPiServer.Sample.Resources
 @using EPiServer.Framework.Localization
+@using MyProject
 @using LocProvider = DbLocalizationProvider.LocalizationProvider
 @model DbLocalizationProvider.EPiServer.Sample.Models.ViewModels.StartPageViewModel
 
@@ -34,13 +35,18 @@
     Android (stringly): @Html.Translate("/resolutions/androidvertical")
 </div>
 <form>
+    <hr/>
     <div>
-        @Html.TranslateFor(m => m.Username)
+        (TranslateFor - @Html.TranslateFor(m => m.Username))
         @Html.LabelFor(m => m.Username)
         @Html.EditorFor(m => m.Username)
     </div>
+    <hr/>
 </form>
 
+<div>
+    <span>Translation in SV & Invariant: @Html.Translate(() => MyResources.SecondProperty)</span>
+</div>
 <div>
     <span>This is coming from JS (MyProject.MyResources.FirstProperty):</span><span id="theJsPlaceholder"></span>
 </div>
