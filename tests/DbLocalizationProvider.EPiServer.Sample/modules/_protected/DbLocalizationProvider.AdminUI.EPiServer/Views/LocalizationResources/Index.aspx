@@ -111,7 +111,8 @@
          }
 
         .glyphicon {
-            font-size: 2rem;
+            font-size: 1.5rem;
+            top: -1px;
         }
 
         .epi-contentContainer {
@@ -141,6 +142,10 @@
 
         a.editable-empty.editable-click, a.editable-click:hover {
             border-bottom-color: red;
+        }
+
+        .editable-remove {
+            margin-left: 7px;
         }
 
         .EP-systemMessage {
@@ -395,7 +400,7 @@
                                 <% if (z.SourceCulture.Name == CultureInfo.InvariantCulture.Name) { %>
                                 <%: z.Value %>
                                 <% } else { %>
-                                <a href="#" id="<%= language.Name %>" data-pk="<%: resource.Key %>" class="translation"><%: z.Value %></a>
+                                <a href="#" id="<%= language.Name %>" data-pk="<%: resource.Key %>" class="translation" data-ismodified="<%= resource.IsModified %>"><%: z.Value %></a>
                                 <% } %>
                             </td>
                             <%
@@ -467,7 +472,7 @@
                                                 <% if (z.SourceCulture.Name == CultureInfo.InvariantCulture.Name) { %>
                                                 <%: z.Value %>
                                                 <% } else { %>
-                                                <a href="#" id="<%= language.Name %>" data-pk="<%: resource.ResourceKey %>" class="translation"><%: z.Value %></a>
+                                                <a href="#" id="<%= language.Name %>" data-pk="<%: resource.ResourceKey %>" data-ismodified="<%= resource.IsModified %>" class="translation"><%: z.Value %></a>
                                                 <% } %>
                                             </td>
                                         <% } else { %>
@@ -502,6 +507,19 @@
                 </script>
             <% } %>
                 <script type="text/javascript">
+
+                    var currentResource;
+
+                    function removeTranslation() {
+                        var $t = $('a[data-pk=\'' + currentResource.key + '\'][id=\'' + currentResource.lang + '\']');
+
+                        // send remove translation signal to server
+                        $.post('<%= Url.Action("Remove") %>', { pk: currentResource.key, name: currentResource.lang }, function() {
+                            $t.editable('hide');
+                            $t.editable('setValue', '');
+                        });
+                    }
+
                     $(function() {
                         $('.localization a.translation').editable({
                             url: '<%= Url.Action("Update") %>',
@@ -509,7 +527,26 @@
                             placement: 'top',
                             mode: 'popup',
                             title: '<%= Html.Translate(() => Resources.TranslationPopupHeader) %>',
-                            emptytext: '<%= Html.Translate(() => Resources.Empty) %>'
+                            emptytext: '<%= Html.Translate(() => Resources.Empty) %>',
+                            showbuttons: 'bottom'
+                        });
+
+                        $.fn.editableform.buttons = '<button type="submit" class="btn btn-primary btn-sm editable-submit"><i class="glyphicon glyphicon-ok"></i></button>' +
+                            '<button type="button" class="btn btn-default btn-sm editable-cancel"><i class="glyphicon glyphicon-remove"></i></button>' +
+                            '<button type="button" class="btn btn-danger btn-sm editable-submit editable-remove" onclick="removeTranslation();"><i class="glyphicon glyphicon-trash"></i></button>';
+
+                        $('.localization a.translation').on('shown', function (e, editable) {
+                            var $t = $(e.currentTarget);
+                            currentResource = {
+                                key: $t.attr('data-pk'),
+                                lang: $t.attr('id')
+                            };
+
+                            if ($t.attr('data-ismodified') == "False") {
+                                $t.siblings('.editable-container').find('.editable-remove').prop('disabled', true);
+                            } else {
+                                $t.siblings('.editable-container').find('.editable-remove').removeAttr('disabled');
+                            }
                         });
 
                         $('#resourceList').on('submit', '.delete-form', function (e) {
