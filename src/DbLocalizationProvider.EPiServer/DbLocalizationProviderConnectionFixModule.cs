@@ -29,8 +29,7 @@ namespace DbLocalizationProvider.EPiServer
     /// <summary>
     ///     Added default connection name fix module for EPiServer.
     ///     This is due to the fact that DbLocalizationProvider might be called before init method is run
-    ///     (for example - when display channels get initialized and Episerver calls localization provider to get display
-    ///     name).
+    ///     (for example - when display channels get initialized and Episerver calls localization provider to get display name).
     ///     Related to #114
     /// </summary>
     [InitializableModule]
