@@ -337,6 +337,7 @@
     <Content Include="modules\_protected\EPiServer.DeveloperTools\Web.config" />
     <Content Include="modules\_protected\EPiServer.DeveloperTools\module.config" />
     <Content Include="modules\_protected\EPiServer.DeveloperTools\EPiServer.DeveloperTools.zip" />
+    <Compile Include="Resources\NullReferenceTestResources.cs" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
