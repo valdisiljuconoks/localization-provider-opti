@@ -12,7 +12,7 @@ namespace DbLocalizationProvider.MigrationTool
     {
         private static MigrationToolOptions _settings;
 
-        public static void Main(string[] args)
+        public static int Main(string[] args)
         {
             var parser = new Parser(with =>
                                     {
@@ -20,13 +20,16 @@ namespace DbLocalizationProvider.MigrationTool
                                         with.HelpWriter = Console.Error;
                                     });
 
-            parser.ParseArguments<MigrationToolOptions>(args).WithParsed(parsed =>
+            var result = parser.ParseArguments<MigrationToolOptions>(args).WithParsed(parsed =>
                                                                          {
                                                                              _settings = parsed;
 
                                                                              if(string.IsNullOrEmpty(parsed.TargetDirectory))
                                                                                  _settings.TargetDirectory = parsed.SourceDirectory;
                                                                          });
+
+            if(result.Tag == ParserResultType.NotParsed)
+                return -1;
 
             if(!Directory.Exists(_settings.SourceDirectory))
                 throw new IOException($"Source directory `{_settings.SourceDirectory}` does not exist!");
@@ -82,7 +85,7 @@ namespace DbLocalizationProvider.MigrationTool
                 catch(Exception e)
                 {
                     Console.WriteLine($"Error running tool: {e.Message}");
-                    return;
+                    return -1;
                 }
             }
 
@@ -104,6 +107,8 @@ namespace DbLocalizationProvider.MigrationTool
 
             if(Debugger.IsAttached)
                 Console.ReadLine();
+
+            return 0;
         }
 
         private static Configuration ReadAppConnectionString()
