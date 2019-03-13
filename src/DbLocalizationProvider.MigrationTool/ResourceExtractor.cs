@@ -8,7 +8,7 @@ namespace DbLocalizationProvider.MigrationTool
 {
     internal class ResourceExtractor
     {
-        internal ICollection<LocalizationResource> Extract(MigrationToolSettings settings)
+        internal ICollection<LocalizationResource> Extract(MigrationToolOptions settings)
         {
             if (settings.ExportFromDatabase)
             {

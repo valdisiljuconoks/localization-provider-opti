@@ -6,7 +6,7 @@ namespace DbLocalizationProvider.MigrationTool
 {
     internal class ResourceImporter
     {
-        public void Import(MigrationToolSettings settings)
+        public void Import(MigrationToolOptions settings)
         {
             var sourceImportFilePath = Path.Combine(settings.SourceDirectory, "localization-resource-translations.sql");
             if (!File.Exists(sourceImportFilePath))
