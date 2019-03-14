@@ -24,6 +24,22 @@ Giving you main following features:
 * [EPiServer Frontend Localization](docs/jsresourcehandler-epi.md)
 * [EPiServer Xml File Migration](docs/xml-migration-epi.md)
 
+# How to Contribute
+
+It's super cool if you read this section and are interesed how to help the library. Forking and playing around sample application is the fastest way to understand how localization provider is working and how to get started.
+
+Forking and cloning repo is first step you do. Keep in mind that provider is split into couple repositories to keep thigns separated. Additional repos are pulled in as submodules. If you Git client does not support automatic checkout of the submodules, just execute this command at the root of the checkout directory:
+
+```
+git clone --recurse-submodules git://github.com/...
+```
+
+**NB!** As EPiServer repository contains 2 level (`lib/aspnet` and `lib/aspnet/lib/localization-provider`) submodules `--recursive-submodules` sometimes fails to detect 2nd level module. Then you can just step into `aspnet` submodule and execute pull command there:
+
+```
+git submodule foreach git pull origin master
+```
+
 # More Info
 
 * [Part 1: Resources and Models](http://blog.tech-fellow.net/2016/03/16/db-localization-provider-part-1-resources-and-models/)
