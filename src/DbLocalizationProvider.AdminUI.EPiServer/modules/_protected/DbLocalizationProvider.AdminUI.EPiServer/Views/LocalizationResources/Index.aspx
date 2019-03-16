@@ -725,14 +725,14 @@
                                 <form>
                                     <fieldset class="col-xs-6 source-languages">
                                         <legend><%= Html.Translate(() => Resources.ImportResources.SourceLanguage) %></legend>
-                                        <% foreach (var sourceLanguage in Model.Languages)
+                                        <% foreach (var sourceLanguage in Model.Languages.Where(l => l != CultureInfo.InvariantCulture))
                                            { %>
                                             <label><input type="radio" name="sourceLang" value="<%= sourceLanguage.Name %>"/><%= sourceLanguage.EnglishName %><br/></label>
                                         <% } %>
                                     </fieldset>
                                     <fieldset class="col-xs-6 target-languages">
                                         <legend><%= Html.Translate(() => Resources.ImportResources.TargetLanguage) %></legend>
-                                        <% foreach (var sourceLanguage in Model.Languages)
+                                        <% foreach (var sourceLanguage in Model.Languages.Where(l => l != CultureInfo.InvariantCulture))
                                            { %>
                                             <label><input type="radio" name="targetLang" value="<%= sourceLanguage.Name %>"/><%= sourceLanguage.EnglishName %><br/></label>
                                         <% } %>
