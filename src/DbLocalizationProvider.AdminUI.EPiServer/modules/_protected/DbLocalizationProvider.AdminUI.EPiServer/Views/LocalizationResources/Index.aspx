@@ -704,8 +704,16 @@
                             $modal.modal('hide');
                             $form.find('#format').val('xliff');
 
-                            $form.append('<input type="hidden" name="sourceLang" id="sourceLang" value="' + $modal.find('.source-languages input:checked').val() + '">');
-                            $form.append('<input type="hidden" name="targetLang" id="targetLang" value="' + $modal.find('.target-languages input:checked').val() + '">');
+                            if ($form.find('#sourceLang').length != 0)
+                                $form.find('#sourceLang').val($modal.find('.source-languages input:checked').val());
+                            else
+                                $form.append('<input type="hidden" name="sourceLang" id="sourceLang" value="' + $modal.find('.source-languages input:checked').val() + '">');
+
+                            if ($form.find('#targetLang').length != 0)
+                                $form.find('#targetLang').val($modal.find('.target-languages input:checked').val());
+                            else
+                                $form.append('<input type="hidden" name="targetLang" id="targetLang" value="' + $modal.find('.target-languages input:checked').val() + '">');
+
                             $form.submit();
                         });
                     })
