@@ -161,7 +161,7 @@
                                                     <input type="hidden" name="changes[<%= i %>].ImportingResource.Translations[<%= ii %>].Language" value="<%= language.Name %>" />
                                                     <input type="hidden" name="changes[<%= i %>].ImportingResource.Translations[<%= ii %>].Value" value="<%: change.ImportingResource.Translations.ByLanguage(language) %>" />
                                                 </td>
-                                                <td class="existing <%= isTranslationChanged ? "translation-changed" : "" %>"><%: change.ExistingResource.Translations.ByLanguage(language) %></td>
+                                                <td class="existing <%= isTranslationChanged ? "translation-changed" : "" %>"><%: change.ExistingResource.Translations.ByLanguage(language.Name, false) %></td>
                                         <%
                                                 ii++;
                                             } %>
