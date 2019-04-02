@@ -32,8 +32,6 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{79796C87
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DbLocalizationProvider.EPiServer.Tests", "tests\DbLocalizationProvider.EPiServer.Tests\DbLocalizationProvider.EPiServer.Tests.csproj", "{E5AFBC0F-A95B-4477-BE71-1AC9D76A783C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DbLocalizationProvider.EPiServer.JsResourceHandler.Tests", "tests\DbLocalizationProvider.EPiServer.JsResourceHandler.Tests\DbLocalizationProvider.EPiServer.JsResourceHandler.Tests.csproj", "{31E60905-0D56-465A-B9C6-3C6DB2E0EB59}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DbLocalizationProvider.EPiServer.Sample", "tests\DbLocalizationProvider.EPiServer.Sample\DbLocalizationProvider.EPiServer.Sample.csproj", "{9482069F-3E36-4908-912D-26A84941C79F}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DbLocalizationProvider.MigrationTool.Tests", "tests\DbLocalizationProvider.MigrationTool.Tests\DbLocalizationProvider.MigrationTool.Tests.csproj", "{E8441601-E1FD-49F1-B94A-B1F62C2D6433}"
@@ -50,6 +48,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "docs", "docs", "{084EF582-B
 		docs\working-with-submodules.md = docs\working-with-submodules.md
 		docs\xml-migration-epi.md = docs\xml-migration-epi.md
 	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DbLocalizationProvider.JsResourceHandler", "lib\aspnet\src\DbLocalizationProvider.JsResourceHandler\DbLocalizationProvider.JsResourceHandler.csproj", "{4CE9BFFA-754B-435C-A11C-F0C1A6E236F0}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -93,10 +93,6 @@ Global
 		{E5AFBC0F-A95B-4477-BE71-1AC9D76A783C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E5AFBC0F-A95B-4477-BE71-1AC9D76A783C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E5AFBC0F-A95B-4477-BE71-1AC9D76A783C}.Release|Any CPU.Build.0 = Release|Any CPU
-		{31E60905-0D56-465A-B9C6-3C6DB2E0EB59}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{31E60905-0D56-465A-B9C6-3C6DB2E0EB59}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{31E60905-0D56-465A-B9C6-3C6DB2E0EB59}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{31E60905-0D56-465A-B9C6-3C6DB2E0EB59}.Release|Any CPU.Build.0 = Release|Any CPU
 		{9482069F-3E36-4908-912D-26A84941C79F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{9482069F-3E36-4908-912D-26A84941C79F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9482069F-3E36-4908-912D-26A84941C79F}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -109,13 +105,16 @@ Global
 		{5227C16B-342C-4097-A9ED-295CDD164A61}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5227C16B-342C-4097-A9ED-295CDD164A61}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5227C16B-342C-4097-A9ED-295CDD164A61}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4CE9BFFA-754B-435C-A11C-F0C1A6E236F0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4CE9BFFA-754B-435C-A11C-F0C1A6E236F0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4CE9BFFA-754B-435C-A11C-F0C1A6E236F0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4CE9BFFA-754B-435C-A11C-F0C1A6E236F0}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{E5AFBC0F-A95B-4477-BE71-1AC9D76A783C} = {79796C87-A78D-4D20-9958-D51754B48634}
-		{31E60905-0D56-465A-B9C6-3C6DB2E0EB59} = {79796C87-A78D-4D20-9958-D51754B48634}
 		{9482069F-3E36-4908-912D-26A84941C79F} = {79796C87-A78D-4D20-9958-D51754B48634}
 		{E8441601-E1FD-49F1-B94A-B1F62C2D6433} = {79796C87-A78D-4D20-9958-D51754B48634}
 		{084EF582-BB58-4664-856E-E7D7065F16C2} = {A9F4B9DA-198B-4A20-89D2-4BB59FA03BA2}

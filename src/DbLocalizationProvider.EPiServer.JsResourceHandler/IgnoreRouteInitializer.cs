@@ -20,6 +20,7 @@
 
 using System.Web.Mvc;
 using System.Web.Routing;
+using DbLocalizationProvider.JsResourceHandler;
 using EPiServer.Framework;
 using EPiServer.Framework.Initialization;
 
