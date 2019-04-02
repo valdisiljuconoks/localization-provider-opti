@@ -196,6 +196,7 @@
     <Compile Include="LocalizedEnumSelectionFactory.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Queries\EPiServerAvailableLanguages.cs" />
+    <Compile Include="Queries\EPiServerDetermineDefaultLanguage.cs" />
     <Compile Include="Queries\EPiServerGetTranslation.cs" />
   </ItemGroup>
   <ItemGroup>
