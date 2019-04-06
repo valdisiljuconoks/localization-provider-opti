@@ -23,6 +23,7 @@
     @Html.GetTranslations(typeof(MyProject.AlternativeResources), alias: "ar", debug: true)
     @Html.GetTranslations(typeof(MyProject.ContainerClass.NestedClass.TheResourceClass))
     @Html.GetTranslations(typeof(Class1), camelCase: true)
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
 </head>
 <body>
 <div>Translate&lt;MyProject.MyResources&gt;() - @localized.InstanceProperty</div>
@@ -56,14 +57,26 @@
 <div>
     <span>This is coming from JS MyProject.ContainerClass+NestedClass+TheResourceClass.SomeKey):</span><span id="theJsPlaceholder3"></span>
 </div>
+<div>
+    <span>This is coming from AJAX call to jsl10n endpoint with JSON parameter):</span><span id="theJsPlaceholder4"></span>
+</div>
 
 <script type="text/javascript">
     document.getElementById('theJsPlaceholder').innerHTML = window.m.MyProject.MyResources.FirstProperty;
     document.getElementById('theJsPlaceholder2').innerHTML = window.ar.MyProject.AlternativeResources.ForthProperty;
-    document.getElementById('theJsPlaceholder3').innerHTML =
-        window.jsl10n.MyProject.ContainerClass.NestedClass.TheResourceClass.SomeKey;
-</script>
+    document.getElementById('theJsPlaceholder3').innerHTML = window.jsl10n.MyProject.ContainerClass.NestedClass.TheResourceClass.SomeKey;
 
+    // note that I'm calling the same resource container (should return json only and not hit the cache from the 1st call)
+    $(function() {
+        $.ajax({
+            url: '/jsl10n/MyProject.MyResources?json=true',
+            method: 'GET'
+        }).done(function (data) {
+            document.getElementById('theJsPlaceholder4').innerHTML = data.MyProject.MyResources.FirstProperty;
+        });
+    });
+</script>
+<hr/>
 <div>
     LabelFor(XPathProperty): @Html.LabelFor(m => m.XPathProperty)
 </div>
@@ -77,5 +90,6 @@
         @(Html.Translate(() => NullReferenceTestResources.StaticNested.SomeRes))
     </div>
 </div>
+
 </body>
 </html>
