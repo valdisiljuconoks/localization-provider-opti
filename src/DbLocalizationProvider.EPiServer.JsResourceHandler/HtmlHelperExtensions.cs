@@ -1,4 +1,4 @@
-﻿// Copyright (c) 2018 Valdis Iljuconoks.
+﻿// Copyright (c) 2019 Valdis Iljuconoks.
 // Permission is hereby granted, free of charge, to any person
 // obtaining a copy of this software and associated documentation
 // files (the "Software"), to deal in the Software without
@@ -21,13 +21,12 @@
 using System;
 using System.Linq.Expressions;
 using System.Web.Mvc;
+using EPiServer.Core;
 using Helper = DbLocalizationProvider.JsResourceHandler.HtmlHelperExtensions;
 
 namespace DbLocalizationProvider.EPiServer.JsResourceHandler
 {
     // NOTE: This class is here only for backward compatibility
-    // will be removed in next major version
-    // TODO: throw out on next major version
     public static class HtmlHelperExtensions
     {
         public static MvcHtmlString GetTranslations<TModel>(this HtmlHelper<TModel> helper, Type containerType, string language = null, string alias = null, bool debug = false, bool camelCase = false)
@@ -37,12 +36,12 @@ namespace DbLocalizationProvider.EPiServer.JsResourceHandler
 
         public static MvcHtmlString GetTranslations(this HtmlHelper helper, Type containerType, string language = null, string alias = null, bool debug = false, bool camelCase = false)
         {
-            return Helper.GetTranslations(helper, containerType, language, alias, debug, camelCase);
+            return Helper.GetTranslations(helper, containerType, language ?? LanguageSelector.AutoDetect().Language.Name, alias, debug, camelCase);
         }
 
         public static MvcHtmlString GetTranslations(this HtmlHelper helper, Expression<Func<object>> model, string language = null, string alias = null, bool debug = false, bool camelCase = false)
         {
-            return Helper.GetTranslations(helper, model, language, alias, debug, camelCase);
+            return Helper.GetTranslations(helper, model, language ?? LanguageSelector.AutoDetect().Language.Name, alias, debug, camelCase);
         }
     }
 }
