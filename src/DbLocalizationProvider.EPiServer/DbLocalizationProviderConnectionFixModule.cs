@@ -18,8 +18,9 @@
 // FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
 // OTHER DEALINGS IN THE SOFTWARE.
 
+using System;
 using System.Configuration;
-using EPiServer.Data;
+using EPiServer.Data.Configuration;
 using EPiServer.Framework;
 using EPiServer.Framework.Initialization;
 using EPiServer.ServiceLocation;
@@ -29,24 +30,26 @@ namespace DbLocalizationProvider.EPiServer
     /// <summary>
     ///     Added default connection name fix module for EPiServer.
     ///     This is due to the fact that DbLocalizationProvider might be called before init method is run
-    ///     (for example - when display channels get initialized and Episerver calls localization provider to get display name).
+    ///     (for example - when display channels get initialized and Episerver calls localization provider to get display
+    ///     name).
     ///     Related to #114
     /// </summary>
     [InitializableModule]
     [ModuleDependency(typeof(ServiceContainerInitialization))]
-    public class DbLocalizationProviderConnectionFixModule : IInitializableModule
+    public class DbLocalizationProviderConnectionFixModule : IConfigurableModule
     {
-        public void Initialize(InitializationEngine context)
-        {
-            var epiDataOptions = context.Locate.Advanced.GetInstance<DataAccessOptions>();
-
-            ConfigurationContext.Setup(ctx => { ctx.Connection = epiDataOptions.DefaultConnectionStringName; });
-
-            foreach(ConnectionStringSettings connectionStringSettings in ConfigurationManager.ConnectionStrings)
-                if(connectionStringSettings.Name == ConfigurationContext.Current.Connection)
-                    ConfigurationContext.Current.DbContextConnectionString = ConfigurationManager.ConnectionStrings[ConfigurationContext.Current.Connection].ConnectionString;
-        }
+        public void Initialize(InitializationEngine context) { }
 
         public void Uninitialize(InitializationEngine context) { }
+
+        public void ConfigureContainer(ServiceConfigurationContext context)
+        {
+            //var epiDataOptions = context.Locate.Advanced.GetInstance<DataAccessOptions>();
+            ConfigurationContext.Setup(ctx => { ctx.Connection = EPiServerDataStoreSection.Instance.DataSettings.ConnectionStringName; });
+
+            foreach(ConnectionStringSettings connectionStringSettings in ConfigurationManager.ConnectionStrings)
+                if(string.Equals(connectionStringSettings.Name, ConfigurationContext.Current.Connection, StringComparison.InvariantCultureIgnoreCase))
+                    ConfigurationContext.Current.DbContextConnectionString = ConfigurationManager.ConnectionStrings[ConfigurationContext.Current.Connection].ConnectionString;
+        }
     }
 }
