@@ -58,7 +58,10 @@
     <span>This is coming from JS MyProject.ContainerClass+NestedClass+TheResourceClass.SomeKey):</span><span id="theJsPlaceholder3"></span>
 </div>
 <div>
-    <span>This is coming from AJAX call to jsl10n endpoint with JSON parameter):</span><span id="theJsPlaceholder4"></span>
+    <span>This is coming from AJAX call to jsl10n endpoint with JSON parameter:</span><span id="theJsPlaceholder4"></span>
+</div>
+<div>
+    <span>This is coming from AJAX call to jsl10n endpoint with JSON parameter (MyProject.ContainerClass+NestedClass+TheResourceClass.SomeKey):</span><span id="theJsPlaceholder5"></span>
 </div>
 
 <script type="text/javascript">
@@ -73,6 +76,13 @@
             method: 'GET'
         }).done(function (data) {
             document.getElementById('theJsPlaceholder4').innerHTML = data.MyProject.MyResources.FirstProperty;
+        });
+
+        $.ajax({
+            url: '/jsl10n/MyProject.ContainerClass---NestedClass---TheResourceClass.SomeKey?json=true',
+            method: 'GET'
+        }).done(function (data) {
+            document.getElementById('theJsPlaceholder5').innerHTML = data.MyProject.ContainerClass.NestedClass.TheResourceClass.SomeKey;
         });
     });
 </script>
