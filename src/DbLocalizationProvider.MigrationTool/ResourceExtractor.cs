@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Data.Entity;
 using System.IO;
 using System.Linq;
+using DbLocalizationProvider;
 
 namespace DbLocalizationProvider.MigrationTool
 {
@@ -10,14 +11,42 @@ namespace DbLocalizationProvider.MigrationTool
     {
         internal ICollection<LocalizationResource> Extract(MigrationToolOptions settings)
         {
-            if (settings.ExportFromDatabase)
+            if (!settings.ExportFromXmlOnly)
             {
-                using (var db = new LanguageEntities(settings.ConnectionString))
+                if (settings.ExportFromDatabase)
                 {
-                    return db.LocalizationResources.Include(r => r.Translations).ToList();
+                    using(var db = new LanguageEntities(settings.ConnectionString))
+                    {
+                        return db.LocalizationResources.Include(r => r.Translations).ToList();
+                    }
                 }
+
+                InitializeDb();
             }
 
+            return GetXmlResources(settings);
+        }
+
+        private void InitializeDb()
+        {
+            // initialize DB - to generate data structures
+            {
+                try
+                {
+                    using(var db = new LanguageEntities(settings.ConnectionString))
+                    {
+                        var resource = db.LocalizationResources.Where(r => r.Id == 0);
+                    }
+                }
+                catch
+                {
+                    // it's OK to have exception here
+                }
+            }
+        }
+
+        private ICollection<LocalizationResource> GetXmlResources(MigrationToolOptions settings)
+        {
             // test few default conventions (lazy enough to read from EPiServer Framework configuration file)
             string resourceFilesSourceDir;
             if (!string.IsNullOrEmpty(settings.ResourceDirectory))
@@ -45,22 +74,8 @@ namespace DbLocalizationProvider.MigrationTool
             }
 
             var fileProcessor = new ResourceFileProcessor();
-            var resources = fileProcessor.ParseFiles(resourceFiles);
 
-            // initialize DB - to generate data structures
-            try
-            {
-                using (var db = new LanguageEntities(settings.ConnectionString))
-                {
-                    var resource = db.LocalizationResources.Where(r => r.Id == 0);
-                }
-            }
-            catch
-            {
-                // it's OK to have exception here
-            }
-
-            return resources;
+            return fileProcessor.ParseFiles(resourceFiles);
         }
     }
 }

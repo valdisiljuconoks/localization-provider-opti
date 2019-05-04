@@ -24,6 +24,9 @@ namespace DbLocalizationProvider.MigrationTool
         [Option('f', "fromDatabase", HelpText = "Export localization resources from database. `EPiServerDB` connection string name will be used.")]
         public bool ExportFromDatabase { get; set; }
 
+        [Option('x', "fromXmlOnly", HelpText = "Export localization resources from XML only.")]
+        public bool ExportFromXmlOnly { get; set; }
+
         [Option('j', "jsonFormat", HelpText = "Use JSON file format")]
         public bool Json { get; set; }
 

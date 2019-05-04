@@ -34,27 +34,10 @@ namespace DbLocalizationProvider.MigrationTool
             if(!Directory.Exists(_settings.SourceDirectory))
                 throw new IOException($"Source directory `{_settings.SourceDirectory}` does not exist!");
 
-            Configuration config;
-
-            if(File.Exists(Path.Combine(_settings.SourceDirectory, "web.config")))
+            if(!_settings.ExportFromXmlOnly)
             {
-                Directory.SetCurrentDirectory(_settings.SourceDirectory);
-                config = GetWebConfig();
-                AppDomain.CurrentDomain.SetData("DataDirectory", Path.Combine(_settings.SourceDirectory, "App_Data"));
+                SetConnectionString();
             }
-            else if(File.Exists(Path.Combine(_settings.SourceDirectory, "app.config")))
-            {
-                Directory.SetCurrentDirectory(_settings.SourceDirectory);
-                config = ReadAppConnectionString();
-            }
-            else
-                throw new IOException($"Neither `web.config` nor `app.config` file not found in `{_settings.SourceDirectory}`!");
-
-            var connectionString = config.ConnectionStrings?.ConnectionStrings["EPiServerDB"]?.ConnectionString;
-            if(string.IsNullOrWhiteSpace(connectionString))
-                throw new ConfigurationErrorsException("Could not find EPiServer database connection.");
-
-            ConfigurationContext.Current.DbContextConnectionString = _settings.ConnectionString = connectionString;
 
             if(_settings.ExportResources)
             {
@@ -89,7 +72,7 @@ namespace DbLocalizationProvider.MigrationTool
                 }
             }
 
-            if(_settings.ImportResources)
+            if(!_settings.ExportFromXmlOnly && _settings.ImportResources)
             {
                 Console.WriteLine("Import started!");
 
@@ -109,6 +92,31 @@ namespace DbLocalizationProvider.MigrationTool
                 Console.ReadLine();
 
             return 0;
+        }
+
+        private static void SetConnectionString()
+        {
+            Configuration config = null;
+
+            if(File.Exists(Path.Combine(_settings.SourceDirectory, "web.config")))
+            {
+                Directory.SetCurrentDirectory(_settings.SourceDirectory);
+                config = GetWebConfig();
+                AppDomain.CurrentDomain.SetData("DataDirectory", Path.Combine(_settings.SourceDirectory, "App_Data"));
+            }
+            else if(File.Exists(Path.Combine(_settings.SourceDirectory, "app.config")))
+            {
+                Directory.SetCurrentDirectory(_settings.SourceDirectory);
+                config = ReadAppConnectionString();
+            }
+            else
+                throw new IOException($"Neither `web.config` nor `app.config` file not found in `{_settings.SourceDirectory}`!");
+
+            var connectionString = config?.ConnectionStrings?.ConnectionStrings["EPiServerDB"]?.ConnectionString;
+            if(string.IsNullOrWhiteSpace(connectionString))
+                throw new ConfigurationErrorsException("Could not find EPiServer database connection.");
+
+            ConfigurationContext.Current.DbContextConnectionString = _settings.ConnectionString = connectionString;
         }
 
         private static Configuration ReadAppConnectionString()
