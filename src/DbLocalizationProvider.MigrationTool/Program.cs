@@ -34,15 +34,13 @@ namespace DbLocalizationProvider.MigrationTool
             if(!Directory.Exists(_settings.SourceDirectory))
                 throw new IOException($"Source directory `{_settings.SourceDirectory}` does not exist!");
 
-            if(!_settings.ExportFromXmlOnly)
-            {
-                SetConnectionString();
-            }
-
             if(_settings.ExportResources)
             {
                 try
                 {
+                    if(_settings.ExportFromDatabase)
+                        SetConnectionString();
+
                     Console.WriteLine("Export started.");
                     var extractor = new ResourceExtractor();
                     var resources = extractor.Extract(_settings);
@@ -72,7 +70,7 @@ namespace DbLocalizationProvider.MigrationTool
                 }
             }
 
-            if(!_settings.ExportFromXmlOnly && _settings.ImportResources)
+            if(_settings.ImportResources)
             {
                 Console.WriteLine("Import started!");
 
@@ -96,7 +94,7 @@ namespace DbLocalizationProvider.MigrationTool
 
         private static void SetConnectionString()
         {
-            Configuration config = null;
+            Configuration config;
 
             if(File.Exists(Path.Combine(_settings.SourceDirectory, "web.config")))
             {
