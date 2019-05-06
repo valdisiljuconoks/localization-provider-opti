@@ -3,7 +3,6 @@
 Along with other smaller bug fixes, database-driven localization provider for EPiServer got closer to front-end. We joined forces together with my old pal and friend [Arve Systad](https://github.com/ArveSystad) and made it possible to add translations to client side resources as well.
 
 ## Setup
-
 So setup for the client-side resource localization with help of DbLocalizationProvider plugin is more or less straight forward. You will need to install `DbLocalizationProvider.EPiServer.JsResourceHandler` package from [EPiServer feed](http://nuget.episerver.com/en/?search=localization) and add corresponding `<script>` include in your markup file to fetch translations from the server:
 
 ```
@@ -18,9 +17,7 @@ or
 
 You have to specify beginning of resource keys to fetch those from the server.
 
-
 ### Sample Resources
-
 For instance you have following resources defined in your code:
 
 ```csharp
@@ -78,7 +75,6 @@ Resources retrieved in this way are accessible via `jsl10n` variable:
 **NB!** Notice that naming notation of the resource is exactly the same as it's on the server-side. This notation should reduce confusion and make is less problematic to switch from server-side code to front-end, and vice versa.
 
 ### Aliases
-
 Sometimes it's required to split resources into different groups and have access to them separately. Also the same problem will occur when you would like to retrieve resources from two different namespaces in single page. Therefore aliasing particular group of resources might come handy. You have to specify `alias` query string parameter:
 
 ```html
@@ -93,7 +89,6 @@ Sometimes it's required to split resources into different groups and have access
 ```
 
 ## Explicit Translation Culture
-
 Sometimes it's also necessary to fetch translations for other language. This is possible specifying `lang` query parameter.
 
 ```
@@ -107,3 +102,19 @@ or
 ```
 
 **Note:** Those resources that do not have translation in requested language will not be emitted in resulting `json` response.
+
+## Translations Only in JSON
+If you need to retrieve translations only in JSON format (without any `window` thingies) then either you can issue simple XHR request to the endpoint:
+
+```
+$.ajax({
+    url: '/jsl10n/MyProject.MyResources',
+    method: 'GET'
+}).done(function (data) {
+    ...
+});
+```
+
+Localization provider is checking either `Accept: application/json` or `X-Requested-With: XMLHttpRequest` headers.
+
+Or append `?json=true` to the query string (e.g. `/jsl10n/MyProject.MyResources?json=true`).
