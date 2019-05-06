@@ -15,10 +15,10 @@
     <copyright>Copyright 2018 (c) Valdis Iljuconoks, Tech Fellow</copyright>
     <tags>Localization EPiServer Provider DbLocalization DbLocalizationProvider LocalizationProvider AdminUI UI</tags>
     <dependencies>
-      <dependency id="LocalizationProvider.Abstractions" version="[5.5.1, 6.0.0)" />
-      <dependency id="LocalizationProvider" version="[5.5.1, 6.0.0)" />
-      <dependency id="LocalizationProvider.AspNet" version="[5.5.1, 6.0.0)" />
-      <dependency id="DbLocalizationProvider.EPiServer" version="[5.5.1, 6.0.0)" />
+      <dependency id="LocalizationProvider.Abstractions" version="[5.6.0, 6.0.0)" />
+      <dependency id="LocalizationProvider" version="[5.6.0, 6.0.0)" />
+      <dependency id="LocalizationProvider.AspNet" version="[5.6.0, 6.0.0)" />
+      <dependency id="DbLocalizationProvider.EPiServer" version="[5.6.0, 6.0.0)" />
       <dependency id="Castle.Core" version="4.2.1" />
       <dependency id="EntityFramework" version="6.1.2" />
       <dependency id="EPiServer.CMS.AspNet" version="[11.2.0, 12.0.0)" />
