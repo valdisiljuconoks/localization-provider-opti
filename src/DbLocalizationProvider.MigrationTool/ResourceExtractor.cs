@@ -74,7 +74,7 @@ namespace DbLocalizationProvider.MigrationTool
                 Console.WriteLine($"No resource files found in '{resourceFilesSourceDir}'");
             }
 
-            var fileProcessor = new ResourceFileProcessor();
+            var fileProcessor = new ResourceFileProcessor(settings.IgnoreDuplicateKeys);
 
             return fileProcessor.ParseFiles(resourceFiles);
         }

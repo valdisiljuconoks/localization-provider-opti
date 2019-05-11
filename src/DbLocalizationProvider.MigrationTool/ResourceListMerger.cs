@@ -8,6 +8,11 @@ namespace DbLocalizationProvider.MigrationTool
     {
         public ICollection<LocalizationResource> Merge(ICollection<LocalizationResource> list1, ICollection<LocalizationResource> list2)
         {
+            return Merge(list1, list2, false);
+        }
+
+        public ICollection<LocalizationResource> Merge(ICollection<LocalizationResource> list1, ICollection<LocalizationResource> list2, bool ignoreDuplicateKeys)
+        {
             if (list1 == null)
             {
                 throw new ArgumentNullException(nameof(list1));
@@ -40,10 +45,16 @@ namespace DbLocalizationProvider.MigrationTool
                     {
                         if (matchedResource.Translations.Any(t => t.Language == resourceTranslation.Language))
                         {
-                            // there is already a translation in this culture - we can't resolve this conflict. blowing up
-                            throw new NotSupportedException($"There are duplicate translations for resource '{matchedResource.ResourceKey}' in culture '{resourceTranslation.Language}'");
+                            if (ignoreDuplicateKeys)
+                            {
+                                Console.WriteLine($"{matchedResource.ResourceKey} Additional resource with same key found, Ignored");
+                            }
+                            else
+                            {
+                                // there is already a translation in this culture - we can't resolve this conflict. blowing up
+                                throw new NotSupportedException($"There are duplicate translations for resource '{matchedResource.ResourceKey}' in culture '{resourceTranslation.Language}'. Use -d to ignore duplicates");
+                            }
                         }
-
                         matchedResource.Translations.Add(resourceTranslation);
                     }
                 }

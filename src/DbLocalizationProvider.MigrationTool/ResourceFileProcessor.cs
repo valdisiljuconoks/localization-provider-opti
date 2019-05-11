@@ -10,11 +10,13 @@ namespace DbLocalizationProvider.MigrationTool
     {
         private readonly XmlDocumentParser _parser;
         private readonly ResourceListMerger _mergeTool;
+        private readonly bool _ignoreDuplicateKeys;
 
-        public ResourceFileProcessor()
+        public ResourceFileProcessor(bool ignoreDuplicateKeys)
         {
             _parser = new XmlDocumentParser();
             _mergeTool = new ResourceListMerger();
+            _ignoreDuplicateKeys = ignoreDuplicateKeys;
         }
 
         public ICollection<LocalizationResource> ParseFiles(string[] resourceFiles)
@@ -32,7 +34,7 @@ namespace DbLocalizationProvider.MigrationTool
                 var contentXml = XDocument.Load(stream);
                 var resources = _parser.ReadXml(contentXml);
 
-                result = _mergeTool.Merge(result, resources).ToList();
+                result = _mergeTool.Merge(result, resources, _ignoreDuplicateKeys).ToList();
             }
 
             return result;
