@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using Xunit;
@@ -121,6 +122,122 @@ namespace DbLocalizationProvider.MigrationTool.Tests
                         };
 
             var result = merger.Merge(list1, list2);
+
+            Assert.NotEmpty(result);
+            Assert.Single(result);
+
+            var finalResource = result.First();
+
+            Assert.Equal(2, finalResource.Translations.Count);
+        }
+
+        [Fact]
+        public void BothListsFilledWithTranslations_SameKeys_Duplicate_Translation_Throws()
+        {
+            var merger = new ResourceListMerger();
+
+            var resource1English = new LocalizationResource("key1");
+            resource1English.Translations.Add(new LocalizationResourceTranslation
+            {
+                Language = "en",
+                Value = "hello"
+            });
+
+            var resource1Norsk = new LocalizationResource("key1");
+            resource1Norsk.Translations.Add(new LocalizationResourceTranslation
+            {
+                Language = "no",
+                Value = "hei"
+            });
+
+            var list1 = new List<LocalizationResource>
+                        {
+                            resource1English
+                        };
+
+            var list2 = new List<LocalizationResource>
+                        {
+                            resource1Norsk,
+                            //Duplicate translation that makes the merger throw
+                            resource1Norsk
+                        };
+
+            Assert.Throws(typeof(NotSupportedException), () => merger.Merge(list1, list2));
+        }
+
+        [Fact]
+        public void BothListsFilledWithTranslations_SameKeys_Duplicate_Translation_With_AllowDuplicateKeys_Option()
+        {
+            var merger = new ResourceListMerger();
+
+            var resource1English = new LocalizationResource("key1");
+            resource1English.Translations.Add(new LocalizationResourceTranslation
+            {
+                Language = "en",
+                Value = "hello"
+            });
+
+            var resource1Norsk = new LocalizationResource("key1");
+            resource1Norsk.Translations.Add(new LocalizationResourceTranslation
+            {
+                Language = "no",
+                Value = "hei"
+            });
+
+            var list1 = new List<LocalizationResource>
+                        {
+                            resource1English
+                        };
+
+            var list2 = new List<LocalizationResource>
+                        {
+                            resource1Norsk,
+                            //Duplicate translation that makes the merger throw if -d option is not set.
+                            resource1Norsk
+                        };
+
+            var result = merger.Merge(list1, list2, true);
+
+            Assert.NotEmpty(result);
+            Assert.Single(result);
+
+            var finalResource = result.First();
+
+            Assert.Equal(2, finalResource.Translations.Count);
+        }
+
+        [Fact]
+        public void BothListsFilledWithTranslations_SameKeysDifferentCasing_Duplicate_Translation_With_AllowDuplicateKeys_Option()
+        {
+            var merger = new ResourceListMerger();
+
+            var resource1English = new LocalizationResource("key1");
+            resource1English.Translations.Add(new LocalizationResourceTranslation
+            {
+                Language = "en",
+                Value = "hello"
+            });
+
+            var resource1Norsk = new LocalizationResource("Key1");
+            resource1Norsk.Translations.Add(new LocalizationResourceTranslation
+            {
+                Language = "no",
+                Value = "hei"
+            });
+
+            var list1 = new List<LocalizationResource>
+                        {
+                            resource1English
+                        };
+
+            var list2 = new List<LocalizationResource>
+                        {
+                            resource1Norsk,
+                            //Duplicate translation that makes the merger throw if -d option is not set.
+                            resource1Norsk
+                        };
+
+            var result = merger.Merge(list1, list2, true);
 
             Assert.NotEmpty(result);
             Assert.Single(result);

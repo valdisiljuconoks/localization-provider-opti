@@ -33,6 +33,9 @@ namespace DbLocalizationProvider.MigrationTool
         [Option('i', "importResources", HelpText = "Import localization resources from SQL file into database")]
         public bool ImportResources { get; set; }
 
+        [Option('d', "ignoreDuplicateKey", HelpText = "Ignore duplicate keys (Take first found)")]
+        public bool IgnoreDuplicateKeys { get; set; }
+
         public string ConnectionString { get; set; }
 
         [Usage(ApplicationAlias = "DbLocalizationProvider.MigrationTool.exe")]
