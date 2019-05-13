@@ -56,5 +56,33 @@ namespace DbLocalizationProvider.MigrationTool.Tests
 
             Assert.Throws<NotSupportedException>(() => parser.ReadXml(doc).ToList());
         }
+
+        [Fact]
+        public void SingleResourceDuplicateLanguages_ExceptionNotThrownWithIgnoreDuplicateKeysOption()
+        {
+            var xmlSample = @"<?xml version=""1.0"" encoding=""utf-8"" standalone=""yes""?>
+            <languages>
+              <language name=""English"" id=""en"">
+                <displayoption>This is display option</displayoption>
+              </language>
+              <language name=""English"" id=""en"">
+                <displayoption>Whatever!</displayoption>
+              </language>
+            </languages>";
+
+            var parser = new XmlDocumentParser();
+            var doc = XDocument.Parse(xmlSample);
+
+            var resource = parser.ReadXml(doc, true).ToList();
+
+            var firstResource = resource.First();
+            Assert.Equal("/displayoption", firstResource.ResourceKey);
+
+            Assert.Equal(1, firstResource.Translations.Count);
+
+            var englishTranslation = firstResource.Translations.First(t => t.Language == "en");
+            Assert.Equal("en", englishTranslation.Language);
+            Assert.Equal("This is display option", englishTranslation.Value);
+        }
     }
 }

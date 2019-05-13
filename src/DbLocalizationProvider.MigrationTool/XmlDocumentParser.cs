@@ -9,6 +9,11 @@ namespace DbLocalizationProvider.MigrationTool
     {
         public ICollection<LocalizationResource> ReadXml(XDocument xmlDocument)
         {
+            return ReadXml(xmlDocument, false);
+        }
+
+        public ICollection<LocalizationResource> ReadXml(XDocument xmlDocument, bool ignoreDuplicateKeys)
+        {
             if (xmlDocument == null)
             {
                 throw new ArgumentNullException(nameof(xmlDocument));
@@ -21,7 +26,7 @@ namespace DbLocalizationProvider.MigrationTool
             foreach (var languageElement in allLanguageElements.Elements("language"))
             {
                 var cultureId = languageElement.Attribute("id");
-                ParseResource(languageElement.Elements(), cultureId.Value, result, string.Empty);
+                ParseResource(languageElement.Elements(), cultureId.Value, result, string.Empty, ignoreDuplicateKeys);
             }
 
             return result;
@@ -30,7 +35,8 @@ namespace DbLocalizationProvider.MigrationTool
         private static void ParseResource(IEnumerable<XElement> resourceElements,
                                           string cultureName,
                                           ICollection<LocalizationResource> result,
-                                          string keyPrefix)
+                                          string keyPrefix,
+                                          bool ignoreDuplicateKeys)
         {
             foreach (var element in resourceElements)
             {
@@ -46,7 +52,7 @@ namespace DbLocalizationProvider.MigrationTool
 
                 if (element.HasElements)
                 {
-                    ParseResource(element.Elements(), cultureName, result, resourceKey);
+                    ParseResource(element.Elements(), cultureName, result, resourceKey, ignoreDuplicateKeys);
                 }
                 else
                 {
@@ -57,7 +63,7 @@ namespace DbLocalizationProvider.MigrationTool
                         continue;
                     }
 
-                    var existingResource = result.FirstOrDefault(r => r.ResourceKey == resourceKey);
+                    var existingResource = result.FirstOrDefault(r => r.ResourceKey.ToLower() == resourceKey.ToLower());
 
                     if (existingResource != null)
                     {
@@ -65,14 +71,19 @@ namespace DbLocalizationProvider.MigrationTool
 
                         if (existingTranslation != null)
                         {
-                            throw new NotSupportedException($"Found duplicate translations for resource with key: {resourceKey} for culture: {cultureName}");
+                            if (!ignoreDuplicateKeys)
+                            { 
+                                throw new NotSupportedException($"Found duplicate translations for resource with key: {resourceKey} for culture: {cultureName}");
+                            }
                         }
-
-                        existingResource.Translations.Add(new LocalizationResourceTranslation
-                                                          {
-                                                              Language = cultureName,
-                                                              Value = resourceTranslation
-                                                          });
+                        else
+                        { 
+                            existingResource.Translations.Add(new LocalizationResourceTranslation
+                                                              {
+                                                                  Language = cultureName,
+                                                                  Value = resourceTranslation
+                                                              });
+                        }
                     }
                     else
                     {
