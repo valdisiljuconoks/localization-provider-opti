@@ -104,7 +104,7 @@ namespace DbLocalizationProvider.MigrationTool.Tests
                                               });
 
             var resource1Norsk = new LocalizationResource("key1");
-            resource1English.Translations.Add(new LocalizationResourceTranslation
+            resource1Norsk.Translations.Add(new LocalizationResourceTranslation
                                               {
                                                   Language = "no",
                                                   Value = "hei"
