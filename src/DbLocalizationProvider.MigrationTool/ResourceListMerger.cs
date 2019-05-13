@@ -40,7 +40,7 @@ namespace DbLocalizationProvider.MigrationTool
                 if (result.Any(r => r.ResourceKey == resourceItem.ResourceKey))
                 {
                     // resource exists in target list - need to merge translations
-                    var matchedResource = result.First(r => r.ResourceKey == resourceItem.ResourceKey);
+                    var matchedResource = result.First(r => r.ResourceKey.ToLower() == resourceItem.ResourceKey.ToLower());
                     foreach (var resourceTranslation in resourceItem.Translations)
                     {
                         if (matchedResource.Translations.Any(t => t.Language == resourceTranslation.Language))
