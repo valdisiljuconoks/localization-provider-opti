@@ -37,17 +37,17 @@ namespace DbLocalizationProvider.MigrationTool
 
             foreach (var resourceItem in list2)
             {
-                if (result.Any(r => r.ResourceKey == resourceItem.ResourceKey))
+                if (result.Any(r => string.Equals(r.ResourceKey, resourceItem.ResourceKey, StringComparison.InvariantCultureIgnoreCase)))
                 {
                     // resource exists in target list - need to merge translations
-                    var matchedResource = result.First(r => r.ResourceKey.ToLower() == resourceItem.ResourceKey.ToLower());
+                    var matchedResource = result.First(r => string.Equals(r.ResourceKey, resourceItem.ResourceKey, StringComparison.InvariantCultureIgnoreCase));
                     foreach (var resourceTranslation in resourceItem.Translations)
                     {
                         if (matchedResource.Translations.Any(t => t.Language == resourceTranslation.Language))
                         {
                             if (ignoreDuplicateKeys)
                             {
-                                Console.WriteLine($"{matchedResource.ResourceKey} Additional resource with same key found, Ignored");
+                                Console.WriteLine($"{matchedResource.ResourceKey} Additional resource with same key found. Ignored");
                             }
                             else
                             {
@@ -59,7 +59,6 @@ namespace DbLocalizationProvider.MigrationTool
                         {
                             matchedResource.Translations.Add(resourceTranslation);
                         }
-                        
                     }
                 }
                 else

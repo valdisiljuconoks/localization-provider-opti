@@ -63,21 +63,19 @@ namespace DbLocalizationProvider.MigrationTool
                         continue;
                     }
 
-                    var existingResource = result.FirstOrDefault(r => r.ResourceKey.ToLower() == resourceKey.ToLower());
-
+                    var existingResource = result.FirstOrDefault(r => string.Equals(r.ResourceKey, resourceKey, StringComparison.InvariantCultureIgnoreCase));
                     if (existingResource != null)
                     {
                         var existingTranslation = existingResource.Translations.FirstOrDefault(t => t.Language == cultureName);
-
                         if (existingTranslation != null)
                         {
                             if (!ignoreDuplicateKeys)
-                            { 
+                            {
                                 throw new NotSupportedException($"Found duplicate translations for resource with key: {resourceKey} for culture: {cultureName}");
                             }
                         }
                         else
-                        { 
+                        {
                             existingResource.Translations.Add(new LocalizationResourceTranslation
                                                               {
                                                                   Language = cultureName,

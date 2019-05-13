@@ -36,7 +36,6 @@ namespace DbLocalizationProvider.MigrationTool
         [Option('d', "ignoreDuplicateKey", HelpText = "Ignore duplicate keys (Take first found)")]
         public bool IgnoreDuplicateKeys { get; set; }
 
-
         public string ConnectionString { get; set; }
 
         [Usage(ApplicationAlias = "DbLocalizationProvider.MigrationTool.exe")]
