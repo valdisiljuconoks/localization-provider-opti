@@ -55,7 +55,11 @@ namespace DbLocalizationProvider.MigrationTool
                                 throw new NotSupportedException($"There are duplicate translations for resource '{matchedResource.ResourceKey}' in culture '{resourceTranslation.Language}'. Use -d to ignore duplicates");
                             }
                         }
-                        matchedResource.Translations.Add(resourceTranslation);
+                        else
+                        {
+                            matchedResource.Translations.Add(resourceTranslation);
+                        }
+                        
                     }
                 }
                 else
