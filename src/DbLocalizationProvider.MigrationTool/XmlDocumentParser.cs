@@ -63,7 +63,7 @@ namespace DbLocalizationProvider.MigrationTool
                         continue;
                     }
 
-                    var existingResource = result.FirstOrDefault(r => r.ResourceKey == resourceKey.ToLower());
+                    var existingResource = result.FirstOrDefault(r => r.ResourceKey.ToLower() == resourceKey.ToLower());
 
                     if (existingResource != null)
                     {
@@ -89,7 +89,7 @@ namespace DbLocalizationProvider.MigrationTool
                     {
                         var resourceEntry = new LocalizationResource
                                             {
-                                                ResourceKey = resourceKey.ToLower(),
+                                                ResourceKey = resourceKey,
                                                 ModificationDate = DateTime.Now,
                                                 Author = "migration-tool"
                                             };
