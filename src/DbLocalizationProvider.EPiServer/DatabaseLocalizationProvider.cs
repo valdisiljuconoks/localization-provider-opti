@@ -18,6 +18,7 @@
 // FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
 // OTHER DEALINGS IN THE SOFTWARE.
 
+using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
@@ -26,29 +27,41 @@ using DbLocalizationProvider.AspNet.Queries;
 using DbLocalizationProvider.EPiServer.Queries;
 using DbLocalizationProvider.Queries;
 using EPiServer.Framework.Localization;
+using EPiServer.Logging;
 
 namespace DbLocalizationProvider.EPiServer
 {
     public class DatabaseLocalizationProvider : global::EPiServer.Framework.Localization.LocalizationProvider
     {
-        private readonly IQueryHandler<GetTranslation.Query, string> _originalHandler;
+        private readonly ILogger _logger;
+
+        // we have to move to Lazy<T> because configuration settings will not be set during DatabaseProvider constructor
+        // as this type is created pretty early in the pipeline and none of initialization modules have been run yet
+        private readonly Lazy<IQueryHandler<GetTranslation.Query, string>> _originalHandler
+            = new Lazy<IQueryHandler<GetTranslation.Query, string>>(() =>
+                                                                    {
+                                                                        if(ConfigurationContext.Current.DiagnosticsEnabled)
+                                                                            return new EPiServerGetTranslation.HandlerWithLogging(new GetTranslationHandler());
+
+                                                                        return new GetTranslationHandler();
+                                                                    });
 
         public DatabaseLocalizationProvider()
         {
-            _originalHandler = new GetTranslationHandler();
-            if(ConfigurationContext.Current.DiagnosticsEnabled)
-                _originalHandler = new EPiServerGetTranslation.HandlerWithLogging(new GetTranslationHandler());
+            _logger = LogManager.GetLogger(typeof(DatabaseLocalizationProvider));
         }
 
         public override IEnumerable<CultureInfo> AvailableLanguages => new AvailableLanguages.Query().Execute();
 
         public override string GetString(string originalKey, string[] normalizedKey, CultureInfo culture)
         {
+            _logger.Debug($"Executing query for resource key `{originalKey}` for language: `{culture.Name}...");
+
             // we need to call handler directly here
             // if we would dispatch query and ask registered handler to execute
             // we would end up in stack-overflow as in EPiServer context
             // the same database localization provider is registered as the query handler
-            var foundTranslation = _originalHandler.Execute(new GetTranslation.Query(originalKey, culture, false));
+            var foundTranslation = _originalHandler.Value.Execute(new GetTranslation.Query(originalKey, culture, false));
 
             // this is last chance for Episerver to find translation (asked in translation fallback language)
             // if no match is found and invariant fallback is configured - return invariant culture translation
@@ -57,7 +70,8 @@ namespace DbLocalizationProvider.EPiServer
                && ConfigurationContext.Current.EnableInvariantCultureFallback
                && (Equals(culture, LocalizationService.Current.FallbackCulture) || Equals(culture.Parent, CultureInfo.InvariantCulture)))
             {
-                return _originalHandler.Execute(new GetTranslation.Query(originalKey, CultureInfo.InvariantCulture, false));
+                _logger.Debug($"Null returned for resource key `{originalKey}` for language: `{culture.Name} Executing InvariantCulture fallback.");
+                return _originalHandler.Value.Execute(new GetTranslation.Query(originalKey, CultureInfo.InvariantCulture, false));
             }
 
             return foundTranslation;

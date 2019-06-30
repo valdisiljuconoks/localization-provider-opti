@@ -33,14 +33,18 @@ namespace DbLocalizationProvider.EPiServer.Queries
         public class Handler : IQueryHandler<GetTranslation.Query, string>
         {
             private readonly IQueryHandler<GetTranslation.Query, string> _originalHandler;
+            private readonly ILogger _logger;
 
             public Handler()
             {
                 _originalHandler = new GetTranslationHandler();
+                _logger = LogManager.GetLogger(typeof(EPiServerGetTranslation));
             }
 
             public string Execute(GetTranslation.Query query)
             {
+                _logger.Debug($"Executing query for resource key `{query.Key}` for language: `{query.Language.Name}...");
+
                 var service = ServiceLocator.Current.GetInstance<LocalizationService>();
                 var foundTranslation = service.GetStringByCulture(query.Key, query.Language);
 
@@ -58,6 +62,8 @@ namespace DbLocalizationProvider.EPiServer.Queries
                 {
                     // no translation found for this language
                     // we need to respect fallback settings
+                    _logger.Debug($"Null returned for resource key `{query.Key}` for language: `{query.Language.Name} Executing InvariantCulture fallback.");
+
                     return _originalHandler.Execute(new GetTranslation.Query(query.Key, CultureInfo.InvariantCulture, false));
                 }
 
