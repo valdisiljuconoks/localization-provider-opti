@@ -1,3 +1,4 @@
 [submodule "lib/aspnet"]
 	path = lib/aspnet
 	url = https://github.com/valdisiljuconoks/localization-provider-aspnet.git
+    branch = .
