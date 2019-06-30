@@ -21,11 +21,17 @@ Migration via SQL script is pretty simple. First of all you need to install `DbL
 > DbLocalizationProvider.MigrationTool.exe -s="{path-to-project}" -e -i
 ```
 
-Explanation of switches used:
-
-* `-s` - specifies **s**ource directory for the project (your web root)
-* `-e` - asks migration tool to **e**xport all resources from language Xml files into SQL format file (resulting file `localization-resource-translations.sql` by default is located in the same folder specified by `-s`)
-* `-i` - asks migration tool to **i**mport resources from exported file into directly database (using connection string named `"EPiServerDB"`)
+Description of the configuration parameters:
+* `-s` - specifies **S**ource directory for the project (your web root).
+* `-t` - specifies **T**arget directory for operation (where to write output files).
+* `-resourceDirectory` - Xml language resource directory (relative to source directory `-s`), default = `Resources\LanguageFiles`.
+* `-o` - Generate update statements for existing resources. Not effective if using JSON format.
+* `-e` - asks migration tool to **E**xport all resources from language Xml files into SQL format file (resulting file `localization-resource-translations.sql` by default is located in the same folder specified by `-s`).
+* `-f` - Export localization resources from database. `EPiServerDB` connection string name will be used.
+* `-i` - asks migration tool to **I**mport resources from exported file into directly database (using connection string named `"EPiServerDB"`).
+* `-x` - Export localization resources only from XML files.
+* `-j` - Use JSON file format.
+* `-d` - Ignore duplicate keys (take first found).
 
 ### Migration via JSON file
 
