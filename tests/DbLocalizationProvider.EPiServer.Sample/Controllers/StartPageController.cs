@@ -37,6 +37,9 @@ namespace DbLocalizationProvider.EPiServer.Sample.Controllers
             var svcInv = _service.GetStringByCulture("DbLocalizationProvider.EPiServer.Sample.Models.Pages.SomeValuesEnum.SecondValue", CultureInfo.InvariantCulture);
             var svcLv = _service.GetStringByCulture("DbLocalizationProvider.EPiServer.Sample.Models.Pages.SomeValuesEnum.SecondValue", new CultureInfo("lv"));
 
+            // this will be null
+            var nullRes = _service.GetStringByCulture("DbLocalizationProvider.EPiServer.Sample.Resources.NullResource.NullProperty", new CultureInfo("lv"));
+
             var enumTr = SomeValuesEnum.FirstValue.Translate();
             var enumSv = SomeValuesEnum.FirstValue.TranslateByCulture(new CultureInfo("sv"));
             var enumInv = SomeValuesEnum.FirstValue.TranslateByCulture(CultureInfo.InvariantCulture);
