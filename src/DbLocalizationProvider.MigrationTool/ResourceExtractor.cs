@@ -65,7 +65,7 @@ namespace DbLocalizationProvider.MigrationTool
 
             if(!Directory.Exists(resourceFilesSourceDir))
             {
-                throw new IOException($"Default resource directory '{resourceFilesSourceDir}' does not exist or can't be found. Use `-resourceDir` argument");
+                throw new IOException($"Default resource directory '{resourceFilesSourceDir}' does not exist or can't be found. Use `-resourceDirectory` argument");
             }
 
             var resourceFiles = Directory.GetFiles(resourceFilesSourceDir, "*.xml");

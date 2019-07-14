@@ -15,18 +15,15 @@ namespace DbLocalizationProvider.MigrationTool
         public ICollection<LocalizationResource> ReadXml(XDocument xmlDocument, bool ignoreDuplicateKeys)
         {
             if (xmlDocument == null)
-            {
                 throw new ArgumentNullException(nameof(xmlDocument));
-            }
 
             var result = new List<LocalizationResource>();
-
             var allLanguageElements = xmlDocument.Elements("languages");
 
             foreach (var languageElement in allLanguageElements.Elements("language"))
             {
                 var cultureId = languageElement.Attribute("id");
-                ParseResource(languageElement.Elements(), cultureId.Value, result, string.Empty, ignoreDuplicateKeys);
+                ParseResource(languageElement.Elements(), cultureId.Value, ref result, string.Empty, ignoreDuplicateKeys);
             }
 
             return result;
@@ -34,7 +31,7 @@ namespace DbLocalizationProvider.MigrationTool
 
         private static void ParseResource(IEnumerable<XElement> resourceElements,
                                           string cultureName,
-                                          ICollection<LocalizationResource> result,
+                                          ref List<LocalizationResource> result,
                                           string keyPrefix,
                                           bool ignoreDuplicateKeys)
         {
@@ -52,16 +49,11 @@ namespace DbLocalizationProvider.MigrationTool
 
                 if (element.HasElements)
                 {
-                    ParseResource(element.Elements(), cultureName, result, resourceKey, ignoreDuplicateKeys);
+                    ParseResource(element.Elements(), cultureName, ref result, resourceKey, ignoreDuplicateKeys);
                 }
                 else
                 {
                     var resourceTranslation = element.Value.Trim();
-
-                    if (string.IsNullOrEmpty(resourceTranslation))
-                    {
-                        continue;
-                    }
 
                     var existingResource = result.FirstOrDefault(r => string.Equals(r.ResourceKey, resourceKey, StringComparison.InvariantCultureIgnoreCase));
                     if (existingResource != null)

@@ -93,6 +93,10 @@
       <Name>DbLocalizationProvider.MigrationTool</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup>
+    <Content Include="Lang\XMLFile2.xml" />
+    <Content Include="Lang\XMLFile1.xml" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>
