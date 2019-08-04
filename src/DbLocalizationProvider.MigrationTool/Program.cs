@@ -41,7 +41,7 @@ namespace DbLocalizationProvider.MigrationTool
                     if(_settings.ExportFromDatabase)
                         SetConnectionString();
 
-                    Console.WriteLine("Export started.");
+                    Console.WriteLine("Starting export...");
                     var extractor = new ResourceExtractor();
                     var resources = extractor.Extract(_settings);
                     string generatedScript;
@@ -72,8 +72,9 @@ namespace DbLocalizationProvider.MigrationTool
 
             if(_settings.ImportResources)
             {
-                Console.WriteLine("Import started!");
+                Console.WriteLine("Starting import...");
 
+                SetConnectionString();
                 var importer = new ResourceImporter();
                 importer.Import(_settings);
 
@@ -94,6 +95,12 @@ namespace DbLocalizationProvider.MigrationTool
 
         private static void SetConnectionString()
         {
+            if(!string.IsNullOrEmpty(_settings.ConnectionString))
+            {
+                ConfigurationContext.Current.DbContextConnectionString = _settings.ConnectionString;
+                return;
+            }
+
             Configuration config;
 
             if(File.Exists(Path.Combine(_settings.SourceDirectory, "web.config")))
@@ -112,7 +119,7 @@ namespace DbLocalizationProvider.MigrationTool
 
             var connectionString = config?.ConnectionStrings?.ConnectionStrings["EPiServerDB"]?.ConnectionString;
             if(string.IsNullOrWhiteSpace(connectionString))
-                throw new ConfigurationErrorsException("Could not find EPiServer database connection.");
+                throw new ConfigurationErrorsException("Could not find database connection  by name `EPiServerDB`");
 
             ConfigurationContext.Current.DbContextConnectionString = _settings.ConnectionString = connectionString;
         }

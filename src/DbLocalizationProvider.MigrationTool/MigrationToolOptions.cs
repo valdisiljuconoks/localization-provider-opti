@@ -36,6 +36,7 @@ namespace DbLocalizationProvider.MigrationTool
         [Option('d', "ignoreDuplicateKey", HelpText = "Ignore duplicate keys (Take first found)")]
         public bool IgnoreDuplicateKeys { get; set; }
 
+        [Option('c', "connectionString", HelpText = "Sets connection string to be used for either reading or writing of the resources from/to database. This is for lazy (when reading value from web.config or app.config file is way too simple.)")]
         public string ConnectionString { get; set; }
 
         [Usage(ApplicationAlias = "DbLocalizationProvider.MigrationTool.exe")]
