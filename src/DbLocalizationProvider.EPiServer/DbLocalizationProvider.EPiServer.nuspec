@@ -17,7 +17,7 @@
     <dependencies>
       <dependency id="LocalizationProvider.Abstractions" version="[5.7.1, 6.0.0)" />
       <dependency id="LocalizationProvider" version="[5.7.1, 6.0.0)" />
-      <dependency id="LocalizationProvider.AspNet" version="[5.7.1, 6.0.0)" />
+      <dependency id="LocalizationProvider.AspNet" version="[5.7.2, 6.0.0)" />
       <dependency id="EPiServer.CMS.UI.Core" version="[11.2.0, 12.0)" />
     </dependencies>
   </metadata>

@@ -157,9 +157,9 @@
                                                 isTranslationChanged = change.ChangedLanguages.Contains(language.Name);
                                         %>
                                                 <td class="<%= isTranslationChanged ? "translation-changed" : "" %>">
-                                                    <%: change.ImportingResource.Translations.ByLanguage(language) %>
+                                                    <%: change.ImportingResource.Translations.ByLanguage(language, false) %>
                                                     <input type="hidden" name="changes[<%= i %>].ImportingResource.Translations[<%= ii %>].Language" value="<%= language.Name %>" />
-                                                    <input type="hidden" name="changes[<%= i %>].ImportingResource.Translations[<%= ii %>].Value" value="<%: change.ImportingResource.Translations.ByLanguage(language) %>" />
+                                                    <input type="hidden" name="changes[<%= i %>].ImportingResource.Translations[<%= ii %>].Value" value="<%: change.ImportingResource.Translations.ByLanguage(language, false) %>" />
                                                 </td>
                                                 <td class="existing <%= isTranslationChanged ? "translation-changed" : "" %>"><%: change.ExistingResource.Translations.ByLanguage(language.Name, false) %></td>
                                         <%
