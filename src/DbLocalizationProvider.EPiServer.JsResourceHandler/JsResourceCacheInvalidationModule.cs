@@ -51,7 +51,7 @@ namespace DbLocalizationProvider.EPiServer.JsResourceHandler
             {
                 var key = existingKeys.Key?.ToString();
                 var existingKey = DbLocalizationProvider.JsResourceHandler.CacheKeyHelper.GetContainerName(key);
-                if(existingKey!= null && cacheEventArgs.ResourceKey.StartsWith(existingKey))
+                if(existingKey != null && cacheEventArgs.ResourceKey.StartsWith(existingKey))
                     entriesToRemove.Add(key);
             }
 

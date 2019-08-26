@@ -23,15 +23,19 @@ using System.Web.Routing;
 using DbLocalizationProvider.JsResourceHandler;
 using EPiServer.Framework;
 using EPiServer.Framework.Initialization;
+using EPiServer.Framework.Localization;
 
 namespace DbLocalizationProvider.EPiServer.JsResourceHandler
 {
     [InitializableModule]
-    public class IgnoreRouteInitializer : IInitializableModule
+    public class JsResourceHandlerSetupModule : IInitializableModule
     {
         public void Initialize(InitializationEngine context)
         {
             RouteTable.Routes.IgnoreRoute(Constants.IgnoreRoute);
+
+            // read fallback language from Episerver settings
+            ConfigurationContext.Current.FallbackCulture = context.Locate.Advanced.GetInstance<LocalizationService>().FallbackCulture;
         }
 
         public void Uninitialize(InitializationEngine context) { }
