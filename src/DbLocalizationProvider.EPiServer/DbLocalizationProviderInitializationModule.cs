@@ -1,26 +1,10 @@
-﻿// Copyright (c) 2018 Valdis Iljuconoks.
-// Permission is hereby granted, free of charge, to any person
-// obtaining a copy of this software and associated documentation
-// files (the "Software"), to deal in the Software without
-// restriction, including without limitation the rights to use,
-// copy, modify, merge, publish, distribute, sublicense, and/or sell
-// copies of the Software, and to permit persons to whom the
-// Software is furnished to do so, subject to the following
-// conditions:
-// The above copyright notice and this permission notice shall be
-// included in all copies or substantial portions of the Software.
-// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
-// EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES
-// OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
-// NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT
-// HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
-// WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
-// FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
-// OTHER DEALINGS IN THE SOFTWARE.
+﻿// Copyright (c) Valdis Iljuconoks. All rights reserved.
+// Licensed under MIT. See the LICENSE file in the project root for more information
 
 using System;
 using System.Configuration;
 using System.Web.Mvc;
+using Castle.MicroKernel.Registration;
 using DbLocalizationProvider.AspNet.Cache;
 using DbLocalizationProvider.AspNet.Commands;
 using DbLocalizationProvider.AspNet.Queries;
@@ -30,8 +14,10 @@ using DbLocalizationProvider.DataAnnotations;
 using DbLocalizationProvider.EPiServer.Queries;
 using DbLocalizationProvider.Queries;
 using DbLocalizationProvider.Sync;
+using EPiServer.Data;
 using EPiServer.Framework;
 using EPiServer.Framework.Initialization;
+using EPiServer.Logging;
 using EPiServer.ServiceLocation;
 using InitializationModule = EPiServer.Web.InitializationModule;
 
@@ -43,12 +29,22 @@ namespace DbLocalizationProvider.EPiServer
     {
         private ServiceConfigurationContext _context;
         private bool _eventHandlerAttached;
+        private InitializationEngine _engine;
+        private ILogger _logger;
+
+        public void ConfigureContainer(ServiceConfigurationContext context)
+        {
+            // we need to capture original context in order to replace ModelMetaDataProvider later if needed
+            _context = context;
+        }
 
         public void Initialize(InitializationEngine context)
         {
             if(_eventHandlerAttached)
                 return;
 
+            _engine = context;
+            _logger = LogManager.GetLogger(typeof(DbLocalizationProviderInitializationModule));
             context.InitComplete += DiscoverAndRegister;
             _eventHandlerAttached = true;
         }
@@ -56,12 +52,6 @@ namespace DbLocalizationProvider.EPiServer
         public void Uninitialize(InitializationEngine context)
         {
             context.InitComplete -= DiscoverAndRegister;
-        }
-
-        public void ConfigureContainer(ServiceConfigurationContext context)
-        {
-            // we need to capture original context in order to replace ModelMetaDataProvider later if needed
-            _context = context;
         }
 
         private void DiscoverAndRegister(object sender, EventArgs eventArgs)
@@ -92,8 +82,26 @@ namespace DbLocalizationProvider.EPiServer
 
             ConfigurationContext.Current.DbContextConnectionString = ConfigurationManager.ConnectionStrings[ConfigurationContext.Current.Connection].ConnectionString;
 
-            var synchronizer = new ResourceSynchronizer();
-            synchronizer.DiscoverAndRegister();
+            // we have to run resource sync *only* if database is not set in read-only mode
+            // information about database mood at this current moment will give us IDatabaseMode
+            var dbMode = _engine.Locate.Advanced.GetInstance<IDatabaseMode>().DatabaseMode;
+            if(dbMode != DatabaseMode.ReadOnly)
+            {
+                try
+                {
+                    // let's try to sync and fail softly
+                    var synchronizer = new ResourceSynchronizer();
+                    synchronizer.DiscoverAndRegister();
+                }
+                catch(Exception e)
+                {
+                    _logger.Error("An error occurred while synchronizing resources.", e);
+                }
+            }
+            else
+            {
+                _logger.Information("Skipped resource synchronization due to database being in low mood (ReadOnly).");
+            }
 
             if(ConfigurationContext.Current.ModelMetadataProviders.ReplaceProviders)
             {
