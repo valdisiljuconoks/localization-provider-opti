@@ -1,8 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using DbLocalizationProvider.Abstractions;
 using DbLocalizationProvider.Abstractions.Refactoring;
-using EPiServer.Shell.Web;
-using NuGet;
 
 namespace DbLocalizationProvider.EPiServer.Sample.Resources
 {
@@ -38,6 +36,13 @@ namespace DbLocalizationProvider.EPiServer.Sample.Resources
     public class NullResource
     {
         public static string NullProperty => "null";
+    }
+
+    [LocalizedResource]
+    public class BadResources
+    {
+        [TranslationForCulture("Bad translation", "Bad Language Code")]
+        public static string WrongTranslationLanguage => "Wrong language";
     }
 
 }
