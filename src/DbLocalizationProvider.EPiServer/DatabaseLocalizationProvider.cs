@@ -55,7 +55,12 @@ namespace DbLocalizationProvider.EPiServer
 
         public override string GetString(string originalKey, string[] normalizedKey, CultureInfo culture)
         {
-            _logger.Debug($"Executing query for resource key `{originalKey}` for language: `{culture.Name}...");
+            // this is special case for Episerver ;)
+            // https://world.episerver.com/forum/developer-forum/-Episerver-75-CMS/Thread-Container/2019/10/takes-a-lot-of-time-for-epi-cms-resources-to-load-on-dxc-service/
+            if (originalKey.StartsWith("/") && !ConfigurationContext.Current.ModelMetadataProviders.EnableLegacyMode())
+                return null;
+
+            _logger.Debug($"Executing query for resource key `{originalKey}` for language: `{culture.Name}`...");
 
             // we need to call handler directly here
             // if we would dispatch query and ask registered handler to execute
@@ -70,7 +75,7 @@ namespace DbLocalizationProvider.EPiServer
                && ConfigurationContext.Current.EnableInvariantCultureFallback
                && (Equals(culture, LocalizationService.Current.FallbackCulture) || Equals(culture.Parent, CultureInfo.InvariantCulture)))
             {
-                _logger.Debug($"Null returned for resource key `{originalKey}` for language: `{culture.Name} Executing InvariantCulture fallback.");
+                _logger.Debug($"Null returned for resource key `{originalKey}` for language: `{culture.Name}`. Executing InvariantCulture fallback.");
                 return _originalHandler.Value.Execute(new GetTranslation.Query(originalKey, CultureInfo.InvariantCulture, false));
             }
 

@@ -38,11 +38,17 @@ namespace DbLocalizationProvider.EPiServer.Sample.Resources
         public static string NullProperty => "null";
     }
 
-    [LocalizedResource]
-    public class BadResources
-    {
-        [TranslationForCulture("Bad translation", "Bad Language Code")]
-        public static string WrongTranslationLanguage => "Wrong language";
-    }
+    //[LocalizedResource]
+    //public class BadResources
+    //{
+    //    [TranslationForCulture("Bad translation", "Bad Language Code")]
+    //    public static string WrongTranslationLanguage => "Wrong language";
+    //}
 
+    [LocalizedResource]
+    public class SomeXPathResources
+    {
+        [ResourceKey("/some/resource/in/xpath1")]
+        public static string Xpath1 => "Translation for XPath1";
+    }
 }
