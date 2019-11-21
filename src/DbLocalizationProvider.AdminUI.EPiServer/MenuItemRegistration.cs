@@ -20,6 +20,14 @@ namespace DbLocalizationProvider.AdminUI.EPiServer
                        new UrlMenuItem("Localization", "/global/cms/localization", Paths.ToResource(typeof(MenuItemRegistration), "LocalizationResources/Main"))
                        {
                            IsAvailable = ctx => UiConfigurationContext.Current.AuthorizedEditorRoles.Any(ctx.HttpContext.User.IsInRole)
+                       },
+                       new UrlMenuItem("Localization", "/global/cms/localization", Paths.ToResource(typeof(MenuItemRegistration), "LocalizationResources/ImportResources"))
+                       {
+                           IsAvailable = (ctx) => false,
+                       },
+                       new UrlMenuItem("Localization", "/global/cms/localization", Paths.ToResource(typeof(MenuItemRegistration), "LocalizationResources/ImportPreview"))
+                       {
+                           IsAvailable = (ctx) => false,
                        }
                    };
         }

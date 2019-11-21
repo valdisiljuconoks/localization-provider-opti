@@ -5,6 +5,7 @@
 <%@ Import Namespace="EPiServer.Framework.Web.Resources"%>
 <%@ Import Namespace="EPiServer.Shell" %>
 <%@ Import Namespace="EPiServer.Shell.Navigation" %>
+<%@ Import Namespace="EPiServer.Shell.Navigation.Internal" %>
 <%@ Import Namespace="EPiServer" %>
 <%@ Import Namespace=" EPiServer.Shell.Web.Mvc.Html"%>
 <%@ Import Namespace=" DbLocalizationProvider"%>
@@ -42,6 +43,9 @@
     <%= Html.ScriptResource(Paths.ToClientResource(typeof(LocalizationResourceViewModel), "ClientResources/jquery.treetable.min.js"))%>
 
     <style type="text/css">
+        html {
+            font-size: initial;
+        }
         body {
             font-size: 1.2em;
         }
@@ -67,14 +71,14 @@
             vertical-align: middle;
         }
 
-         table.table > tbody > tr > td {
-             height: 30px;
-             vertical-align: middle;
-         }
+        table.table > tbody > tr > td {
+            height: 30px;
+            vertical-align: middle;
+        }
 
-         table.table-sorter .header {
-             cursor: pointer;
-         }
+        table.table-sorter .header {
+            cursor: pointer;
+        }
 
         table.table-sorter thead tr .headerSortDown, table.table-sorter thead tr .headerSortUp {
             background: #bebebe;
@@ -106,9 +110,9 @@
             padding-right: 10px;
         }
 
-         .search-input {
-             width: 100%;
-         }
+        .search-input {
+            width: 100%;
+        }
 
         .glyphicon {
             font-size: 1.5rem;
@@ -117,6 +121,7 @@
 
         .epi-contentContainer {
             max-width: 100%;
+            font-size: 62.5%;
         }
 
         label {
@@ -224,14 +229,18 @@
         #exportXliffModal .modal-body label {
             display: block;
         }
+        .btn * {
+            font-size: initial;
+        }
     </style>
 </head>
 <body>
     <% if (Model.ShowMenu)
        {
-    %><%= Html.GlobalMenu(string.Empty, "/global/cms/localization") %><%
+    %><%= @Html.Raw(Html.CreatePlatformNavigationMenu()) %><%
        } %>
-    <div class="epi-contentContainer epi-padding">
+    <div <%= @Html.Raw(Html.ApplyFullscreenPlatformNavigation()) %>>
+         <div class="epi-contentContainer epi-padding">
         <div class="epi-contentArea epi-paddingHorizontal">
             <h1 class="EP-prefix"><%= Html.Translate(() => Resources.Header) %></h1>
             <div class="epi-paddingVertical">
@@ -757,6 +766,7 @@
 
             </div>
         </div>
+    </div>
     </div>
 </body>
 </html>
