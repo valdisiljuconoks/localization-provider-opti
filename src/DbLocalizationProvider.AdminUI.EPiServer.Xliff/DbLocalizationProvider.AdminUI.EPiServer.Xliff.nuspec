@@ -22,7 +22,7 @@
       <dependency id="LocalizationProvider.Xliff" version="[5.7.5, 6.0.0)" />
       <dependency id="Castle.Core" version="4.2.1" />
       <dependency id="EPiServer.CMS.AspNet" version="[11.2.0, 12.0.0)" />
-      <dependency id="EPiServer.CMS.UI.Core" version="[11.1.0, 12.0.0)" />
+      <dependency id="EPiServer.CMS.UI.Core" version="[11.21.1, 12.0.0)" />
     </dependencies>
   </metadata>
 </package>

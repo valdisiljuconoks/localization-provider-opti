@@ -5,6 +5,7 @@
 <%@ Import Namespace="EPiServer.Framework.Web.Resources"%>
 <%@ Import Namespace="EPiServer.Shell" %>
 <%@ Import Namespace="EPiServer.Shell.Navigation" %>
+<%@ Import Namespace="EPiServer.Shell.Navigation.Internal" %>
 <%@ Import Namespace="EPiServer" %>
 <%@ Import Namespace=" EPiServer.Shell.Web.Mvc.Html"%>
 <%@ Assembly Name="EPiServer.Shell.UI" %>
@@ -39,10 +40,15 @@
     <%= Html.ScriptResource(Paths.ToClientResource(typeof(PreviewImportResourcesViewModel), "ClientResources/bootstrap-editable.min.js"))%>
 
     <style type="text/css">
+        html {
+            font-size: initial;
+        }
         body {
             font-size: 1.2em;
         }
-
+        .epi-contentContainer {
+            font-size: 62.5%;
+        }
         .epi-contentContainer.has-changes {
             max-width: 100%;
         }
@@ -79,15 +85,15 @@
         td.translation-changed {
             font-weight: bold;
         }
-
     </style>
 </head>
 <body>
     <% if (Model.ShowMenu)
        {
-           %><%= Html.GlobalMenu(string.Empty, "/global/cms/localization") %><%
+           %><%=  @Html.Raw(Html.CreatePlatformNavigationMenu()) %><%
        } %>
-    <div class="epi-contentContainer epi-padding <%= Model.Changes.Any() ? "has-changes" : "" %>">
+<div <%= @Html.Raw(Html.ApplyFullscreenPlatformNavigation()) %>>
+        <div class="epi-contentContainer epi-padding <%= Model.Changes.Any() ? "has-changes" : "" %>">
         <div class="epi-contentArea epi-paddingHorizontal">
             <h1 class="EP-prefix"><%= Html.Translate(() => Resources.ImportResources.ImportHeader) %></h1>
             <form id="backForm" action="<%= Model.ShowMenu ? Url.Action("Main") : Url.Action("Index") %>" method="get"></form>
@@ -221,5 +227,6 @@
             });
         });
     </script>
+</div>
 </body>
 </html>

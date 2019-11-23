@@ -5,6 +5,7 @@
 <%@ Import Namespace="EPiServer.Framework.Web.Resources"%>
 <%@ Import Namespace="EPiServer.Shell" %>
 <%@ Import Namespace="EPiServer.Shell.Navigation" %>
+<%@ Import Namespace="EPiServer.Shell.Navigation.Internal" %>
 <%@ Import Namespace="EPiServer" %>
 <%@ Import Namespace=" EPiServer.Shell.Web.Mvc.Html"%>
 <%@ Assembly Name="EPiServer.Shell.UI" %>
@@ -51,9 +52,10 @@
 <body>
     <% if (Model.ShowMenu)
        {
-           %><%= Html.GlobalMenu(string.Empty, "/global/cms/localization") %><%
+           %><%= @Html.Raw(Html.CreatePlatformNavigationMenu()) %><%
        } %>
-    <div class="epi-contentContainer epi-padding">
+<div <%= @Html.Raw(Html.ApplyFullscreenPlatformNavigation()) %>>
+        <div class="epi-contentContainer epi-padding">
         <div class="epi-contentArea epi-paddingHorizontal">
             <h1 class="EP-prefix"><%= Html.Translate(() => Resources.ImportResources.ImportHeader) %></h1>
             <form id="backForm" action="<%= Model.ShowMenu ? Url.Action("Main") : Url.Action("Index") %>" method="get"></form>
@@ -97,5 +99,6 @@
             </div>
         </div>
     </div>
+</div>
 </body>
 </html>
