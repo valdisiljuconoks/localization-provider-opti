@@ -62,7 +62,7 @@ namespace DbLocalizationProvider.EPiServer.Queries
                 {
                     // no translation found for this language
                     // we need to respect fallback settings
-                    _logger.Debug($"Null returned for resource key `{query.Key}` for language: `{query.Language.Name} Executing InvariantCulture fallback.");
+                    _logger.Debug($"Null returned for resource key `{query.Key}` for language: `{query.Language.Name}`. Executing InvariantCulture fallback...");
 
                     return _originalHandler.Execute(new GetTranslation.Query(query.Key, CultureInfo.InvariantCulture, false));
                 }

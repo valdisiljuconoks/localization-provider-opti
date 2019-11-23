@@ -30,8 +30,7 @@ namespace DbLocalizationProvider.EPiServer
     /// <summary>
     ///     Added default connection name fix module for EPiServer.
     ///     This is due to the fact that DbLocalizationProvider might be called before init method is run
-    ///     (for example - when display channels get initialized and Episerver calls localization provider to get display
-    ///     name).
+    ///     (for example - when display channels get initialized and Episerver calls localization provider to get display name).
     ///     Related to #114
     /// </summary>
     [InitializableModule]
@@ -44,12 +43,15 @@ namespace DbLocalizationProvider.EPiServer
 
         public void ConfigureContainer(ServiceConfigurationContext context)
         {
-            //var epiDataOptions = context.Locate.Advanced.GetInstance<DataAccessOptions>();
             ConfigurationContext.Setup(ctx => { ctx.Connection = EPiServerDataStoreSection.Instance.DataSettings.ConnectionStringName; });
 
             foreach(ConnectionStringSettings connectionStringSettings in ConfigurationManager.ConnectionStrings)
+            {
                 if(string.Equals(connectionStringSettings.Name, ConfigurationContext.Current.Connection, StringComparison.InvariantCultureIgnoreCase))
+                {
                     ConfigurationContext.Current.DbContextConnectionString = ConfigurationManager.ConnectionStrings[ConfigurationContext.Current.Connection].ConnectionString;
+                }
+            }
         }
     }
 }

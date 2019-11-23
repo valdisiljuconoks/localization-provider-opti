@@ -76,6 +76,7 @@ namespace DbLocalizationProvider.EPiServer
                && (Equals(culture, LocalizationService.Current.FallbackCulture) || Equals(culture.Parent, CultureInfo.InvariantCulture)))
             {
                 _logger.Debug($"Null returned for resource key `{originalKey}` for language: `{culture.Name}`. Executing InvariantCulture fallback.");
+
                 return _originalHandler.Value.Execute(new GetTranslation.Query(originalKey, CultureInfo.InvariantCulture, false));
             }
 
@@ -84,6 +85,11 @@ namespace DbLocalizationProvider.EPiServer
 
         public override IEnumerable<global::EPiServer.Framework.Localization.ResourceItem> GetAllStrings(string originalKey, string[] normalizedKey, CultureInfo culture)
         {
+            // this is special case for Episerver ;)
+            // https://world.episerver.com/forum/developer-forum/-Episerver-75-CMS/Thread-Container/2019/10/takes-a-lot-of-time-for-epi-cms-resources-to-load-on-dxc-service/
+            if (originalKey.StartsWith("/") && !ConfigurationContext.Current.ModelMetadataProviders.EnableLegacyMode())
+                return Enumerable.Empty<global::EPiServer.Framework.Localization.ResourceItem>();
+
             var q = new GetAllTranslations.Query(originalKey, culture);
 
             return q.Execute()
