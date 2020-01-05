@@ -14,7 +14,7 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>DbLocalizationProvider.EPiServer.Sample</RootNamespace>
     <AssemblyName>DbLocalizationProvider.EPiServer.Sample</AssemblyName>
-    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <MvcBuildViews>true</MvcBuildViews>
     <UseIISExpress>true</UseIISExpress>
     <FileUpgradeFlags>
@@ -56,12 +56,10 @@
       <HintPath>..\..\packages\Castle.Windsor.4.1.0\lib\net45\Castle.Windsor.dll</HintPath>
     </Reference>
     <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\EntityFramework.6.1.2\lib\net45\EntityFramework.dll</HintPath>
-      <Private>True</Private>
+      <HintPath>..\..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.dll</HintPath>
     </Reference>
     <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\EntityFramework.6.1.2\lib\net45\EntityFramework.SqlServer.dll</HintPath>
-      <Private>True</Private>
+      <HintPath>..\..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
     </Reference>
     <Reference Include="EPiServer, Version=11.13.1.0, Culture=neutral, PublicKeyToken=8fe83dea738b45b7, processorArchitecture=MSIL">
       <HintPath>..\..\packages\EPiServer.CMS.Core.11.13.1\lib\net461\EPiServer.dll</HintPath>
@@ -199,7 +197,7 @@
     </Reference>
     <Reference Include="System.Transactions" />
     <Reference Include="System.ValueTuple, Version=4.0.3.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\System.ValueTuple.4.5.0\lib\net461\System.ValueTuple.dll</HintPath>
+      <HintPath>..\..\packages\System.ValueTuple.4.5.0\lib\net47\System.ValueTuple.dll</HintPath>
     </Reference>
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
@@ -360,6 +358,10 @@
     <ProjectReference Include="..\..\lib\aspnet\src\DbLocalizationProvider.JsResourceHandler\DbLocalizationProvider.JsResourceHandler.csproj">
       <Project>{4ce9bffa-754b-435c-a11c-f0c1a6e236f0}</Project>
       <Name>DbLocalizationProvider.JsResourceHandler</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\lib\aspnet\src\DbLocalizationProvider.Storage.SqlServer\DbLocalizationProvider.Storage.SqlServer.csproj">
+      <Project>{27481e9d-74ba-4182-93a5-61ff969ab666}</Project>
+      <Name>DbLocalizationProvider.Storage.SqlServer</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\src\DbLocalizationProvider.AdminUI.EPiServer.Xliff\DbLocalizationProvider.AdminUI.EPiServer.Xliff.csproj">
       <Project>{5435a71a-20f3-429f-999e-ab7aa409649e}</Project>

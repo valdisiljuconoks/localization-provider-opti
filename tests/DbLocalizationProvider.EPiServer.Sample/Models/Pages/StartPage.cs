@@ -1,4 +1,4 @@
-﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations;
 using DbLocalizationProvider.Abstractions;
 using EPiServer.Core;
 using EPiServer.DataAbstraction;
@@ -23,6 +23,13 @@ namespace DbLocalizationProvider.EPiServer.Sample.Models.Pages
              GroupName = SystemTabNames.Content,
              Order = 1)]
         public virtual XhtmlString MainBody { get; set; }
+
+        [CultureSpecific]
+        [Display(
+             Name = "Main content area",
+             GroupName = SystemTabNames.Content,
+             Order = 2)]
+        public virtual ContentArea MainContentArea { get; set; }
 
         [EPiIgnore]
         [Include]

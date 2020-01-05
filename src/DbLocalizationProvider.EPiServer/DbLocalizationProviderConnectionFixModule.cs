@@ -43,15 +43,15 @@ namespace DbLocalizationProvider.EPiServer
 
         public void ConfigureContainer(ServiceConfigurationContext context)
         {
-            ConfigurationContext.Setup(ctx => { ctx.Connection = EPiServerDataStoreSection.Instance.DataSettings.ConnectionStringName; });
+            //ConfigurationContext.Setup(ctx => { ctx.Connection = EPiServerDataStoreSection.Instance.DataSettings.ConnectionStringName; });
 
-            foreach(ConnectionStringSettings connectionStringSettings in ConfigurationManager.ConnectionStrings)
-            {
-                if(string.Equals(connectionStringSettings.Name, ConfigurationContext.Current.Connection, StringComparison.InvariantCultureIgnoreCase))
-                {
-                    ConfigurationContext.Current.DbContextConnectionString = ConfigurationManager.ConnectionStrings[ConfigurationContext.Current.Connection].ConnectionString;
-                }
-            }
+            //foreach(ConnectionStringSettings connectionStringSettings in ConfigurationManager.ConnectionStrings)
+            //{
+            //    if(string.Equals(connectionStringSettings.Name, ConfigurationContext.Current.Connection, StringComparison.InvariantCultureIgnoreCase))
+            //    {
+            //        ConfigurationContext.Current.DbContextConnectionString = ConfigurationManager.ConnectionStrings[ConfigurationContext.Current.Connection].ConnectionString;
+            //    }
+            //}
         }
     }
 }

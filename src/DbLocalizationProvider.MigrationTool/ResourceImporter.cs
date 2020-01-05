@@ -1,6 +1,7 @@
 using System.Data.SqlClient;
 using System.IO;
 using System.Linq;
+using DbLocalizationProvider.Storage.SqlServer;
 
 namespace DbLocalizationProvider.MigrationTool
 {

@@ -1,4 +1,4 @@
-﻿// Copyright (c) 2019 Valdis Iljuconoks.
+// Copyright (c) 2019 Valdis Iljuconoks.
 // Permission is hereby granted, free of charge, to any person
 // obtaining a copy of this software and associated documentation
 // files (the "Software"), to deal in the Software without
@@ -35,7 +35,7 @@ namespace DbLocalizationProvider.EPiServer.JsResourceHandler
             RouteTable.Routes.IgnoreRoute(Constants.IgnoreRoute);
 
             // read fallback language from Episerver settings
-            ConfigurationContext.Current.FallbackCulture = context.Locate.Advanced.GetInstance<LocalizationService>().FallbackCulture;
+            ConfigurationContext.Current.FallbackCultures.Add(context.Locate.Advanced.GetInstance<LocalizationService>().FallbackCulture);
         }
 
         public void Uninitialize(InitializationEngine context) { }
