@@ -1,4 +1,4 @@
-﻿using System.Globalization;
+using System.Globalization;
 using DbLocalizationProvider.AdminUI;
 using DbLocalizationProvider.Cache;
 using DbLocalizationProvider.Storage.SqlServer;
