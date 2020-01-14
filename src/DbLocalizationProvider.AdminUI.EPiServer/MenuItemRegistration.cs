@@ -23,9 +23,13 @@ namespace DbLocalizationProvider.AdminUI.EPiServer
                        },
                        new UrlMenuItem("Localization", "/global/cms/localization", Paths.ToResource(typeof(MenuItemRegistration), "LocalizationResources/ImportResources"))
                        {
-                           IsAvailable = (ctx) => false,
+                           IsAvailable = (ctx) => false
                        },
                        new UrlMenuItem("Localization", "/global/cms/localization", Paths.ToResource(typeof(MenuItemRegistration), "LocalizationResources/ImportPreview"))
+                       {
+                           IsAvailable = (ctx) => false
+                       },
+                       new UrlMenuItem("Localization", "/global/cms/localization", Paths.ToResource(typeof(MenuItemRegistration), "LocalizationResources/CommitImportResources"))
                        {
                            IsAvailable = (ctx) => false,
                        }
