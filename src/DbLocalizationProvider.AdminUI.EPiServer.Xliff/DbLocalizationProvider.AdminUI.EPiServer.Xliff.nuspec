@@ -18,7 +18,7 @@
       <dependency id="LocalizationProvider" version="[5.7.7, 6.0.0)" />
       <dependency id="LocalizationProvider.AspNet" version="[5.7.7, 6.0.0)" />
       <dependency id="DbLocalizationProvider.EPiServer" version="[5.8.0, 6.0.0)" />
-      <dependency id="DbLocalizationProvider.AdminUI.EPiServer" version="[5.8.0, 6.0.0)" />
+      <dependency id="DbLocalizationProvider.AdminUI.EPiServer" version="[5.8.1, 6.0.0)" />
       <dependency id="LocalizationProvider.Xliff" version="[5.7.7, 6.0.0)" />
       <dependency id="Castle.Core" version="4.2.1" />
       <dependency id="EPiServer.CMS.AspNet" version="[11.2.0, 12.0.0)" />
