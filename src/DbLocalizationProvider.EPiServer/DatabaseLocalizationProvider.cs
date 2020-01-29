@@ -57,7 +57,7 @@ namespace DbLocalizationProvider.EPiServer
         {
             // this is special case for Episerver ;)
             // https://world.episerver.com/forum/developer-forum/-Episerver-75-CMS/Thread-Container/2019/10/takes-a-lot-of-time-for-epi-cms-resources-to-load-on-dxc-service/
-            if (originalKey.StartsWith("/") && !ConfigurationContext.Current.ModelMetadataProviders.EnableLegacyMode())
+            if (ConfigurationContext.Current.ResourceLookupFilter(originalKey))
                 return null;
 
             _logger.Debug($"Executing query for resource key `{originalKey}` for language: `{culture.Name}`...");
@@ -70,7 +70,7 @@ namespace DbLocalizationProvider.EPiServer
 
             // this is last chance for Episerver to find translation (asked in translation fallback language)
             // if no match is found and invariant fallback is configured - return invariant culture translation
-            if(foundTranslation == null
+            if (foundTranslation == null
                && LocalizationService.Current.FallbackBehavior.HasFlag(FallbackBehaviors.FallbackCulture)
                && ConfigurationContext.Current.EnableInvariantCultureFallback
                && (Equals(culture, LocalizationService.Current.FallbackCulture) || Equals(culture.Parent, CultureInfo.InvariantCulture)))
@@ -87,7 +87,7 @@ namespace DbLocalizationProvider.EPiServer
         {
             // this is special case for Episerver ;)
             // https://world.episerver.com/forum/developer-forum/-Episerver-75-CMS/Thread-Container/2019/10/takes-a-lot-of-time-for-epi-cms-resources-to-load-on-dxc-service/
-            if (originalKey.StartsWith("/") && !ConfigurationContext.Current.ModelMetadataProviders.EnableLegacyMode())
+            if (ConfigurationContext.Current.ResourceLookupFilter(originalKey))
                 return Enumerable.Empty<global::EPiServer.Framework.Localization.ResourceItem>();
 
             var q = new GetAllTranslations.Query(originalKey, culture);
