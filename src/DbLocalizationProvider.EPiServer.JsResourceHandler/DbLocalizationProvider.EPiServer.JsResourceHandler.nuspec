@@ -12,14 +12,14 @@
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <description>$description$</description>
     <releaseNotes>Javascript resource handler for EPiServer</releaseNotes>
-    <copyright>Copyright 2019 (c) Valdis Iljuconoks, Tech Fellow</copyright>
+    <copyright>Copyright 2020 (c) Valdis Iljuconoks, Tech Fellow</copyright>
     <tags>Localization EPiServer Provider DbLocalization DbLocalizationProvider LocalizationProvider Javascript Client-side</tags>
     <dependencies>
-      <dependency id="LocalizationProvider.Abstractions" version="[5.7.7, 6.0.0)" />
-      <dependency id="LocalizationProvider" version="[5.7.7, 6.0.0)" />
-      <dependency id="LocalizationProvider.AspNet" version="[5.7.7, 6.0.0)" />
-      <dependency id="LocalizationProvider.JsResourceHandler" version="[5.7.7, 6.0.0)" />
-      <dependency id="DbLocalizationProvider.EPiServer" version="[5.8.0, 6.0.0)" />
+      <dependency id="LocalizationProvider.Abstractions" version="[5.8.2, 6.0.0)" />
+      <dependency id="LocalizationProvider" version="[5.8.2, 6.0.0)" />
+      <dependency id="LocalizationProvider.AspNet" version="[5.8.2, 6.0.0)" />
+      <dependency id="LocalizationProvider.JsResourceHandler" version="[5.8.2, 6.0.0)" />
+      <dependency id="DbLocalizationProvider.EPiServer" version="[5.8.2, 6.0.0)" />
       <dependency id="Castle.Core" version="4.2.1" />
       <dependency id="EntityFramework" version="6.1.2" />
       <dependency id="EPiServer.CMS.AspNet" version="[11.2.0, 12.0.0)" />
