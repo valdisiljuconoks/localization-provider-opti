@@ -1,9 +1,9 @@
 using System;
 using System.Collections.Generic;
-using System.Data.Entity;
 using System.IO;
 using System.Linq;
 using DbLocalizationProvider.Storage.SqlServer;
+using DbLocalizationProvider.Sync;
 
 namespace DbLocalizationProvider.MigrationTool
 {
@@ -18,10 +18,8 @@ namespace DbLocalizationProvider.MigrationTool
 
             if(settings.ExportFromDatabase)
             {
-                using(var db = new LanguageEntities(settings.ConnectionString))
-                {
-                    resources = db.LocalizationResources.Include(r => r.Translations).ToList();
-                }
+                var repo = new ResourceRepository();
+                resources = repo.GetAll().ToList();
 
                 InitializeDb(settings);
             }
@@ -35,10 +33,8 @@ namespace DbLocalizationProvider.MigrationTool
             {
                 try
                 {
-                    using(var db = new LanguageEntities(settings.ConnectionString))
-                    {
-                        var resource = db.LocalizationResources.Where(r => r.Id == 0);
-                    }
+                    var updater = new SchemaUpdater();
+                    updater.Execute(new UpdateSchema.Command());
                 }
                 catch
                 {

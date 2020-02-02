@@ -62,12 +62,6 @@
     <Reference Include="CommandLine, Version=2.4.3.0, Culture=neutral, PublicKeyToken=de6f01bd326f8c32, processorArchitecture=MSIL">
       <HintPath>..\..\packages\CommandLineParser.2.4.3\lib\netstandard2.0\CommandLine.dll</HintPath>
     </Reference>
-    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.dll</HintPath>
-    </Reference>
-    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
-    </Reference>
     <Reference Include="Newtonsoft.Json, Version=12.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\..\packages\Newtonsoft.Json.12.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
@@ -126,6 +120,10 @@
     <ProjectReference Include="..\..\lib\aspnet\lib\localization-provider\src\DbLocalizationProvider.Abstractions\DbLocalizationProvider.Abstractions.csproj">
       <Project>{ddd513c3-dfc8-4c71-b1fe-5e3e06218e89}</Project>
       <Name>DbLocalizationProvider.Abstractions</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\lib\aspnet\lib\localization-provider\src\DbLocalizationProvider.Storage.SqlServer\DbLocalizationProvider.Storage.SqlServer.csproj">
+      <Project>{1f844bd3-32cb-4416-abf1-52c6aa276458}</Project>
+      <Name>DbLocalizationProvider.Storage.SqlServer</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\lib\aspnet\lib\localization-provider\src\DbLocalizationProvider\DbLocalizationProvider.csproj">
       <Project>{752e02df-ae33-4d30-9dfa-480cde49e46e}</Project>
