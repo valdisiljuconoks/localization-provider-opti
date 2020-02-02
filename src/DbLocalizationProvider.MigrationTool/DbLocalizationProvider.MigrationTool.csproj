@@ -135,10 +135,6 @@
       <Project>{bfff1d76-e64f-47be-b77e-e0873977b3b3}</Project>
       <Name>DbLocalizationProvider.AspNet</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\lib\aspnet\src\DbLocalizationProvider.Storage.SqlServer\DbLocalizationProvider.Storage.SqlServer.csproj">
-      <Project>{27481e9d-74ba-4182-93a5-61ff969ab666}</Project>
-      <Name>DbLocalizationProvider.Storage.SqlServer</Name>
-    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
