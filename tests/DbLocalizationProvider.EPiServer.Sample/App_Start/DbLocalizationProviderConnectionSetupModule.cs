@@ -1,3 +1,5 @@
+using System.Configuration;
+using DbLocalizationProvider.AspNet.Sync;
 using DbLocalizationProvider.Storage.SqlServer;
 using EPiServer.Data.Configuration;
 using EPiServer.Framework;
@@ -20,8 +22,16 @@ namespace DbLocalizationProvider.EPiServer.Sample
             {
                 _.ModelMetadataProviders.EnableLegacyMode = () => true;
                 _.EnableInvariantCultureFallback = true;
-                _.UseSqlServer(EPiServerDataStoreSection.Instance.DataSettings.ConnectionStringName);
+
+                var connectionString = ConfigurationManager
+                                       .ConnectionStrings[EPiServerDataStoreSection.Instance.DataSettings.ConnectionStringName]
+                                       .ConnectionString;
+
+                _.UseSqlServer(connectionString);
             });
+
+            var sync = new Synchronizer();
+            sync.UpdateStorageSchema();
         }
     }
 }

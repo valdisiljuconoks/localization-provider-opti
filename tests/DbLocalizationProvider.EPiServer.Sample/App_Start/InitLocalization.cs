@@ -1,7 +1,6 @@
 using System.Globalization;
 using DbLocalizationProvider.AdminUI;
 using DbLocalizationProvider.Cache;
-using DbLocalizationProvider.Storage.SqlServer;
 using EPiServer.Core;
 using EPiServer.Framework;
 using EPiServer.Framework.Initialization;
@@ -29,8 +28,6 @@ namespace DbLocalizationProvider.EPiServer.Sample
                                            _.DefaultResourceCulture = CultureInfo.InvariantCulture;
                                            _.CacheManager.OnRemove += CacheManagerOnOnRemove;
                                            _.PopulateCacheOnStartup = false;
-
-                                           _.UseSqlServer("episerverdb2");
                                        });
 
             UiConfigurationContext.Setup(_ =>
