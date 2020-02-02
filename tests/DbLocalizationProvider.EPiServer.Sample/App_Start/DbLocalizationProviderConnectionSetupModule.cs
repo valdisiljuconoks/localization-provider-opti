@@ -1,6 +1,6 @@
 using System.Configuration;
-using DbLocalizationProvider.AspNet.Sync;
 using DbLocalizationProvider.Storage.SqlServer;
+using DbLocalizationProvider.Sync;
 using EPiServer.Data.Configuration;
 using EPiServer.Framework;
 using EPiServer.Framework.Initialization;
