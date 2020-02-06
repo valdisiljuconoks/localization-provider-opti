@@ -20,7 +20,7 @@ namespace DbLocalizationProvider.EPiServer.Sample
         {
             ConfigurationContext.Setup(_ =>
             {
-                _.ModelMetadataProviders.EnableLegacyMode = () => true;
+                _.EnableLegacyMode = () => true;
                 _.EnableInvariantCultureFallback = true;
 
                 var connectionString = ConfigurationManager
