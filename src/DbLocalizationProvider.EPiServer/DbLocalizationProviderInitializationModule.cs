@@ -108,6 +108,7 @@ namespace DbLocalizationProvider.EPiServer
 
             // make sure that Episerver knows about LocalizationProvider
             _context.Services.AddSingleton(LocalizationProvider.Current);
+            _context.Services.AddSingleton<ILocalizationProvider>(LocalizationProvider.Current);
         }
     }
 }
