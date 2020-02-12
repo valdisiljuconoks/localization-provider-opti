@@ -648,7 +648,7 @@
 
                         $('#saveResource').on('click', function() {
                             var $form = $('.new-resource-form'),
-                                $resourceKey = $form.find('#resourceKey').val(),
+                                $resourceKey = $form.find('#resourceKey').val().replace('+', '%2B'),
                                 $invariantTranslation = $($form.find('.resource-translation[id="invariant"]')[0]);
 
                             if ($resourceKey.length === 0) {
