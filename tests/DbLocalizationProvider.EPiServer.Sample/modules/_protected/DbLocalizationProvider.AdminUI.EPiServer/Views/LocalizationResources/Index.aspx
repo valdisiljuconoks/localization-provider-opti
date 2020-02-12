@@ -652,12 +652,12 @@
                                 $invariantTranslation = $($form.find('.resource-translation[id="invariant"]')[0]);
 
                             if ($resourceKey.length === 0) {
-                                alert('Resource key is required!');
+                                alert('<%= Html.Translate(() => Resources.ResourceKeyRequired) %>');
                                 return;
                             }
 
                             if ($invariantTranslation.val().length === 0) {
-                                alert('Translation is required for InvariantCulture!');
+                                alert('<%= Html.Translate(() => Resources.TranslationRequiredForInvariantCulture) %>');
                                 return;
                             }
 
