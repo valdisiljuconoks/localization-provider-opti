@@ -12,9 +12,9 @@ namespace DbLocalizationProvider.EPiServer.Sample.Controllers
     public class StartPageController : PageController<StartPage>
     {
         private readonly LocalizationService _service;
-        private readonly LocalizationProvider _provider;
+        private readonly ILocalizationProvider _provider;
 
-        public StartPageController(LocalizationService service, LocalizationProvider provider)
+        public StartPageController(LocalizationService service, ILocalizationProvider provider)
         {
             _service = service;
             _provider = provider;

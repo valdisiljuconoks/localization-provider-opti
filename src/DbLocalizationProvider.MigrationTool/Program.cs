@@ -1,10 +1,11 @@
-﻿using System;
+using System;
 using System.Configuration;
 using System.Diagnostics;
 using System.IO;
 using System.Web.Configuration;
 using CommandLine;
 using DbLocalizationProvider.Export;
+using DbLocalizationProvider.Storage.SqlServer;
 
 namespace DbLocalizationProvider.MigrationTool
 {
@@ -97,7 +98,7 @@ namespace DbLocalizationProvider.MigrationTool
         {
             if(!string.IsNullOrEmpty(_settings.ConnectionString))
             {
-                ConfigurationContext.Current.DbContextConnectionString = _settings.ConnectionString;
+                Settings.DbContextConnectionString = _settings.ConnectionString;
                 return;
             }
 
@@ -121,7 +122,7 @@ namespace DbLocalizationProvider.MigrationTool
             if(string.IsNullOrWhiteSpace(connectionString))
                 throw new ConfigurationErrorsException("Could not find database connection  by name `EPiServerDB`");
 
-            ConfigurationContext.Current.DbContextConnectionString = _settings.ConnectionString = connectionString;
+            Settings.DbContextConnectionString = _settings.ConnectionString = connectionString;
         }
 
         private static Configuration ReadAppConnectionString()

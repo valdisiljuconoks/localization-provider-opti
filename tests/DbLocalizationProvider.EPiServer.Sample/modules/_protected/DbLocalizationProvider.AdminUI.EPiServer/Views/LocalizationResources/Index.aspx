@@ -388,7 +388,7 @@
                             <% foreach (var language in Model.SelectedLanguages)
                                { %>
                             <td>
-                                <input class="form-control resource-translation" id="<%= language %>" />
+                                <input class="form-control resource-translation" id="<%= (!string.IsNullOrEmpty(language.Name) ? language.Name : "invariant") %>" />
                             </td>
                             <% } %>
                             <% if (Model.AdminMode) { %><td></td><% } %>
@@ -648,10 +648,16 @@
 
                         $('#saveResource').on('click', function() {
                             var $form = $('.new-resource-form'),
-                                $resourceKey = $form.find('#resourceKey').val();
+                                $resourceKey = $form.find('#resourceKey').val().replace('+', '%2B'),
+                                $invariantTranslation = $($form.find('.resource-translation[id="invariant"]')[0]);
 
-                            if ($resourceKey.length == 0) {
-                                alert('Fill resource key');
+                            if ($resourceKey.length === 0) {
+                                alert('<%= Html.Translate(() => Resources.ResourceKeyRequired) %>');
+                                return;
+                            }
+
+                            if ($invariantTranslation.val().length === 0) {
+                                alert('<%= Html.Translate(() => Resources.TranslationRequiredForInvariantCulture) %>');
                                 return;
                             }
 
@@ -665,12 +671,15 @@
                                 var requests = [];
 
                                 $.map($translations, function(el) {
-                                    var $el = $(el);
-                                    requests.push($.ajax({
-                                        url: '<%= Url.Action("Update") %>',
-                                        method: 'POST',
-                                        data: 'pk=' + $resourceKey + '&name=' + el.id + '&value=' + $el.val()
-                                    }));
+                                    // send update only if translation is not empty
+                                    if(el.value.length !== 0)
+                                    {
+                                        requests.push($.ajax({
+                                            url: '<%= Url.Action("Update") %>',
+                                            method: 'POST',
+                                            data: 'pk=' + $resourceKey + '&name=' + el.id + '&value=' + el.value
+                                        }));
+                                    }
                                 });
 
                                 $.when(requests).then(function() {
@@ -679,7 +688,7 @@
                                     }, 1000);
                                 });
                             }).error(function(e) {
-                                alert('Error: ' + e.Message);
+                                alert('Error: ' + e.responseJSON.Message);
                             });
                         });
                     });

@@ -1,4 +1,4 @@
-﻿using System.Globalization;
+using System.Globalization;
 using DbLocalizationProvider.AdminUI;
 using DbLocalizationProvider.Cache;
 using EPiServer.Core;
@@ -17,7 +17,7 @@ namespace DbLocalizationProvider.EPiServer.Sample
             ConfigurationContext.Setup(_ =>
                                        {
                                            _.DiagnosticsEnabled = true;
-                                           _.ModelMetadataProviders.EnableLegacyMode = () => true;
+                                           _.EnableLegacyMode = () => true;
                                            _.CustomAttributes = new[]
                                                                 {
                                                                     new CustomAttributeDescriptor(typeof(HelpTextAttribute), false)

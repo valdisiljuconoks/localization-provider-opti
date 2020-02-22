@@ -1,4 +1,4 @@
-﻿// Copyright (c) 2019 Valdis Iljuconoks.
+// Copyright (c) 2019 Valdis Iljuconoks.
 // Permission is hereby granted, free of charge, to any person
 // obtaining a copy of this software and associated documentation
 // files (the "Software"), to deal in the Software without
@@ -57,8 +57,7 @@ namespace DbLocalizationProvider.EPiServer
         {
             // this is special case for Episerver ;)
             // https://world.episerver.com/forum/developer-forum/-Episerver-75-CMS/Thread-Container/2019/10/takes-a-lot-of-time-for-epi-cms-resources-to-load-on-dxc-service/
-            if (ConfigurationContext.Current.ResourceLookupFilter(originalKey))
-                return null;
+            if (!ConfigurationContext.Current.ResourceLookupFilter(originalKey)) return null;
 
             _logger.Debug($"Executing query for resource key `{originalKey}` for language: `{culture.Name}`...");
 
@@ -87,8 +86,10 @@ namespace DbLocalizationProvider.EPiServer
         {
             // this is special case for Episerver ;)
             // https://world.episerver.com/forum/developer-forum/-Episerver-75-CMS/Thread-Container/2019/10/takes-a-lot-of-time-for-epi-cms-resources-to-load-on-dxc-service/
-            if (ConfigurationContext.Current.ResourceLookupFilter(originalKey))
+            if (!ConfigurationContext.Current.ResourceLookupFilter(originalKey))
+            {
                 return Enumerable.Empty<global::EPiServer.Framework.Localization.ResourceItem>();
+            }
 
             var q = new GetAllTranslations.Query(originalKey, culture);
 

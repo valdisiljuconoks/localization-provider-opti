@@ -1,6 +1,7 @@
 using System.Data.SqlClient;
 using System.IO;
-using System.Linq;
+using DbLocalizationProvider.Storage.SqlServer;
+using DbLocalizationProvider.Sync;
 
 namespace DbLocalizationProvider.MigrationTool
 {
@@ -15,10 +16,8 @@ namespace DbLocalizationProvider.MigrationTool
             }
 
             // create DB structures in target database
-            using (var db = new LanguageEntities(settings.ConnectionString))
-            {
-                var resource = db.LocalizationResources.Where(r => r.Id == 0);
-            }
+            var updater = new SchemaUpdater();
+            updater.Execute(new UpdateSchema.Command());
 
             var fileInfo = new FileInfo(sourceImportFilePath);
             var script = fileInfo.OpenText().ReadToEnd();
