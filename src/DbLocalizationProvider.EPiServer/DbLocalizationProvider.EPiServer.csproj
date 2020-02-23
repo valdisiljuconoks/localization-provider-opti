@@ -188,6 +188,7 @@
     <Compile Include="LocalizedCategoryAttribute.cs" />
     <Compile Include="LocalizedEnumAttribute.cs" />
     <Compile Include="LocalizedEnumSelectionFactory.cs" />
+    <Compile Include="LoggerAdapter.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Queries\EPiServerAvailableLanguages.cs" />
     <Compile Include="Queries\EPiServerDetermineDefaultLanguage.cs" />

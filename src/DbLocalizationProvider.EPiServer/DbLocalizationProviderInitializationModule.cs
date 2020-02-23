@@ -2,21 +2,14 @@
 // Licensed under MIT. See the LICENSE file in the project root for more information
 
 using System;
-using System.Configuration;
 using System.Web.Mvc;
-using DbLocalizationProvider.AspNet.Cache;
-using DbLocalizationProvider.AspNet.Queries;
-using DbLocalizationProvider.Cache;
-using DbLocalizationProvider.Commands;
 using DbLocalizationProvider.DataAnnotations;
 using DbLocalizationProvider.EPiServer.Queries;
 using DbLocalizationProvider.Queries;
 using EPiServer.Data;
 using EPiServer.Framework;
 using EPiServer.Framework.Initialization;
-using EPiServer.Logging;
 using EPiServer.ServiceLocation;
-using Owin;
 using InitializationModule = EPiServer.Web.InitializationModule;
 
 namespace DbLocalizationProvider.EPiServer
@@ -28,7 +21,6 @@ namespace DbLocalizationProvider.EPiServer
         private ServiceConfigurationContext _context;
         private bool _eventHandlerAttached;
         private InitializationEngine _engine;
-        private ILogger _logger;
 
         public void ConfigureContainer(ServiceConfigurationContext context)
         {
@@ -38,11 +30,9 @@ namespace DbLocalizationProvider.EPiServer
 
         public void Initialize(InitializationEngine context)
         {
-            if(_eventHandlerAttached)
-                return;
+            if(_eventHandlerAttached) return;
 
             _engine = context;
-            _logger = LogManager.GetLogger(typeof(DbLocalizationProviderInitializationModule));
             context.InitComplete += SetupLocalizationProvider;
             _eventHandlerAttached = true;
         }
@@ -54,6 +44,8 @@ namespace DbLocalizationProvider.EPiServer
 
         private void SetupLocalizationProvider(object sender, EventArgs eventArgs)
         {
+            ConfigurationContext.Current.Logger = new LoggerAdapter();
+
             // reuse the same ASP.NET setup method with some quirks
             IAppBuilderExtensions.UseDbLocalizationProvider(null, ctx =>
             {
