@@ -43,6 +43,8 @@ namespace DbLocalizationProvider.EPiServer.Sample
                                              _.AuthorizedEditorRoles.Add("SomeFancyEditorRole");
 
                                              //_.DisableView(ResourceListView.Table);
+
+                                             _.DisableRemoveTranslationButton = true;
                                          });
         }
 

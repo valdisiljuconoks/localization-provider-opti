@@ -16,7 +16,7 @@
 
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
-    <title><%= Html.Translate(() => Resources.Header) %></title>
+    <title><%: Html.Translate(() => Resources.Header) %></title>
 
     <%= Html.CssLink(Paths.ToClientResource(typeof(LocalizationResourceViewModel), "ClientResources/bootstrap.min.css"))%>
     <%= Html.CssLink(Paths.ToClientResource(typeof(LocalizationResourceViewModel), "ClientResources/bootstrap-editable.css"))%>
@@ -242,7 +242,7 @@
     <div <%= @Html.Raw(Html.ApplyFullscreenPlatformNavigation()) %>>
          <div class="epi-contentContainer epi-padding">
         <div class="epi-contentArea epi-paddingHorizontal">
-            <h1 class="EP-prefix"><%= Html.Translate(() => Resources.Header) %></h1>
+            <h1 class="EP-prefix"><%: Html.Translate(() => Resources.Header) %></h1>
             <div class="epi-paddingVertical">
                 <% if (!string.IsNullOrEmpty(ViewData["LocalizationProvider_Message"] as string) || !ViewData.ModelState.IsValid)
                    {
@@ -254,7 +254,7 @@
                 <%
                    } %>
                 <form action="<%= Url.Action("UpdateLanguages") %>" method="post">
-                    <div class="available-languages"><a data-toggle="collapse" href="#availableLanguages" aria-expanded="false" aria-controls="availableLanguages" class="available-languages-toggle"><%= Html.Translate(() => Resources.AvailableLanguages) %></a></div>
+                    <div class="available-languages"><a data-toggle="collapse" href="#availableLanguages" aria-expanded="false" aria-controls="availableLanguages" class="available-languages-toggle"><%: Html.Translate(() => Resources.AvailableLanguages) %></a></div>
                     <div class="collapse" id="availableLanguages">
                         <% foreach (var language in Model.Languages)
                            {
@@ -268,7 +268,7 @@
                         <% } %>
                         <div class="epi-buttonContainer">
                             <span class="epi-cmsButton">
-                                <input class="epi-cmsButton-text epi-cmsButton-tools epi-cmsButton-Save" type="submit" id="saveLanguages" value="<%= Html.Translate(() => Resources.Save) %>" title="<%= Html.Translate(() => Resources.Save) %>" /></span>
+                                <input class="epi-cmsButton-text epi-cmsButton-tools epi-cmsButton-Save" type="submit" id="saveLanguages" value="<%: Html.Translate(() => Resources.Save) %>" title="<%: Html.Translate(() => Resources.Save) %>" /></span>
                         </div>
                     </div>
                     <input type="hidden" name="showMenu" value="<%= Model.ShowMenu %>"/>
@@ -290,11 +290,11 @@
                     <span class="epi-cmsButton">
                     <% if(ConfigurationContext.Current.Export.Providers.Count == 1)
                        { %>
-                        <input class="epi-cmsButton-text epi-cmsButton-tools epi-cmsButton-Export" type="submit" id="exportResources" value="<%= Html.Translate(() => Resources.Export) %>" title="<%= Html.Translate(() => Resources.Export) %>" onclick="$('#exportForm').submit();" />
+                        <input class="epi-cmsButton-text epi-cmsButton-tools epi-cmsButton-Export" type="submit" id="exportResources" value="<%: Html.Translate(() => Resources.Export) %>" title="<%: Html.Translate(() => Resources.Export) %>" onclick="$('#exportForm').submit();" />
                     <% }
                        else { %>
                         <span class="dropdown">
-                            <button class="epi-cmsButton-text epi-cmsButton-tools epi-cmsButton-Export epi-cmsButton-arrowdown dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true"><%= Html.Translate(() => Resources.Export) %></button>
+                            <button class="epi-cmsButton-text epi-cmsButton-tools epi-cmsButton-Export epi-cmsButton-arrowdown dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true"><%: Html.Translate(() => Resources.Export) %></button>
                             <ul class="dropdown-menu export-menu">
                             <% foreach (var provider in ConfigurationContext.Current.Export.Providers)
                                { %>
@@ -308,21 +308,21 @@
                        {
                     %>
                         <span class="epi-cmsButton">
-                            <input class="epi-cmsButton-text epi-cmsButton-tools epi-cmsButton-Import" type="submit" id="importResources" value="<%= Html.Translate(() => Resources.ImportResources.Import) %>" title="<%= Html.Translate(() => Resources.ImportResources.Import) %>" onclick="$('#importLinkForm').submit();" /></span>
+                            <input class="epi-cmsButton-text epi-cmsButton-tools epi-cmsButton-Import" type="submit" id="importResources" value="<%: Html.Translate(() => Resources.ImportResources.Import) %>" title="<%: Html.Translate(() => Resources.ImportResources.Import) %>" onclick="$('#importLinkForm').submit();" /></span>
                     <%
                        } %>
                     <% if (Model.AdminMode)
                        {
                     %>
                         <span class="epi-cmsButton">
-                            <input class="epi-cmsButton-text epi-cmsButton-tools epi-cmsButton-AddFile" type="button" id="newResource" value="<%= Html.Translate(() => Resources.New) %>" title="<%= Html.Translate(() => Resources.New) %>" /></span>
+                            <input class="epi-cmsButton-text epi-cmsButton-tools epi-cmsButton-AddFile" type="button" id="newResource" value="<%: Html.Translate(() => Resources.New) %>" title="<%: Html.Translate(() => Resources.New) %>" /></span>
                     <%
                        } %>
                 </div>
 
                 <form id="resourceFilterForm">
                     <div class="form-group">
-                        <input type="search" value="" class="form-control search-input" placeholder="<%= Html.Translate(() => Resources.SearchPlaceholder) %>" />
+                        <input type="search" value="" class="form-control search-input" placeholder="<%: Html.Translate(() => Resources.SearchPlaceholder) %>" />
                     </div>
                 </form>
 
@@ -332,44 +332,44 @@
                         <span style="float: left"><label>[&nbsp;
                         <% if (Model.IsTreeView)
                             { %>
-                            <%= Html.Translate(() => Resources.TreeView) %>
+                            <%: Html.Translate(() => Resources.TreeView) %>
                         <% } else { %>
-                            <a href="#" onclick="javascript: $('#treeViewForm').submit();"><%= Html.Translate(() => Resources.TreeView) %></a>
+                            <a href="#" onclick="javascript: $('#treeViewForm').submit();"><%: Html.Translate(() => Resources.TreeView) %></a>
                         <% } %>
                         &nbsp;|&nbsp;
                         <% if (!Model.IsTreeView)
                             { %>
-                            <%= Html.Translate(() => Resources.TableView) %>
+                            <%: Html.Translate(() => Resources.TableView) %>
                         <% } else { %>
-                            <a href="#" onclick="javascript: $('#tableViewForm').submit();"><%= Html.Translate(() => Resources.TableView) %></a>
+                            <a href="#" onclick="javascript: $('#tableViewForm').submit();"><%: Html.Translate(() => Resources.TableView) %></a>
                         <% } %>
                             &nbsp;]</label></span>
                     <% } %>
                     <span>
                         <input type="checkbox" name="showEmptyResources" id="showEmptyResources"/>
-                        <label for="showEmptyResources"><%= Html.Translate(() => Resources.ShowEmpty) %></label>
+                        <label for="showEmptyResources"><%: Html.Translate(() => Resources.ShowEmpty) %></label>
                     </span>
                     <span>
                         <input type="checkbox" name="showHiddenResources" id="showHiddenResources"/>
-                        <label for="showHiddenResources"><%= Html.Translate(() => Resources.ShowHidden) %></label>
+                        <label for="showHiddenResources"><%: Html.Translate(() => Resources.ShowHidden) %></label>
                     </span>
                 </div>
             <% if (!Model.IsTreeView) { %>
                 <table class="table table-bordered table-striped table-sorter" id="resourceList" style="clear: both">
                     <thead>
                         <tr>
-                            <th class="sortable"><%= Html.Translate(() => Resources.KeyColumn) %></th>
+                            <th class="sortable"><%: Html.Translate(() => Resources.KeyColumn) %></th>
                             <% foreach (var language in Model.SelectedLanguages)
                                { %>
                             <th class="sortable"><%= language.EnglishName %></th>
                             <% } %>
                             <% if (Model.AdminMode)
                                {
-                            %><th><%= Html.Translate(() => Resources.DeleteColumn) %></th><%
+                            %><th><%: Html.Translate(() => Resources.DeleteColumn) %></th><%
                                }
                                else
                                {
-                            %><th class="sortable"><%= Html.Translate(() => Resources.FromCodeColumn) %></th><% } %>
+                            %><th class="sortable"><%: Html.Translate(() => Resources.FromCodeColumn) %></th><% } %>
                         </tr>
                     </thead>
                     <tbody>
@@ -382,7 +382,7 @@
                                     <button class="btn" id="cancelNewResource">
                                         <span href="#" class="glyphicon glyphicon-remove"></span>
                                     </button>
-                                    <input class="form-control" id="resourceKey" placeholder="<%= Html.Translate(() => Resources.KeyColumn) %>" style="width: 50%" />
+                                    <input class="form-control" id="resourceKey" placeholder="<%: Html.Translate(() => Resources.KeyColumn) %>" style="width: 50%" />
                                 </div>
                             </td>
                             <% foreach (var language in Model.SelectedLanguages)
@@ -417,7 +417,7 @@
                                         else
                                         { %>
                             <td>
-                                <a href="#" id="<%= language.Name %>" data-pk="<%: resource.Key %>" class="translation"></a>
+                                <a href="#" id="<%= language.Name %>" data-pk="<%: resource.Key %>" data-is-empty="True" class="translation"></a>
                             </td>
                                         <% }
                                     }
@@ -458,16 +458,16 @@
 
             <% if (Model.IsTreeView) { %>
                 <div style="text-align: center;">
-                    <span><a href="#" onclick="jQuery('#resourceList').treetable('expandAll'); return false;">[+] <%= Html.Translate(() => Resources.ExpandAll) %></a> | <a href="#" onclick="jQuery('#resourceList').treetable('collapseAll'); return false;">[-] <%= Html.Translate(() => Resources.CollapseAll) %></a></span>
+                    <span><a href="#" onclick="jQuery('#resourceList').treetable('expandAll'); return false;">[+] <%: Html.Translate(() => Resources.ExpandAll) %></a> | <a href="#" onclick="jQuery('#resourceList').treetable('collapseAll'); return false;">[-] <%: Html.Translate(() => Resources.CollapseAll) %></a></span>
                 </div>
                 <table id="resourceList" class="table table-bordered table-striped table-sorter">
                     <thead>
                         <tr class="header">
-                            <th class="header"><%= Html.Translate(() => Resources.KeyColumn) %></th>
+                            <th class="header"><%: Html.Translate(() => Resources.KeyColumn) %></th>
                             <% foreach (var language in Model.SelectedLanguages) { %>
                                 <th class="header"><%= language.EnglishName %></th>
                             <% } %>
-                            <th class="header"><%= Html.Translate(() => Resources.FromCodeColumn) %></th>
+                            <th class="header"><%: Html.Translate(() => Resources.FromCodeColumn) %></th>
                         </tr>
                     </thead>
                     <% foreach (var resource in Model.Tree) { %>
@@ -535,8 +535,8 @@
                             type: 'textarea',
                             placement: 'top',
                             mode: 'popup',
-                            title: '<%= Html.Translate(() => Resources.TranslationPopupHeader) %>',
-                            emptytext: '<%= Html.Translate(() => Resources.Empty) %>',
+                            title: '<%: Html.Translate(() => Resources.TranslationPopupHeader) %>',
+                            emptytext: '<%: Html.Translate(() => Resources.Empty) %>',
                             showbuttons: 'bottom'
                         });
 
@@ -544,6 +544,7 @@
                             '<button type="button" class="btn btn-default btn-sm editable-cancel"><i class="glyphicon glyphicon-remove"></i></button>' +
                             '<button type="button" class="btn btn-danger btn-sm editable-submit editable-remove" onclick="removeTranslation();"><i class="glyphicon glyphicon-trash"></i></button>';
 
+                        var removeButtonDisabled = <%= Model.IsRemoveTranslationButtonDisabled.ToString().ToLower() %>;
                         $('.localization a.translation').on('shown', function (e, editable) {
                             var $t = $(e.currentTarget);
                             currentResource = {
@@ -551,7 +552,7 @@
                                 lang: $t.attr('id')
                             };
 
-                            if ($t.attr('data-ismodified') == "False") {
+                            if ($t.attr('data-ismodified') == "False" || $t.attr('data-is-empty') == "True" || removeButtonDisabled) {
                                 $t.siblings('.editable-container').find('.editable-remove').prop('disabled', true);
                             } else {
                                 $t.siblings('.editable-container').find('.editable-remove').removeAttr('disabled');
@@ -563,7 +564,7 @@
 
                             var $form = $(this);
                             var pk = $(this).find('input[name=pk]').val();
-                            if (confirm('<%= Html.Translate(() => Resources.DeleteConfirm) %> `' + pk + '`?')) {
+                            if (confirm('<%: Html.Translate(() => Resources.DeleteConfirm) %> `' + pk + '`?')) {
                                 $.ajax({ url: $form.attr('action'), method: 'post', data: $form.serialize() });
                                 $form.closest('.resource').remove();
                             }
@@ -652,12 +653,12 @@
                                 $invariantTranslation = $($form.find('.resource-translation[id="invariant"]')[0]);
 
                             if ($resourceKey.length === 0) {
-                                alert('<%= Html.Translate(() => Resources.ResourceKeyRequired) %>');
+                                alert("<%: Html.Translate(() => Resources.ResourceKeyRequired) %>");
                                 return;
                             }
 
                             if ($invariantTranslation.val().length === 0) {
-                                alert('<%= Html.Translate(() => Resources.TranslationRequiredForInvariantCulture) %>');
+                                alert("<%: Html.Translate(() => Resources.TranslationRequiredForInvariantCulture) %>");
                                 return;
                             }
 
@@ -745,19 +746,19 @@
                         <div class="modal-content">
                             <div class="modal-header">
                                 <button type="button" class="close" data-dismiss="modal">&times;</button>
-                                <h4 class="modal-title"><%= Html.Translate(() => Resources.ChooseLanguage) %></h4>
+                                <h4 class="modal-title"><%: Html.Translate(() => Resources.ChooseLanguage) %></h4>
                             </div>
                             <div class="modal-body row">
                                 <form>
                                     <fieldset class="col-xs-6 source-languages">
-                                        <legend><%= Html.Translate(() => Resources.ImportResources.SourceLanguage) %></legend>
+                                        <legend><%: Html.Translate(() => Resources.ImportResources.SourceLanguage) %></legend>
                                         <% foreach (var sourceLanguage in Model.Languages.Where(l => l != CultureInfo.InvariantCulture))
                                            { %>
                                             <label><input type="radio" name="sourceLang" value="<%= sourceLanguage.Name %>"/><%= sourceLanguage.EnglishName %><br/></label>
                                         <% } %>
                                     </fieldset>
                                     <fieldset class="col-xs-6 target-languages">
-                                        <legend><%= Html.Translate(() => Resources.ImportResources.TargetLanguage) %></legend>
+                                        <legend><%: Html.Translate(() => Resources.ImportResources.TargetLanguage) %></legend>
                                         <% foreach (var sourceLanguage in Model.Languages.Where(l => l != CultureInfo.InvariantCulture))
                                            { %>
                                             <label><input type="radio" name="targetLang" value="<%= sourceLanguage.Name %>"/><%= sourceLanguage.EnglishName %><br/></label>
@@ -766,8 +767,8 @@
                                 </form>
                             </div>
                             <div class="modal-footer">
-                                <button type="button" id="exportButton" class="btn btn-primary"><%= Html.Translate(() => Resources.Export) %></button>
-                                <button type="button" class="btn btn-link" data-dismiss="modal"><%= Html.Translate(() => Resources.Close) %></button>
+                                <button type="button" id="exportButton" class="btn btn-primary"><%: Html.Translate(() => Resources.Export) %></button>
+                                <button type="button" class="btn btn-link" data-dismiss="modal"><%: Html.Translate(() => Resources.Close) %></button>
                             </div>
                         </div>
                     </div>
