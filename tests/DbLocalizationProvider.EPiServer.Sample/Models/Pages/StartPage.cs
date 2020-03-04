@@ -3,6 +3,7 @@ using DbLocalizationProvider.Abstractions;
 using EPiServer.Core;
 using EPiServer.DataAbstraction;
 using EPiServer.DataAnnotations;
+using EPiServer.Shell.ObjectEditing;
 using EPiIgnore = EPiServer.DataAnnotations.IgnoreAttribute;
 
 namespace DbLocalizationProvider.EPiServer.Sample.Models.Pages
@@ -46,6 +47,9 @@ namespace DbLocalizationProvider.EPiServer.Sample.Models.Pages
         [LocalizedEnum(typeof(SomeValuesEnum), true)]
         [BackingType(typeof(PropertyNumber))]
         public virtual SomeValuesEnum SomeValueMany { get; set; }
+
+        [SelectOne(SelectionFactoryType = typeof(SampleSelectionFactory))]
+        public virtual string PickOne { get; set; }
 
     }
 

@@ -1,6 +1,8 @@
 using System.Globalization;
 using DbLocalizationProvider.AdminUI;
 using DbLocalizationProvider.Cache;
+using DbLocalizationProvider.Commands;
+using DbLocalizationProvider.EPiServer.Sample.Models;
 using EPiServer.Core;
 using EPiServer.Framework;
 using EPiServer.Framework.Initialization;
@@ -45,7 +47,15 @@ namespace DbLocalizationProvider.EPiServer.Sample
                                              //_.DisableView(ResourceListView.Table);
 
                                              _.DisableRemoveTranslationButton = true;
+
+                                             _.Events.OnNewResourceCreated += OnNewResourceCreated;
                                          });
+        }
+
+        private void OnNewResourceCreated(CreateNewResources.EventArgs args)
+        {
+            var translation = LocalizationProvider.Current.GetString(args.Key);
+            SampleSelectionFactory.AddNewValue(args.Key, translation);
         }
 
         public void Uninitialize(InitializationEngine context)

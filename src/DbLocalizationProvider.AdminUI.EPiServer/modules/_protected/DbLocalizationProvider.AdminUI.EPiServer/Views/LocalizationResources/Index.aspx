@@ -662,32 +662,30 @@
                                 return;
                             }
 
+                            // create object to post to the server - by adding all non-empty translations
+                            var $translations = $form.find('.resource-translation');
+
+                            var newResourceObj = {
+                                key: $resourceKey,
+                                translations: []
+                            };
+
+                            $.map($translations, function(el) {
+                                if(el.value.length !== 0) {
+                                    // language = el.id
+                                    // translation = el.value
+                                    newResourceObj.translations.push({ language: el.id, value: el.value });
+                                }
+                            });
+
                             $.ajax({
                                 url: '<%= Url.Action("Create") %>',
-                                method: 'POST',
-                                data: 'pk=' + $resourceKey
+                                type: 'POST',
+                                dataType: 'json',
+                                contentType: 'application/json; charset=utf-8',
+                                data: JSON.stringify(newResourceObj)
                             }).success(function() {
-                                var $translations = $form.find('.resource-translation');
-
-                                var requests = [];
-
-                                $.map($translations, function(el) {
-                                    // send update only if translation is not empty
-                                    if(el.value.length !== 0)
-                                    {
-                                        requests.push($.ajax({
-                                            url: '<%= Url.Action("Update") %>',
-                                            method: 'POST',
-                                            data: 'pk=' + $resourceKey + '&name=' + el.id + '&value=' + el.value
-                                        }));
-                                    }
-                                });
-
-                                $.when(requests).then(function() {
-                                    setTimeout(function() {
-                                        location.reload();
-                                    }, 1000);
-                                });
+                                setTimeout(function() { location.reload(); }, 1000);
                             }).error(function(e) {
                                 alert('Error: ' + e.responseJSON.Message);
                             });

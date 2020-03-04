@@ -190,6 +190,21 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="..\..\lib\aspnet\src\DbLocalizationProvider.AdminUI\Events.cs">
+      <Link>Events.cs</Link>
+    </Compile>
+    <Compile Include="..\..\lib\aspnet\src\DbLocalizationProvider.AdminUI\Infrastructure\RawBodyBinder.cs">
+      <Link>Infrastructure\RawBodyBinder.cs</Link>
+    </Compile>
+    <Compile Include="..\..\lib\aspnet\src\DbLocalizationProvider.AdminUI\Models\CreateOrUpdateTranslationRequestModel.cs">
+      <Link>Models\CreateOrUpdateTranslationRequestModel.cs</Link>
+    </Compile>
+    <Compile Include="..\..\lib\aspnet\src\DbLocalizationProvider.AdminUI\Models\CreateResourceRequestModel.cs">
+      <Link>Models\CreateResourceRequestModel.cs</Link>
+    </Compile>
+    <Compile Include="..\..\lib\aspnet\src\DbLocalizationProvider.AdminUI\Models\TranslationRequestModel.cs">
+      <Link>Models\TranslationRequestModel.cs</Link>
+    </Compile>
     <Compile Include="..\CommonAssemblyInfo.cs">
       <Link>Properties\CommonAssemblyInfo.cs</Link>
     </Compile>
@@ -295,6 +310,7 @@
       <Name>DbLocalizationProvider.EPiServer</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>
