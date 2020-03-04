@@ -667,9 +667,7 @@
 
                             var newResourceObj = {
                                 key: $resourceKey,
-                                translations: [
-                                    // { language: '', value: 'inv' }
-                                ]
+                                translations: []
                             };
 
                             $.map($translations, function(el) {
@@ -688,24 +686,6 @@
                                 data: JSON.stringify(newResourceObj)
                             }).success(function() {
                                 setTimeout(function() { location.reload(); }, 1000);
-
-                                // var requests = [];
-                                //
-                                // $.map($translations, function(el) {
-                                //     // send update only if translation is not empty
-                                //     if(el.value.length !== 0)
-                                //     {
-                                //         requests.push($.ajax({
-                                //             url: '<= Url.Action("Update") >',
-                                //             method: 'POST',
-                                //             data: 'pk=' + $resourceKey + '&name=' + el.id + '&value=' + el.value
-                                //         }));
-                                //     }
-                                // });
-
-                                // $.when(requests).then(function() {
-
-                                // });
                             }).error(function(e) {
                                 alert('Error: ' + e.responseJSON.Message);
                             });
