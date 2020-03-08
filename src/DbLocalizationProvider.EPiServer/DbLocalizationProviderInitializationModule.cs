@@ -2,6 +2,8 @@
 // Licensed under Apache-2.0. See the LICENSE file in the project root for more information
 
 using System;
+using System.Globalization;
+using System.Linq;
 using System.Web.Mvc;
 using DbLocalizationProvider.DataAnnotations;
 using DbLocalizationProvider.EPiServer.Queries;
@@ -9,6 +11,7 @@ using DbLocalizationProvider.Queries;
 using EPiServer.Data;
 using EPiServer.Framework;
 using EPiServer.Framework.Initialization;
+using EPiServer.Framework.Localization;
 using EPiServer.ServiceLocation;
 using InitializationModule = EPiServer.Web.InitializationModule;
 
@@ -61,6 +64,21 @@ namespace DbLocalizationProvider.EPiServer
                 // skip if application currently is in read-only mode
                 var dbMode = _engine.Locate.Advanced.GetInstance<IDatabaseMode>().DatabaseMode;
                 if (ctx.DiscoverAndRegisterResources) ctx.DiscoverAndRegisterResources = dbMode != DatabaseMode.ReadOnly;
+
+                // if fallback list is empty - meaning that user has not configured anything
+                // we can jump in and initialize config from Episerver settings
+                if (!ctx.FallbackCultures.Any())
+                {
+                    // read language fallback from the configuration file
+                    if (LocalizationService.Current.FallbackBehavior.HasFlag(FallbackBehaviors.FallbackCulture)
+                    && !Equals(LocalizationService.Current.FallbackCulture, CultureInfo.InvariantCulture))
+                    {
+                        ctx.FallbackCultures.Try(LocalizationService.Current.FallbackCulture);
+                    }
+                }
+
+                // also we need to make sure that invariant culture is last in the list of fallback to invariant is true
+                if (ctx.EnableInvariantCultureFallback) ctx.FallbackCultures.Then(CultureInfo.InvariantCulture);
 
                 // register also model metadata providers
                 // it's a bit different for Episerver compared to default ASP.NET implementation

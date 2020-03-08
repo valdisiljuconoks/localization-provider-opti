@@ -8,9 +8,9 @@ using System.Linq;
 using DbLocalizationProvider.Abstractions;
 using DbLocalizationProvider.AspNet.Queries;
 using DbLocalizationProvider.EPiServer.Queries;
+using DbLocalizationProvider.Logging;
 using DbLocalizationProvider.Queries;
 using EPiServer.Framework.Localization;
-using EPiServer.Logging;
 
 namespace DbLocalizationProvider.EPiServer
 {
@@ -22,16 +22,16 @@ namespace DbLocalizationProvider.EPiServer
         // as this type is created pretty early in the pipeline and none of initialization modules have been run yet
         private readonly Lazy<IQueryHandler<GetTranslation.Query, string>> _originalHandler
             = new Lazy<IQueryHandler<GetTranslation.Query, string>>(() =>
-                                                                    {
-                                                                        if(ConfigurationContext.Current.DiagnosticsEnabled)
-                                                                            return new EPiServerGetTranslation.HandlerWithLogging(new GetTranslationHandler());
+            {
+                if (ConfigurationContext.Current.DiagnosticsEnabled)
+                    return new EPiServerGetTranslation.HandlerWithLogging(new GetTranslationHandler());
 
-                                                                        return new GetTranslationHandler();
-                                                                    });
+                return new GetTranslationHandler();
+            });
 
         public DatabaseLocalizationProvider()
         {
-            _logger = LogManager.GetLogger(typeof(DatabaseLocalizationProvider));
+            _logger = ConfigurationContext.Current.Logger;
         }
 
         public override IEnumerable<CultureInfo> AvailableLanguages => new AvailableLanguages.Query().Execute();
@@ -44,28 +44,25 @@ namespace DbLocalizationProvider.EPiServer
 
             _logger.Debug($"Executing query for resource key `{originalKey}` for language: `{culture.Name}`...");
 
-            // we need to call handler directly here
-            // if we would dispatch query and ask registered handler to execute
-            // we would end up in stack-overflow as in EPiServer context
-            // the same database localization provider is registered as the query handler
-            var foundTranslation = _originalHandler.Value.Execute(new GetTranslation.Query(originalKey, culture, false));
-
-            // this is last chance for Episerver to find translation (asked in translation fallback language)
-            // if no match is found and invariant fallback is configured - return invariant culture translation
-            if (foundTranslation == null
-               && LocalizationService.Current.FallbackBehavior.HasFlag(FallbackBehaviors.FallbackCulture)
-               && ConfigurationContext.Current.EnableInvariantCultureFallback
-               && (Equals(culture, LocalizationService.Current.FallbackCulture) || Equals(culture.Parent, CultureInfo.InvariantCulture)))
-            {
-                _logger.Debug($"Null returned for resource key `{originalKey}` for language: `{culture.Name}`. Executing InvariantCulture fallback.");
-
-                return _originalHandler.Value.Execute(new GetTranslation.Query(originalKey, CultureInfo.InvariantCulture, false));
-            }
+            // NOTE #1:
+            //      we need to call handler directly here
+            //      if we would dispatch query and ask registered handler to execute
+            //      we would end up in stack-overflow as in EPiServer context
+            //      the same database localization provider is registered as the query handler
+            // NOTE #2:
+            //      we also need to check for null and if null was returned - this means that resource does not exist in any language
+            //      all fallback & invariant including (if configured)
+            //      so we must tell EPiServer to stop falling back to other languages for this resource.
+            //      this is done by returning empty string.
+            var foundTranslation = _originalHandler.Value.Execute(new GetTranslation.Query(originalKey, culture)) ?? string.Empty;
 
             return foundTranslation;
         }
 
-        public override IEnumerable<global::EPiServer.Framework.Localization.ResourceItem> GetAllStrings(string originalKey, string[] normalizedKey, CultureInfo culture)
+        public override IEnumerable<global::EPiServer.Framework.Localization.ResourceItem> GetAllStrings(
+            string originalKey,
+            string[] normalizedKey,
+            CultureInfo culture)
         {
             // this is special case for Episerver ;)
             // https://world.episerver.com/forum/developer-forum/-Episerver-75-CMS/Thread-Container/2019/10/takes-a-lot-of-time-for-epi-cms-resources-to-load-on-dxc-service/

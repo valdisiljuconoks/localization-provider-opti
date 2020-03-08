@@ -57,6 +57,10 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "aspnet", "aspnet", "{7C8090
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DbLocalizationProvider.Storage.SqlServer", "lib\aspnet\lib\localization-provider\src\DbLocalizationProvider.Storage.SqlServer\DbLocalizationProvider.Storage.SqlServer.csproj", "{1F844BD3-32CB-4416-ABF1-52C6AA276458}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{8C4DF3D5-A0BC-4DE7-9162-DC7581518A8B}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DbLocalizationProvider.Tests", "lib\aspnet\lib\localization-provider\Tests\DbLocalizationProvider.Tests\DbLocalizationProvider.Tests.csproj", "{54CACE02-8BF9-4829-B07E-FCFEA5B2361D}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -119,6 +123,10 @@ Global
 		{1F844BD3-32CB-4416-ABF1-52C6AA276458}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1F844BD3-32CB-4416-ABF1-52C6AA276458}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1F844BD3-32CB-4416-ABF1-52C6AA276458}.Release|Any CPU.Build.0 = Release|Any CPU
+		{54CACE02-8BF9-4829-B07E-FCFEA5B2361D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{54CACE02-8BF9-4829-B07E-FCFEA5B2361D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{54CACE02-8BF9-4829-B07E-FCFEA5B2361D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{54CACE02-8BF9-4829-B07E-FCFEA5B2361D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -134,6 +142,8 @@ Global
 		{084EF582-BB58-4664-856E-E7D7065F16C2} = {A9F4B9DA-198B-4A20-89D2-4BB59FA03BA2}
 		{4CE9BFFA-754B-435C-A11C-F0C1A6E236F0} = {7C809061-4A95-416F-AD19-D32CC0C7D5A2}
 		{1F844BD3-32CB-4416-ABF1-52C6AA276458} = {F215E143-06FB-439D-8DE1-3B110701792B}
+		{8C4DF3D5-A0BC-4DE7-9162-DC7581518A8B} = {F215E143-06FB-439D-8DE1-3B110701792B}
+		{54CACE02-8BF9-4829-B07E-FCFEA5B2361D} = {8C4DF3D5-A0BC-4DE7-9162-DC7581518A8B}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {0A27FFA5-2F3B-43AB-9607-7BDD8F92F931}
