@@ -19,6 +19,7 @@ Giving you main following features:
 
 ## Getting Started
 * [Getting Started](docs/getting-started-epi.md)
+* [Customizing Provider](docs/customizing-provider-epi.md)
 
 ## Working with DbLocalizationProvider
 * For more info about generic localization provider features read more [here](https://github.com/valdisiljuconoks/LocalizationProvider/blob/master/README.md)
