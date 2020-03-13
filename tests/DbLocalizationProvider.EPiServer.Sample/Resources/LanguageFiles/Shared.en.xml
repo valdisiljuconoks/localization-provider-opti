@@ -12,6 +12,9 @@
       <ipadhorizontal>iPad (H)</ipadhorizontal>
       <iphonevertical>iPad (V)</iphonevertical>
     </resolutions>
+    <footer>
+        <logout>Logout</logout>
+    </footer>
     <Views>
       <Shared>
         <Header>

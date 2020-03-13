@@ -58,7 +58,6 @@ namespace DbLocalizationProvider.EPiServer
 
                 ctx.TypeFactory.ForQuery<AvailableLanguages.Query>().SetHandler<EPiServerAvailableLanguages.Handler>();
                 ctx.TypeFactory.ForQuery<DetermineDefaultCulture.Query>().SetHandler<EPiServerDetermineDefaultCulture.Handler>();
-                ctx.TypeFactory.ForQuery<GetTranslation.Query>().SetHandler<EPiServerGetTranslation.Handler>();
 
                 // respect configuration whether we should sync and register resources
                 // skip if application currently is in read-only mode

@@ -114,6 +114,9 @@
     Translate("/xpath1"): @Html.Translate("/some/resource/in/xpath1")
 </div>
 <div>
+    Action.Link(Translate("/footer/logout")): @{ @Html.ActionLink(Html.Translate("/footer/logout"), "Logout", new { language = @Model.CurrentPage.Language.Name }) }
+</div>
+<div>
     Class1.JustSimpleResource: @Html.Translate(() => Class1.JustSimpleResource)
 </div>
 <hr/>
