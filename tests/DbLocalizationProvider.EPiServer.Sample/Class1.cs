@@ -1,4 +1,5 @@
-﻿using DbLocalizationProvider;
+using DbLocalizationProvider;
+using DbLocalizationProvider.Abstractions;
 
 namespace MyProject
 {
@@ -10,6 +11,10 @@ namespace MyProject
         public static string FifthProperty => "Fifth";
 
         public string InstanceProperty = "Instance property";
+
+        [TranslationForCulture("English", "en")]
+        [TranslationForCulture("", "no")]
+        public static string EmptyInNorwegian => "Empty in Norwegian";
     }
 
     [LocalizedResource]

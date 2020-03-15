@@ -5,13 +5,13 @@
 @using DbLocalizationProvider.EPiServer.Sample.Resources
 @using EPiServer.Framework.Localization
 @using MyProject
-@using LocProvider = DbLocalizationProvider.LocalizationProvider
+@using LocalizationProvider = DbLocalizationProvider.LocalizationProvider
 @model DbLocalizationProvider.EPiServer.Sample.Models.ViewModels.StartPageViewModel
 
 @{
     Layout = null;
 
-    var localized = LocProvider.Current.Translate<MyProject.MyResources>();
+    var localized = LocalizationProvider.Current.Translate<MyProject.MyResources>();
 }
 
 <!DOCTYPE html>
@@ -125,6 +125,9 @@
     <div>
         @(Html.Translate(() => NullReferenceTestResources.StaticNested.SomeRes))
     </div>
+</div>
+<div>
+    string.IsEmpty(Provider.GetString(() => Resource.EmptyStringInNorwegian, "no")): @(LocalizationService.Current.GetStringByCulture(() => MyResources.EmptyInNorwegian, new CultureInfo("no")) == string.Empty)
 </div>
 
 </body>
