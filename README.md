@@ -21,6 +21,9 @@ Giving you main following features:
 * [Getting Started](docs/getting-started-epi.md)
 * [Customizing Provider](docs/customizing-provider-epi.md)
 
+## Migrating from v5.x?
+Please visit [blog post]() to get more information about new features added in v6 and also how to migrate.
+
 ## Working with DbLocalizationProvider
 * For more info about generic localization provider features read more [here](https://github.com/valdisiljuconoks/LocalizationProvider/blob/master/README.md)
 
