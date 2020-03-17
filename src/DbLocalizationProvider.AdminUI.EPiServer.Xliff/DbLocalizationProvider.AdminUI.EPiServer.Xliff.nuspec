@@ -14,12 +14,12 @@
     <copyright>Copyright 2020 (c) Valdis Iljuconoks, Tech Fellow</copyright>
     <tags>Localization Provider DbLocalization DbLocalizationProvider LocalizationProvider Xliff Export Import</tags>
     <dependencies>
-      <dependency id="LocalizationProvider.Abstractions" version="[6.0.1, 7.0.0)" />
-      <dependency id="LocalizationProvider" version="[6.0.1, 7.0.0)" />
-      <dependency id="LocalizationProvider.AspNet" version="[6.0.1, 7.0.0)" />
-      <dependency id="DbLocalizationProvider.EPiServer" version="[6.0.1, 7.0.0)" />
-      <dependency id="DbLocalizationProvider.AdminUI.EPiServer" version="[6.0.1, 7.0.0)" />
-      <dependency id="LocalizationProvider.Xliff" version="[6.0.1, 7.0.0)" />
+      <dependency id="LocalizationProvider.Abstractions" version="[6.0.2, 7.0.0)" />
+      <dependency id="LocalizationProvider" version="[6.0.2, 7.0.0)" />
+      <dependency id="LocalizationProvider.AspNet" version="[6.0.2, 7.0.0)" />
+      <dependency id="DbLocalizationProvider.EPiServer" version="[6.0.2, 7.0.0)" />
+      <dependency id="DbLocalizationProvider.AdminUI.EPiServer" version="[6.0.2, 7.0.0)" />
+      <dependency id="LocalizationProvider.Xliff" version="[6.0.2, 7.0.0)" />
       <dependency id="Castle.Core" version="4.2.1" />
       <dependency id="EPiServer.CMS.AspNet" version="[11.2.0, 12.0.0)" />
       <dependency id="EPiServer.CMS.UI.Core" version="[11.21.1, 12.0.0)" />
