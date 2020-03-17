@@ -649,22 +649,15 @@
 
                         $('#saveResource').on('click', function() {
                             var $form = $('.new-resource-form'),
-                                $resourceKey = $form.find('#resourceKey').val().replace('+', '%2B'),
-                                $invariantTranslation = $($form.find('.resource-translation[id="invariant"]')[0]);
+                                $resourceKey = $form.find('#resourceKey').val().replace('+', '%2B');
 
                             if ($resourceKey.length === 0) {
                                 alert("<%: Html.Translate(() => Resources.ResourceKeyRequired) %>");
                                 return;
                             }
 
-                            if ($invariantTranslation.val().length === 0) {
-                                alert("<%: Html.Translate(() => Resources.TranslationRequiredForInvariantCulture) %>");
-                                return;
-                            }
-
                             // create object to post to the server - by adding all non-empty translations
                             var $translations = $form.find('.resource-translation');
-
                             var newResourceObj = {
                                 key: $resourceKey,
                                 translations: []
@@ -677,6 +670,11 @@
                                     newResourceObj.translations.push({ language: el.id, value: el.value });
                                 }
                             });
+
+                            if (newResourceObj.translations.length === 0) {
+                                alert("<%: Html.Translate(() => Resources.TranslationRequired) %>");
+                                return;
+                            }
 
                             $.ajax({
                                 url: '<%= Url.Action("Create") %>',
