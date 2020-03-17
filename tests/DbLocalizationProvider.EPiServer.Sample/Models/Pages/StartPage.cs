@@ -8,6 +8,12 @@ using EPiIgnore = EPiServer.DataAnnotations.IgnoreAttribute;
 
 namespace DbLocalizationProvider.EPiServer.Sample.Models.Pages
 {
+    [LocalizedModel(KeyPrefix = "/contenttypes/pagedatabase")]
+    public class AnotherPage : PageData
+    {
+
+    }
+
     [ContentType(DisplayName = "StartPage", GUID = "95a3aafc-7f64-4168-a7f6-53cccc1557b3", Description = "")]
     [LocalizedModel(OnlyIncluded = true)]
     public class StartPage : PageData
