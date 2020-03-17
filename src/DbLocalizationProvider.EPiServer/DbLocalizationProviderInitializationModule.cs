@@ -76,9 +76,6 @@ namespace DbLocalizationProvider.EPiServer
                     }
                 }
 
-                // also we need to make sure that invariant culture is last in the list of fallback to invariant is true
-                if (ctx.EnableInvariantCultureFallback) ctx.FallbackCultures.Then(CultureInfo.InvariantCulture);
-
                 // register also model metadata providers
                 // it's a bit different for Episerver compared to default ASP.NET implementation
                 // In Episerver - providers are located in IoC (instead of `ModelMetadataProviders.Current` in case with ASP.NET)
