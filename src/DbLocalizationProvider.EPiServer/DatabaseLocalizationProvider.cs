@@ -17,9 +17,9 @@ namespace DbLocalizationProvider.EPiServer
             // this is special case for Episerver ;)
             // https://world.episerver.com/forum/developer-forum/-Episerver-75-CMS/Thread-Container/2019/10/takes-a-lot-of-time-for-epi-cms-resources-to-load-on-dxc-service/
 
-            return !ConfigurationContext.Current.ResourceLookupFilter(originalKey)
-                ? null
-                : new GetTranslation.Query(originalKey, culture).Execute();
+            return ConfigurationContext.Current.ResourceLookupFilter(originalKey)
+                ? new GetTranslation.Query(originalKey, culture).Execute()
+                : null;
         }
 
         public override IEnumerable<global::EPiServer.Framework.Localization.ResourceItem> GetAllStrings(
@@ -38,6 +38,7 @@ namespace DbLocalizationProvider.EPiServer
 
             return q.Execute()
                     .Select(r => new global::EPiServer.Framework.Localization.ResourceItem(r.Key, r.Value, r.SourceCulture));
+
         }
     }
 }
