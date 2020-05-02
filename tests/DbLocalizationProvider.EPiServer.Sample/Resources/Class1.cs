@@ -1,4 +1,4 @@
-﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations;
 using DbLocalizationProvider.Abstractions;
 using DbLocalizationProvider.Abstractions.Refactoring;
 
@@ -48,6 +48,8 @@ namespace DbLocalizationProvider.EPiServer.Sample.Resources
     [LocalizedResource]
     public class SomeXPathResources
     {
+        public static string AnotherRes { get; set; } = "Something weird";
+
         [ResourceKey("/some/resource/in/xpath1")]
         public static string Xpath1 => "Translation for XPath1";
     }
