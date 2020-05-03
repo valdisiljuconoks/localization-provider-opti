@@ -46,6 +46,8 @@ namespace DbLocalizationProvider.EPiServer.Sample
                 _.DisableRemoveTranslationButton = true;
 
                 _.Events.OnNewResourceCreated += OnNewResourceCreated;
+
+                _.HideDeleteButton = false;
             });
         }
 

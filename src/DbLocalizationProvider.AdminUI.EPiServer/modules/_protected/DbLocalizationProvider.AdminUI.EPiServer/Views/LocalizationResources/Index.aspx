@@ -363,7 +363,7 @@
                                { %>
                             <th class="sortable"><%= language.EnglishName %></th>
                             <% } %>
-                            <% if (Model.AdminMode)
+                            <% if (Model.AdminMode && Model.IsDeleteButtonVisible)
                                {
                             %><th><%: Html.Translate(() => Resources.DeleteColumn) %></th><%
                                }
@@ -422,7 +422,7 @@
                                         <% }
                                     }
                                 } %>
-                            <% if (Model.AdminMode)
+                            <% if (Model.AdminMode && Model.IsDeleteButtonVisible)
                                 {
                                %><td>
                                     <form action="<%= Url.Action("Delete") %>" method="post" class="delete-form">
