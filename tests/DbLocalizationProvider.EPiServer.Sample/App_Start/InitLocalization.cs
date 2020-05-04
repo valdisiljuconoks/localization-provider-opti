@@ -1,4 +1,4 @@
-using System.Globalization;
+                                                                                                                                    using System.Globalization;
 using DbLocalizationProvider.AdminUI;
 using DbLocalizationProvider.Cache;
 using DbLocalizationProvider.Commands;
@@ -43,7 +43,7 @@ namespace DbLocalizationProvider.EPiServer.Sample
 
                 //_.DisableView(ResourceListView.Table);
 
-                _.DisableRemoveTranslationButton = true;
+                _.DisableRemoveTranslationButton = false;
 
                 _.Events.OnNewResourceCreated += OnNewResourceCreated;
 
