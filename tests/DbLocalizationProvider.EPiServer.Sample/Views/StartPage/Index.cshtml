@@ -129,6 +129,11 @@
 <div>
     string.IsEmpty(Provider.GetString(() => Resource.EmptyStringInNorwegian, "no")): @(LocalizationService.Current.GetStringByCulture(() => MyResources.EmptyInNorwegian, new CultureInfo("no")) == string.Empty)
 </div>
-
+<hr/>
+<div>
+    <div>
+        Fallback test (FifthProperty / en-ZA): @Html.TranslateByCulture(() => MyResources.FifthProperty, new CultureInfo("en-ZA"))
+    </div>
+</div>
 </body>
 </html>

@@ -27,6 +27,10 @@ namespace DbLocalizationProvider.EPiServer.Sample
                 _.DefaultResourceCulture = CultureInfo.InvariantCulture;
                 _.CacheManager.OnRemove += CacheManagerOnOnRemove;
                 _.PopulateCacheOnStartup = false;
+
+                _.FallbackCultures.When(new CultureInfo("en-ZA"))
+                 .Try(new CultureInfo("no"));
+
             });
 
             UiConfigurationContext.Setup(_ =>
@@ -34,19 +38,13 @@ namespace DbLocalizationProvider.EPiServer.Sample
                 //_.DefaultView = ResourceListView.Tree;
                 _.TreeViewExpandedByDefault = true;
                 _.ShowInvariantCulture = true;
-
                 //_.AuthorizedAdminRoles.Clear();
                 _.AuthorizedAdminRoles.Add("SomeFancyAdminRole");
-
                 //_.AuthorizedEditorRoles.Clear();
                 _.AuthorizedEditorRoles.Add("SomeFancyEditorRole");
-
                 //_.DisableView(ResourceListView.Table);
-
                 _.DisableRemoveTranslationButton = false;
-
                 _.Events.OnNewResourceCreated += OnNewResourceCreated;
-
                 _.HideDeleteButton = false;
             });
         }
