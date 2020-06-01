@@ -286,6 +286,9 @@
                 <form action="<%= Url.Action("Tree") %>" method="get" id="treeViewForm">
                     <input type="hidden" name="showMenu" value="<%= Model.ShowMenu %>"/>
                 </form>
+                <form action="<%= Url.Action("CleanCache") %>" onsubmit="return confirm('<%: Html.Translate(() => Resources.CleanCacheConfirmation) %>')" method="get" id="cleanCacheForm">
+                    <input type="hidden" name="showMenu" value="<%= Model.ShowMenu %>"/>
+                </form>
                 <div class="epi-buttonContainer">
                     <span class="epi-cmsButton">
                     <% if(ConfigurationContext.Current.Export.Providers.Count == 1)
@@ -309,6 +312,13 @@
                     %>
                         <span class="epi-cmsButton">
                             <input class="epi-cmsButton-text epi-cmsButton-tools epi-cmsButton-Import" type="submit" id="importResources" value="<%: Html.Translate(() => Resources.ImportResources.Import) %>" title="<%: Html.Translate(() => Resources.ImportResources.Import) %>" onclick="$('#importLinkForm').submit();" /></span>
+                    <%
+                       } %>
+                    <% if (Model.AdminMode)
+                       {
+                    %>
+                        <span class="epi-cmsButton">
+                            <input class="epi-cmsButton-text epi-cmsButton-tools epi-cmsButton-Delete" type="submit" id="cleanCache" value="<%: Html.Translate(() => Resources.CleanCache) %>" title="<%: Html.Translate(() => Resources.CleanCache) %>" onclick="$('#cleanCacheForm').submit();" /></span>
                     <%
                        } %>
                     <% if (Model.AdminMode)
