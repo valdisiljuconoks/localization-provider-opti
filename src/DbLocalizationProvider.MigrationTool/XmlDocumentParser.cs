@@ -64,8 +64,7 @@ namespace DbLocalizationProvider.MigrationTool
                 {
                     var resourceTranslation = element.Value.Trim();
 
-                    var existingResource = result.FirstOrDefault(r =>
-                        string.Equals(r.ResourceKey, resourceKey, StringComparison.InvariantCultureIgnoreCase));
+                    var existingResource = result.FirstOrDefault(r => string.Equals(r.ResourceKey, resourceKey, StringComparison.InvariantCultureIgnoreCase));
                     if (existingResource != null)
                     {
                         var existingTranslation = existingResource.Translations.FirstOrDefault(t => t.Language == cultureName);
@@ -88,7 +87,11 @@ namespace DbLocalizationProvider.MigrationTool
                     {
                         var resourceEntry = new LocalizationResource
                         {
-                            ResourceKey = resourceKey, ModificationDate = DateTime.Now, Author = "migration-tool"
+                            ResourceKey = resourceKey,
+                            IsHidden = false,
+                            IsModified = false,
+                            ModificationDate = DateTime.Now,
+                            Author = "migration-tool"
                         };
 
                         resourceEntry.Translations.Add(new LocalizationResourceTranslation
