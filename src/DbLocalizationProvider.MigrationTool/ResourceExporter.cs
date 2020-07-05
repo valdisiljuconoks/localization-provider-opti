@@ -10,15 +10,13 @@ using DbLocalizationProvider.Sync;
 
 namespace DbLocalizationProvider.MigrationTool
 {
-    internal class ResourceExtractor
+    internal class ResourceExporter
     {
-        internal ICollection<LocalizationResource> Extract(MigrationToolOptions settings)
+        internal ICollection<LocalizationResource> Export(MigrationToolOptions settings)
         {
             ICollection<LocalizationResource> resources = new List<LocalizationResource>();
 
-            if(settings.ExportFromXmlOnly)
-                resources = GetXmlResources(settings);
-
+            if(settings.ExportFromXmlOnly) resources = GetXmlResources(settings);
             if(settings.ExportFromDatabase)
             {
                 var repo = new ResourceRepository();
@@ -32,17 +30,14 @@ namespace DbLocalizationProvider.MigrationTool
 
         private void InitializeDb(MigrationToolOptions settings)
         {
-            // initialize DB - to generate data structures
+            try
             {
-                try
-                {
-                    var updater = new SchemaUpdater();
-                    updater.Execute(new UpdateSchema.Command());
-                }
-                catch
-                {
-                    // it's OK to have exception here
-                }
+                var updater = new SchemaUpdater();
+                updater.Execute(new UpdateSchema.Command());
+            }
+            catch
+            {
+                // it's OK to have exception here
             }
         }
 

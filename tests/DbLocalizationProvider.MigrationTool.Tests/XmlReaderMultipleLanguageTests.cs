@@ -73,7 +73,7 @@ namespace DbLocalizationProvider.MigrationTool.Tests
             var parser = new XmlDocumentParser();
             var doc = XDocument.Parse(xmlSample);
 
-            var resource = parser.ReadXml(doc, true).ToList();
+            var resource = parser.ReadXml(doc, true, "in-memory").ToList();
 
             var firstResource = resource.First();
             Assert.Equal("/displayoption", firstResource.ResourceKey);

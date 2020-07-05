@@ -3,6 +3,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Xml.Linq;
 
@@ -12,13 +13,15 @@ namespace DbLocalizationProvider.MigrationTool
     {
         public ICollection<LocalizationResource> ReadXml(XDocument xmlDocument)
         {
-            return ReadXml(xmlDocument, false);
+            return ReadXml(xmlDocument, false, string.Empty);
         }
 
-        public ICollection<LocalizationResource> ReadXml(XDocument xmlDocument, bool ignoreDuplicateKeys)
+        public ICollection<LocalizationResource> ReadXml(XDocument xmlDocument, bool ignoreDuplicateKeys, string resourceFile)
         {
             if (xmlDocument == null)
+            {
                 throw new ArgumentNullException(nameof(xmlDocument));
+            }
 
             var result = new List<LocalizationResource>();
             var allLanguageElements = xmlDocument.Elements("languages");
@@ -26,17 +29,20 @@ namespace DbLocalizationProvider.MigrationTool
             foreach (var languageElement in allLanguageElements.Elements("language"))
             {
                 var cultureId = languageElement.Attribute("id");
-                ParseResource(languageElement.Elements(), cultureId.Value, ref result, string.Empty, ignoreDuplicateKeys);
+                if (cultureId == null) throw new InvalidOperationException($"Culture name in file `{resourceFile}` is empty");
+
+                var culture = new CultureInfo(cultureId.Value);
+                ParseResource(languageElement.Elements(), culture.Name, ref result, string.Empty, ignoreDuplicateKeys);
             }
 
             return result;
         }
 
         private static void ParseResource(IEnumerable<XElement> resourceElements,
-                                          string cultureName,
-                                          ref List<LocalizationResource> result,
-                                          string keyPrefix,
-                                          bool ignoreDuplicateKeys)
+            string cultureName,
+            ref List<LocalizationResource> result,
+            string keyPrefix,
+            bool ignoreDuplicateKeys)
         {
             foreach (var element in resourceElements)
             {
@@ -58,7 +64,8 @@ namespace DbLocalizationProvider.MigrationTool
                 {
                     var resourceTranslation = element.Value.Trim();
 
-                    var existingResource = result.FirstOrDefault(r => string.Equals(r.ResourceKey, resourceKey, StringComparison.InvariantCultureIgnoreCase));
+                    var existingResource = result.FirstOrDefault(r =>
+                        string.Equals(r.ResourceKey, resourceKey, StringComparison.InvariantCultureIgnoreCase));
                     if (existingResource != null)
                     {
                         var existingTranslation = existingResource.Translations.FirstOrDefault(t => t.Language == cultureName);
@@ -72,26 +79,22 @@ namespace DbLocalizationProvider.MigrationTool
                         else
                         {
                             existingResource.Translations.Add(new LocalizationResourceTranslation
-                                                              {
-                                                                  Language = cultureName,
-                                                                  Value = resourceTranslation
-                                                              });
+                            {
+                                Language = cultureName, Value = resourceTranslation
+                            });
                         }
                     }
                     else
                     {
                         var resourceEntry = new LocalizationResource
-                                            {
-                                                ResourceKey = resourceKey,
-                                                ModificationDate = DateTime.Now,
-                                                Author = "migration-tool"
-                                            };
+                        {
+                            ResourceKey = resourceKey, ModificationDate = DateTime.Now, Author = "migration-tool"
+                        };
 
                         resourceEntry.Translations.Add(new LocalizationResourceTranslation
-                                                       {
-                                                           Language = cultureName,
-                                                           Value = resourceTranslation
-                                                       });
+                        {
+                            Language = cultureName, Value = resourceTranslation
+                        });
 
                         result.Add(resourceEntry);
                     }

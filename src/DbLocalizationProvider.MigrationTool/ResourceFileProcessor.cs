@@ -35,7 +35,7 @@ namespace DbLocalizationProvider.MigrationTool
             {
                 var stream = File.OpenText(resourceFile);
                 var contentXml = XDocument.Load(stream);
-                var resources = _parser.ReadXml(contentXml, _ignoreDuplicateKeys);
+                var resources = _parser.ReadXml(contentXml, _ignoreDuplicateKeys, resourceFile);
 
                 result = _mergeTool.Merge(result, resources, _ignoreDuplicateKeys).ToList();
             }

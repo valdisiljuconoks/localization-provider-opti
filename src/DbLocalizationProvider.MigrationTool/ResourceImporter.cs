@@ -15,7 +15,7 @@ namespace DbLocalizationProvider.MigrationTool
             var sourceImportFilePath = Path.Combine(settings.SourceDirectory, "localization-resource-translations.sql");
             if (!File.Exists(sourceImportFilePath))
             {
-                throw new IOException($"Source file '{sourceImportFilePath}' for import not found!");
+                throw new IOException($"Import source file '{sourceImportFilePath}' not found!");
             }
 
             // create DB structures in target database
