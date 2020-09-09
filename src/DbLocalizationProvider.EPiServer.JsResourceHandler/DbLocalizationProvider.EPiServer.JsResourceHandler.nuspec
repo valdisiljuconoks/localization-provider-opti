@@ -15,11 +15,11 @@
     <copyright>Copyright 2020 (c) Valdis Iljuconoks, Tech Fellow</copyright>
     <tags>Localization EPiServer Provider DbLocalization DbLocalizationProvider LocalizationProvider Javascript Client-side</tags>
     <dependencies>
-      <dependency id="LocalizationProvider.Abstractions" version="[6.2.0, 7.0.0)" />
-      <dependency id="LocalizationProvider" version="[6.2.0, 7.0.0)" />
-      <dependency id="LocalizationProvider.AspNet" version="[6.2.0, 7.0.0)" />
-      <dependency id="LocalizationProvider.JsResourceHandler" version="[6.2.0, 7.0.0)" />
-      <dependency id="DbLocalizationProvider.EPiServer" version="[6.2.0, 7.0.0)" />
+      <dependency id="LocalizationProvider.Abstractions" version="[6.2.1]" />
+      <dependency id="LocalizationProvider" version="[6.2.1]" />
+      <dependency id="LocalizationProvider.AspNet" version="[6.2.1]" />
+      <dependency id="LocalizationProvider.JsResourceHandler" version="[6.2.1]" />
+      <dependency id="DbLocalizationProvider.EPiServer" version="[6.2.1]" />
       <dependency id="Castle.Core" version="4.2.1" />
       <dependency id="EPiServer.CMS.AspNet" version="[11.2.0, 12.0.0)" />
       <dependency id="Owin" version="1.0.0" />
