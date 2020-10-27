@@ -34,6 +34,12 @@ Execute this line to install administration user interface:
 PM> Install-Package DbLocalizationProvider.AdminUI.EPiServer
 ```
 
+And also you might need to install SQL Server storage implementation (if you are using default EPiServer database to store resources):
+
+```
+PM> Install-Package LocalizationProvider.Storage.SqlServer
+```
+
 ### Config File Changes
 
 
@@ -78,5 +84,33 @@ public class InitializationModule1 : IInitializableModule
 }
 ```
 
-For list of available startup configuration options [go here](http://blog.tech-fellow.net/2016/04/21/db-localization-provider-part-2-configuration-and-extensions/#configuringdblocalizationprovider).
+## Configuration of SQL Server
+In order to get localization provider to work properly - you might need to point to EPiServer database also.
+This is done by pointing which database to use:
 
+```csharp
+using DbLocalizationProvider;
+
+[InitializableModule]
+public class InitializationModule1 : IInitializableModule
+{
+    public void Initialize(InitializationEngine context)
+    {
+        ConfigurationContext.Setup(ctx =>
+        {
+            // instead of `EPiServerDataStoreSection.Instance.DataSettings.ConnectionStringName`
+            // you can also just use "EPiServerDB" if you haven't changed connection string name in your project
+            
+            var connectionString = ConfigurationManager
+                .ConnectionStrings[EPiServerDataStoreSection.Instance.DataSettings.ConnectionStringName]
+                .ConnectionString;
+
+            ctx.UseSqlServer(connectionString);
+        });
+    }
+
+    public void Uninitialize(InitializationEngine context) { }
+}
+```
+
+For list of available startup configuration options [go here](http://blog.tech-fellow.net/2016/04/21/db-localization-provider-part-2-configuration-and-extensions/#configuringdblocalizationprovider).

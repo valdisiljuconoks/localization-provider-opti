@@ -104,7 +104,7 @@ or
 **Note:** Those resources that do not have translation in requested language will not be emitted in resulting `json` response.
 
 ## Translations Only in JSON
-If you need to retrieve translations only in JSON format (without any `window` thingies) then either you can issue simple XHR request to the endpoint:
+If you need to retrieve translations only in JSON format (without any `window` thingies) then you can just send simple XHR request to the endpoint:
 
 ```
 $.ajax({
@@ -115,6 +115,6 @@ $.ajax({
 });
 ```
 
-Localization provider is checking either `Accept: application/json` or `X-Requested-With: XMLHttpRequest` headers.
+Localization provider is checking one of headers - `Accept: application/json` or `X-Requested-With: XMLHttpRequest`.
 
-Or append `?json=true` to the query string (e.g. `/jsl10n/MyProject.MyResources?json=true`).
+Or you can append `?json=true` to the query string (e.g. `/jsl10n/MyProject.MyResources?json=true`) to get the same effect.
