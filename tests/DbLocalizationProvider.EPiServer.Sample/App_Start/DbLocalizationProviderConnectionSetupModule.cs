@@ -30,6 +30,7 @@ namespace DbLocalizationProvider.EPiServer.Sample
                 _.UseSqlServer(connectionString);
             });
 
+            // trying out to sync db schema once again (after this has been already done in init pipeline)
             var sync = new Synchronizer();
             sync.UpdateStorageSchema();
         }

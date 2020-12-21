@@ -8,6 +8,7 @@ using System.Web.Mvc;
 using DbLocalizationProvider.DataAnnotations;
 using DbLocalizationProvider.EPiServer.Queries;
 using DbLocalizationProvider.Queries;
+using DbLocalizationProvider.Sync;
 using EPiServer.Data;
 using EPiServer.Framework;
 using EPiServer.Framework.Initialization;
@@ -115,6 +116,7 @@ namespace DbLocalizationProvider.EPiServer
             // make sure that Episerver knows about LocalizationProvider
             _context.Services.AddSingleton(LocalizationProvider.Current);
             _context.Services.AddSingleton<ILocalizationProvider>(LocalizationProvider.Current);
+            _context.Services.AddTransient<ISynchronizer, Synchronizer>();
         }
     }
 }

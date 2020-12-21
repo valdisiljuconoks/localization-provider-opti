@@ -1,8 +1,10 @@
-                                                                                                                                    using System.Globalization;
+using System.Collections.Generic;
+using System.Globalization;
 using DbLocalizationProvider.AdminUI;
 using DbLocalizationProvider.Cache;
 using DbLocalizationProvider.Commands;
 using DbLocalizationProvider.EPiServer.Sample.Models;
+using DbLocalizationProvider.Sync;
 using EPiServer.Core;
 using EPiServer.Framework;
 using EPiServer.Framework.Initialization;
@@ -31,6 +33,8 @@ namespace DbLocalizationProvider.EPiServer.Sample
                 _.FallbackCultures.When(new CultureInfo("en-ZA"))
                  .Try(new CultureInfo("no"));
 
+                // manually register some resources
+                _.ManualResourceProvider = new SomeManualResources();
             });
 
             UiConfigurationContext.Setup(_ =>

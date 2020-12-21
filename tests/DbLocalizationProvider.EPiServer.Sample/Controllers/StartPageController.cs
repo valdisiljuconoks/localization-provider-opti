@@ -1,7 +1,9 @@
+using System.Collections.Generic;
 using System.Globalization;
 using System.Web.Mvc;
 using DbLocalizationProvider.EPiServer.Sample.Models.Pages;
 using DbLocalizationProvider.EPiServer.Sample.Models.ViewModels;
+using DbLocalizationProvider.Sync;
 using EPiServer.Framework.Localization;
 using EPiServer.Logging;
 using EPiServer.Web.Mvc;
@@ -12,11 +14,13 @@ namespace DbLocalizationProvider.EPiServer.Sample.Controllers
     {
         private readonly LocalizationService _service;
         private readonly ILocalizationProvider _provider;
+        private readonly ISynchronizer _synchronizer;
 
-        public StartPageController(LocalizationService service, ILocalizationProvider provider)
+        public StartPageController(LocalizationService service, ILocalizationProvider provider, ISynchronizer synchronizer)
         {
             _service = service;
             _provider = provider;
+            _synchronizer = synchronizer;
         }
 
         public ActionResult Index(StartPage currentPage, string lg)
@@ -25,6 +29,13 @@ namespace DbLocalizationProvider.EPiServer.Sample.Controllers
                 CultureInfo.CurrentUICulture = new CultureInfo(lg);
 
             LogManager.GetLogger(typeof(StartPageController)).Log(Level.Information, "Test log message");
+
+
+            // register manually some of the resources
+            _synchronizer.RegisterManually(new List<ManualResource>
+            {
+                new ManualResource("Manual.Resource.1", "English translation", new CultureInfo("en"))
+            });
 
             var tr = _provider.GetString("DbLocalizationProvider.EPiServer.Sample.Models.Pages.SomeValuesEnum.SecondValue");
             var trSv = _provider.GetStringByCulture("DbLocalizationProvider.EPiServer.Sample.Models.Pages.SomeValuesEnum.SecondValue", new CultureInfo("sv"));

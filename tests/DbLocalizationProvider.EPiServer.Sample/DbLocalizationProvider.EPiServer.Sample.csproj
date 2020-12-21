@@ -295,6 +295,7 @@
     <Compile Include="App_Start\DbLocalizationProviderConnectionSetupModule.cs" />
     <Compile Include="App_Start\DependencyResolverInitialization.cs" />
     <Compile Include="App_Start\InitLocalization.cs" />
+    <Compile Include="App_Start\SomeManualResources.cs" />
     <Compile Include="Class1.cs" />
     <Compile Include="ClientSideResources\Class2.cs" />
     <Compile Include="ContainerClass.cs" />
