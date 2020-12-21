@@ -90,7 +90,7 @@ namespace DbLocalizationProvider.MigrationTool
                             ResourceKey = resourceKey,
                             IsHidden = false,
                             IsModified = false,
-                            ModificationDate = DateTime.Now,
+                            ModificationDate = DateTime.UtcNow,
                             Author = "migration-tool"
                         };
 
