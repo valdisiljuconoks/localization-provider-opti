@@ -30,7 +30,6 @@ namespace DbLocalizationProvider.EPiServer.Sample.Controllers
 
             LogManager.GetLogger(typeof(StartPageController)).Log(Level.Information, "Test log message");
 
-
             // register manually some of the resources
             _synchronizer.RegisterManually(new List<ManualResource>
             {
