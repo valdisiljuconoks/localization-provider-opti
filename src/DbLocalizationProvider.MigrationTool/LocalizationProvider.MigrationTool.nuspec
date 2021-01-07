@@ -11,7 +11,7 @@
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <description>$description$</description>
     <releaseNotes>DbLocalizationProvider migration tool for EPiServer. Helps to extract XML resources and import into database.</releaseNotes>
-    <copyright>Copyright 2020 (c) Valdis Iljuconoks, Tech Fellow</copyright>
+    <copyright>Copyright 2021 (c) Valdis Iljuconoks, Tech Fellow</copyright>
     <tags>Localization EPiServer Provider DbLocalization DbLocalizationProvider LocalizationProvider Migration</tags>
     <dependencies>
     </dependencies>
