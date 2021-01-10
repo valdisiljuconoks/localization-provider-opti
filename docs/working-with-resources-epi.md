@@ -100,3 +100,24 @@ public enum SomeValuesEnum
 ```
 
 `[LocalizedEnum]` attribute will make sure to tell EPiServer to setup things accordingly and assign specific localized selection factory type to provide correctly translated enum values.
+
+## Translating EPiServer Categories
+
+If you need to translate categories in EPiServer you need to decorate category definition with `[LocalizedCategory]`.
+
+For example:
+
+```csharp
+[LocalizedCategory]
+public class SampleCategory : Category
+{
+    public SampleCategory()
+    {
+        Name = "This is sample cat. from code";
+    }
+}
+```
+
+`Name` value will be assigned to invariant culture by default.
+
+Resource key assigned to the localized category is `/categories/category[@name=\"{CategoryName}\"]/description`.
