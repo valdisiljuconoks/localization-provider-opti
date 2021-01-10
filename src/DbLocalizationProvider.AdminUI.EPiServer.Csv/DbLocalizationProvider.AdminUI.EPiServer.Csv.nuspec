@@ -16,8 +16,8 @@
     <dependencies>
       <dependency id="Castle.Core" version="4.2.1" />
       <dependency id="CsvHelper" version="[19.0.0, 20.0.0)" />
-      <dependency id="DbLocalizationProvider.AdminUI.EPiServer" version="[6.4.0]" />
-      <dependency id="DbLocalizationProvider.EPiServer" version="[6.4.0]" />
+      <dependency id="DbLocalizationProvider.AdminUI.EPiServer" version="[6.4.1]" />
+      <dependency id="DbLocalizationProvider.EPiServer" version="[6.4.1]" />
       <dependency id="EPiServer.CMS.AspNet" version="[11.2.0, 12.0.0)" />
       <dependency id="EPiServer.CMS.UI.Core" version="[11.21.1, 12.0.0)" />
       <dependency id="LocalizationProvider.Abstractions" version="[6.4.0]" />
