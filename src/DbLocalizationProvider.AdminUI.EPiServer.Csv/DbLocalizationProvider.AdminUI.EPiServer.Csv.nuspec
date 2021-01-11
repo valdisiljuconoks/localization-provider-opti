@@ -10,7 +10,7 @@
     <projectUrl>https://github.com/valdisiljuconoks/LocalizationProvider/</projectUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <description>$description$</description>
-    <releaseNotes>Initial version of Csv export for DbLocalizationProvider AdminUI</releaseNotes>
+    <releaseNotes>Csv export/import for DbLocalizationProvider AdminUI</releaseNotes>
     <copyright>Copyright 2021 (c) Mattias Olsson, Valdis Iljuconoks, Tech Fellow</copyright>
     <tags>Localization Provider DbLocalization DbLocalizationProvider LocalizationProvider Csv Export Import</tags>
     <dependencies>
