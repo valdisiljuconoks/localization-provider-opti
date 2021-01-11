@@ -55,6 +55,9 @@
     <Reference Include="Castle.Windsor, Version=4.0.0.0, Culture=neutral, PublicKeyToken=407dd0808d44fbdc, processorArchitecture=MSIL">
       <HintPath>..\..\packages\Castle.Windsor.4.1.0\lib\net45\Castle.Windsor.dll</HintPath>
     </Reference>
+    <Reference Include="CsvHelper, Version=19.0.0.0, Culture=neutral, PublicKeyToken=8c4959082be5c823, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\CsvHelper.19.0.0\lib\net47\CsvHelper.dll</HintPath>
+    </Reference>
     <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <HintPath>..\..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.dll</HintPath>
     </Reference>
@@ -139,6 +142,12 @@
     <Reference Include="log4net, Version=2.0.8.0, Culture=neutral, PublicKeyToken=669e0ddf0bb1aa2a, processorArchitecture=MSIL">
       <HintPath>..\..\packages\log4net.2.0.8\lib\net45-full\log4net.dll</HintPath>
     </Reference>
+    <Reference Include="Microsoft.Bcl.AsyncInterfaces, Version=1.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Microsoft.Bcl.AsyncInterfaces.1.1.0\lib\net461\Microsoft.Bcl.AsyncInterfaces.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Bcl.HashCode, Version=1.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Microsoft.Bcl.HashCode.1.1.0\lib\net461\Microsoft.Bcl.HashCode.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="Microsoft.Data.SqlClient, Version=2.0.20168.4, Culture=neutral, PublicKeyToken=23ec7fc2d6eaa4a5, processorArchitecture=MSIL">
       <HintPath>..\..\packages\Microsoft.Data.SqlClient.2.0.1\lib\net46\Microsoft.Data.SqlClient.dll</HintPath>
@@ -207,6 +216,9 @@
     </Reference>
     <Reference Include="System.Net" />
     <Reference Include="System.Net.Http" />
+    <Reference Include="System.Runtime.CompilerServices.Unsafe, Version=4.0.4.1, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\System.Runtime.CompilerServices.Unsafe.4.5.2\lib\netstandard2.0\System.Runtime.CompilerServices.Unsafe.dll</HintPath>
+    </Reference>
     <Reference Include="System.Runtime.Remoting" />
     <Reference Include="System.Security" />
     <Reference Include="System.Security.AccessControl, Version=4.1.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
@@ -227,6 +239,9 @@
     <Reference Include="System.Threading.Tasks.Dataflow, Version=4.5.24.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
       <HintPath>..\..\packages\Microsoft.Tpl.Dataflow.4.5.24\lib\portable-net45+win8+wpa81\System.Threading.Tasks.Dataflow.dll</HintPath>
       <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Threading.Tasks.Extensions, Version=4.2.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\System.Threading.Tasks.Extensions.4.5.2\lib\netstandard2.0\System.Threading.Tasks.Extensions.dll</HintPath>
     </Reference>
     <Reference Include="System.Transactions" />
     <Reference Include="System.ValueTuple, Version=4.0.3.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
@@ -388,6 +403,10 @@
       <Project>{ddd513c3-dfc8-4c71-b1fe-5e3e06218e89}</Project>
       <Name>DbLocalizationProvider.Abstractions</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\lib\aspnet\lib\localization-provider\src\DbLocalizationProvider.Csv\DbLocalizationProvider.Csv.csproj">
+      <Project>{5b77c9f2-56dc-46b2-88b2-8e772ec3688d}</Project>
+      <Name>DbLocalizationProvider.Csv</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\lib\aspnet\lib\localization-provider\src\DbLocalizationProvider.Storage.SqlServer\DbLocalizationProvider.Storage.SqlServer.csproj">
       <Project>{1f844bd3-32cb-4416-abf1-52c6aa276458}</Project>
       <Name>DbLocalizationProvider.Storage.SqlServer</Name>
@@ -403,6 +422,14 @@
     <ProjectReference Include="..\..\lib\aspnet\src\DbLocalizationProvider.JsResourceHandler\DbLocalizationProvider.JsResourceHandler.csproj">
       <Project>{4ce9bffa-754b-435c-a11c-f0c1a6e236f0}</Project>
       <Name>DbLocalizationProvider.JsResourceHandler</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\lib\aspnet\src\DbLocalizationProvider.Xliff\DbLocalizationProvider.Xliff.csproj">
+      <Project>{1b38b864-ffa5-498b-93bc-39f17b604202}</Project>
+      <Name>DbLocalizationProvider.Xliff</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\src\DbLocalizationProvider.AdminUI.EPiServer.Csv\DbLocalizationProvider.AdminUI.EPiServer.Csv.csproj">
+      <Project>{544e232b-3711-44a0-ab57-fcf20d10f9e9}</Project>
+      <Name>DbLocalizationProvider.AdminUI.EPiServer.Csv</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\src\DbLocalizationProvider.AdminUI.EPiServer.Xliff\DbLocalizationProvider.AdminUI.EPiServer.Xliff.csproj">
       <Project>{5435a71a-20f3-429f-999e-ab7aa409649e}</Project>

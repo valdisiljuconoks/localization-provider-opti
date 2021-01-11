@@ -11,7 +11,7 @@
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <description>$description$</description>
     <releaseNotes>Initial version of Csv export for DbLocalizationProvider AdminUI</releaseNotes>
-    <copyright>Copyright 2020 (c) Mattias Olsson, Valdis Iljuconoks, Tech Fellow</copyright>
+    <copyright>Copyright 2021 (c) Mattias Olsson, Valdis Iljuconoks, Tech Fellow</copyright>
     <tags>Localization Provider DbLocalization DbLocalizationProvider LocalizationProvider Csv Export Import</tags>
     <dependencies>
       <dependency id="Castle.Core" version="4.2.1" />

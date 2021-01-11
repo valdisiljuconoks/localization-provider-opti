@@ -10,6 +10,7 @@ using EPiServer.DataAbstraction;
 using EPiServer.Framework;
 using EPiServer.Framework.Initialization;
 using EPiServer.ServiceLocation;
+using InitializationModule = EPiServer.Web.InitializationModule;
 
 namespace DbLocalizationProvider.AdminUI.EPiServer.Csv
 {
@@ -24,16 +25,19 @@ namespace DbLocalizationProvider.AdminUI.EPiServer.Csv
             var locator = context.Locate.Advanced;
             var languageBranchRepository = locator.GetInstance<ILanguageBranchRepository>();
 
-            ICollection<CultureInfo> LanguagesFactory() => languageBranchRepository
-                                                           .ListEnabled()
-                                                           .Select(x => x.Culture)
-                                                           .ToList();
+            ICollection<CultureInfo> LanguagesFactory()
+            {
+                return languageBranchRepository
+                       .ListEnabled()
+                       .Select(x => x.Culture)
+                       .ToList();
+            }
 
             ConfigurationContext.Setup(ctx =>
-                                       {
-                                           ctx.Export.Providers.Add(new CsvResourceExporter(LanguagesFactory));
-                                           ctx.Import.Providers.Add(new CsvResourceFormatParser(LanguagesFactory));
-                                       });
+            {
+                ctx.Export.Providers.Add(new CsvResourceExporter(LanguagesFactory));
+                ctx.Import.Providers.Add(new CsvResourceFormatParser(LanguagesFactory));
+            });
         }
 
         public void Uninitialize(InitializationEngine context) { }
