@@ -62,6 +62,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{8C4DF3D5
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DbLocalizationProvider.Tests", "lib\aspnet\lib\localization-provider\Tests\DbLocalizationProvider.Tests\DbLocalizationProvider.Tests.csproj", "{54CACE02-8BF9-4829-B07E-FCFEA5B2361D}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DbLocalizationProvider.AdminUI.EPiServer.Csv", "src\DbLocalizationProvider.AdminUI.EPiServer.Csv\DbLocalizationProvider.AdminUI.EPiServer.Csv.csproj", "{544E232B-3711-44A0-AB57-FCF20D10F9E9}"
+EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DbLocalizationProvider.Csv", "lib\aspnet\lib\localization-provider\src\DbLocalizationProvider.Csv\DbLocalizationProvider.Csv.csproj", "{5B77C9F2-56DC-46B2-88B2-8E772EC3688D}"
 EndProject
 Global
@@ -130,6 +132,10 @@ Global
 		{54CACE02-8BF9-4829-B07E-FCFEA5B2361D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{54CACE02-8BF9-4829-B07E-FCFEA5B2361D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{54CACE02-8BF9-4829-B07E-FCFEA5B2361D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{544E232B-3711-44A0-AB57-FCF20D10F9E9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{544E232B-3711-44A0-AB57-FCF20D10F9E9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{544E232B-3711-44A0-AB57-FCF20D10F9E9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{544E232B-3711-44A0-AB57-FCF20D10F9E9}.Release|Any CPU.Build.0 = Release|Any CPU
 		{5B77C9F2-56DC-46B2-88B2-8E772EC3688D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{5B77C9F2-56DC-46B2-88B2-8E772EC3688D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5B77C9F2-56DC-46B2-88B2-8E772EC3688D}.Release|Any CPU.ActiveCfg = Release|Any CPU
