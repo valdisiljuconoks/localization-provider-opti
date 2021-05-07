@@ -15,9 +15,9 @@
     <copyright>Copyright 2021 (c) Valdis Iljuconoks, Tech Fellow</copyright>
     <tags>Localization EPiServer Provider DbLocalization DbLocalizationProvider LocalizationProvider</tags>
     <dependencies>
-      <dependency id="LocalizationProvider.Abstractions" version="[6.4.0]" />
-      <dependency id="LocalizationProvider" version="[6.4.0]" />
-      <dependency id="LocalizationProvider.AspNet" version="[6.4.0]" />
+      <dependency id="LocalizationProvider.Abstractions" version="[6.5.0]" />
+      <dependency id="LocalizationProvider" version="[6.5.0]" />
+      <dependency id="LocalizationProvider.AspNet" version="[6.5.0]" />
       <dependency id="EPiServer.CMS.AspNet" version="[11.13.1, 12.0.0)" />
       <dependency id="EPiServer.CMS.UI.Core" version="[11.21.1, 12.0.0)" />
     </dependencies>
