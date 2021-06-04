@@ -8,6 +8,7 @@
     <PackageReference Include="EPiServer.Cms.Web" Version="12.0.0-inte-017361" />-->
     <PackageReference Include="BuildBundlerMinifier" Version="3.2.449" />
     <PackageReference Include="EPiServer.CMS" Version="12.0.0-pre-021458" />
+    <PackageReference Include="LocalizationProvider.Storage.SqlServer" Version="7.0.0" />
     <PackageReference Include="Wangkanai.Detection" Version="2.0.1" />
   </ItemGroup>
   <ItemGroup>

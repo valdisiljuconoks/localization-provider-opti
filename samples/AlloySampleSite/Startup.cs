@@ -10,6 +10,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using System.IO;
 using DbLocalizationProvider.EPiServer;
+using DbLocalizationProvider.Storage.SqlServer;
 using EPiServer.Web;
 
 namespace AlloySampleSite
@@ -57,7 +58,10 @@ namespace AlloySampleSite
 
             services.AddEmbeddedLocalization<Startup>();
 
-            services.AddEpiserverDbLocalizationProvider(ctx => { });
+            services.AddEpiserverDbLocalizationProvider(ctx =>
+            {
+                ctx.UseSqlServer(connectionstring);
+            });
         }
 
 

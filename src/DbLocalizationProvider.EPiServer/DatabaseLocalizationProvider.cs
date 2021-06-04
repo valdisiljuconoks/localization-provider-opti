@@ -26,7 +26,7 @@ namespace DbLocalizationProvider.EPiServer
             // this is special case for Episerver ;)
             // https://world.episerver.com/forum/developer-forum/-Episerver-75-CMS/Thread-Container/2019/10/takes-a-lot-of-time-for-epi-cms-resources-to-load-on-dxc-service/
 
-            return _context.ResourceLookupFilter(originalKey)
+            return _context.ShouldLookupResource(originalKey)
                 ? _queryExecutor.Execute(new GetTranslation.Query(originalKey, culture))
                 : null;
         }
@@ -38,7 +38,7 @@ namespace DbLocalizationProvider.EPiServer
         {
             // this is special case for Episerver ;)
             // https://world.episerver.com/forum/developer-forum/-Episerver-75-CMS/Thread-Container/2019/10/takes-a-lot-of-time-for-epi-cms-resources-to-load-on-dxc-service/
-            if (!_context.ResourceLookupFilter(originalKey))
+            if (!_context.ShouldLookupResource(originalKey))
             {
                 return Enumerable.Empty<global::EPiServer.Framework.Localization.ResourceItem>();
             }

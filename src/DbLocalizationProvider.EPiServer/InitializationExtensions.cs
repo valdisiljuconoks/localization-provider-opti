@@ -42,7 +42,6 @@ namespace DbLocalizationProvider.EPiServer
                 throw new ArgumentNullException(nameof(serviceFactory));
             }
 
-            var logger = serviceFactory.GetRequiredService<ILogger>();
             var context = serviceFactory.GetRequiredService<ConfigurationContext>();
 
             context.Logger = new LoggerAdapter();
@@ -61,13 +60,15 @@ namespace DbLocalizationProvider.EPiServer
 
             if (!context.DiscoverAndRegisterResources)
             {
-                logger.Information($"{nameof(context.DiscoverAndRegisterResources)}=false. Resource synchronization skipped.");
+                context.Logger.Info($"{nameof(context.DiscoverAndRegisterResources)}=false. Resource synchronization skipped.");
             }
 
             if (context.ManualResourceProvider != null)
             {
                 sync.RegisterManually(context.ManualResourceProvider.GetResources());
             }
+
+            context.Logger.Info("DbLocalizationProvider initialized.");
         }
     }
 }

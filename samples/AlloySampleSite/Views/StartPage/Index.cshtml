@@ -1,3 +1,13 @@
-﻿@model PageViewModel<StartPage>
+﻿@using AlloySampleSite.Resources
+@using DbLocalizationProvider.EPiServer
+@model PageViewModel<StartPage>
+@inject LocalizationService Localization
 
-@Html.PropertyFor(x => x.CurrentPage.MainContentArea, new { CssClass = "row equal-height", tag = Global.ContentAreaTags.FullWidth })
+<div>
+    <span>Localization.GetString(() => PageHeadings.StartPageHeadingTitle)</span>
+    <span>@Localization.GetString(() => PageHeadings.StartPageHeadingTitle)</span>
+    <span>=</span>
+    <span>Start page heading</span>
+</div>
+
+@*@Html.PropertyFor(x => x.CurrentPage.MainContentArea, new { CssClass = "row equal-height", tag = Global.ContentAreaTags.FullWidth })*@
