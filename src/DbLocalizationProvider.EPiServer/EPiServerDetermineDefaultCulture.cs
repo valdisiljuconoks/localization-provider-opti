@@ -11,11 +11,18 @@ namespace DbLocalizationProvider.EPiServer
     {
         public class Handler : IQueryHandler<DetermineDefaultCulture.Query, string>
         {
+            private readonly ConfigurationContext _context;
+
+            public Handler(ConfigurationContext context)
+            {
+                _context = context;
+            }
+
             public string Execute(DetermineDefaultCulture.Query query)
             {
-                return ConfigurationContext.Current.DefaultResourceCulture != null
-                           ? ConfigurationContext.Current.DefaultResourceCulture.Name
-                           : (ContentLanguage.PreferredCulture != null ? ContentLanguage.PreferredCulture.Name : "en");
+                return _context.DefaultResourceCulture != null
+                           ? _context.DefaultResourceCulture.Name
+                           : ContentLanguage.PreferredCulture == null ? "en" : ContentLanguage.PreferredCulture.Name;
             }
         }
     }

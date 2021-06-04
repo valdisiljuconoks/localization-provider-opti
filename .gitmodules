@@ -2,3 +2,6 @@
 	path = lib/aspnet
 	url = https://github.com/valdisiljuconoks/localization-provider-aspnet.git
 	branch = master
+[submodule "lib/netcore"]
+	path = lib/netcore
+	url = git@github.com:valdisiljuconoks/localization-provider-core.git

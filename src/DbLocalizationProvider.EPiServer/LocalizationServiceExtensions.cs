@@ -6,10 +6,11 @@ using System.Globalization;
 using System.Linq.Expressions;
 using DbLocalizationProvider.Internal;
 using EPiServer.Framework.Localization;
+using EPiServer.ServiceLocation;
+using Microsoft.Extensions.DependencyInjection;
 
-namespace DbLocalizationProvider
+namespace DbLocalizationProvider.EPiServer
 {
-    [Obsolete("With next version type will be moved to DbLocalizationProvider.EPiServer namespace")]
     public static class LocalizationServiceExtensions
     {
         public static string GetString(this LocalizationService service, Expression<Func<object>> resource, params object[] formatArguments)
@@ -19,13 +20,17 @@ namespace DbLocalizationProvider
 
         public static string GetStringByCulture(this LocalizationService service, Expression<Func<object>> resource, CultureInfo culture, params object[] formatArguments)
         {
-            var resourceKey = ExpressionHelper.GetFullMemberName(resource);
+            var helper = ServiceLocator.Current.GetRequiredService<ExpressionHelper>();
+            var resourceKey = helper.GetFullMemberName(resource);
+
             return GetStringByCulture(service, resourceKey, culture, formatArguments);
         }
 
         public static string GetStringByCulture(this LocalizationService service, string resourceKey, CultureInfo culture, params object[] formatArguments)
         {
-            return LocalizationProvider.Current.GetStringByCulture(resourceKey, culture, formatArguments);
+            var provider = ServiceLocator.Current.GetRequiredService<LocalizationProvider>();
+
+            return provider.GetStringByCulture(resourceKey, culture, formatArguments);
         }
     }
 }

@@ -18,9 +18,9 @@ namespace DbLocalizationProvider.EPiServer.Queries
         {
             private readonly ILanguageBranchRepository _languageBranchRepository;
 
-            public Handler()
+            public Handler(ILanguageBranchRepository languageBranchRepository)
             {
-                _languageBranchRepository = ServiceLocator.Current.GetInstance<ILanguageBranchRepository>();
+                _languageBranchRepository = languageBranchRepository;
             }
 
             public IEnumerable<CultureInfo> Execute(AvailableLanguages.Query query)

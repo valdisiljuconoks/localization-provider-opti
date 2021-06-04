@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
+using DbLocalizationProvider.Abstractions;
 using DbLocalizationProvider.Sync;
 using EPiServer.DataAbstraction;
 
@@ -12,6 +13,13 @@ namespace DbLocalizationProvider.EPiServer
 {
     public class LocalizedCategoryScanner : IResourceTypeScanner
     {
+        private readonly DiscoveredTranslationBuilder _builder;
+
+        public LocalizedCategoryScanner(DiscoveredTranslationBuilder builder)
+        {
+            _builder = builder;
+        }
+
         public bool ShouldScan(Type target)
         {
             return typeof(Category).IsAssignableFrom(target)
@@ -29,25 +37,25 @@ namespace DbLocalizationProvider.EPiServer
 
             try
             {
-                var category = (Activator.CreateInstance(target) as Category);
-                if(!string.IsNullOrEmpty(category?.Name))
+                var category = Activator.CreateInstance(target) as Category;
+                if (!string.IsNullOrEmpty(category?.Name))
                 {
                     translation = category.Name;
                 }
             }
-            catch(Exception) { }
+            catch (Exception) { }
 
 
             return new List<DiscoveredResource>
-                   {
-                       new DiscoveredResource(null,
-                                              $"/categories/category[@name=\"{target.Name}\"]/description",
-                                              DiscoveredTranslation.FromSingle(translation),
-                                              target.Name,
-                                              target,
-                                              typeof(string),
-                                              true)
-                   };
+            {
+                new(null,
+                    $"/categories/category[@name=\"{target.Name}\"]/description",
+                    _builder.FromSingle(translation),
+                    target.Name,
+                    target,
+                    typeof(string),
+                    true)
+            };
         }
 
         public ICollection<DiscoveredResource> GetResources(Type target, string resourceKeyPrefix)

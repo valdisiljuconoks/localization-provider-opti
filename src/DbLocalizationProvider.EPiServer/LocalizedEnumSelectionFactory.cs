@@ -4,7 +4,9 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using EPiServer.ServiceLocation;
 using EPiServer.Shell.ObjectEditing;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace DbLocalizationProvider.EPiServer
 {
@@ -15,11 +17,13 @@ namespace DbLocalizationProvider.EPiServer
             var values = Enum.GetValues(typeof(TEnum))
                              .Cast<Enum>();
 
+            var provider = ServiceLocator.Current.GetRequiredService<ILocalizationProvider>();
+
             foreach(var value in values)
             {
                 yield return new SelectItem
                              {
-                                 Text = value.Translate(),
+                                 Text = provider.Translate(value),
                                  Value = value
                              };
             }
