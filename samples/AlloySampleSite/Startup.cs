@@ -1,3 +1,5 @@
+using System.Collections.Generic;
+using System.Globalization;
 using AlloySampleSite.Extensions;
 using AlloySampleSite.Infrastructure;
 using EPiServer.Cms.UI.AspNetIdentity;
@@ -11,7 +13,10 @@ using Microsoft.Extensions.Hosting;
 using System.IO;
 using DbLocalizationProvider.EPiServer;
 using DbLocalizationProvider.Storage.SqlServer;
+using EPiServer.Framework.Localization;
 using EPiServer.Web;
+using Microsoft.AspNetCore.Localization;
+using Microsoft.Extensions.Options;
 
 namespace AlloySampleSite
 {
@@ -51,6 +56,11 @@ namespace AlloySampleSite
             services.AddCms();
             services.AddAlloy();
 
+            services.Configure<LocalizationOptions>(o =>
+            {
+                o.FallbackBehavior = FallbackBehaviors.FallbackCulture;
+            });
+
             services.Configure<UIOptions>(uiOptions =>
             {
                 uiOptions.UIShowGlobalizationUserInterface = true;
@@ -58,12 +68,25 @@ namespace AlloySampleSite
 
             services.AddEmbeddedLocalization<Startup>();
 
+            var supportedCultures = new List<CultureInfo> { new("lv-LV"), new("sv"), new("no"), new("en") };
+
+            services.Configure<RequestLocalizationOptions>(opts =>
+            {
+                //opts.DefaultRequestCulture = new RequestCulture("en");
+                opts.SupportedCultures = supportedCultures;
+                opts.SupportedUICultures = supportedCultures;
+                opts.ApplyCurrentCultureToResponseHeaders = true;
+            });
+
             services.AddEpiserverDbLocalizationProvider(ctx =>
             {
+                ctx.FallbackLanguages.Try(supportedCultures);
+                ctx.EnableInvariantCultureFallback = true;
+                ctx.EnableLegacyMode = () => true;
+
                 ctx.UseSqlServer(connectionstring);
             });
         }
-
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
@@ -73,6 +96,9 @@ namespace AlloySampleSite
                 app.UseDeveloperExceptionPage();
                 app.UseMiddleware<AdministratorRegistrationPageMiddleware>();
             }
+
+            var options = app.ApplicationServices.GetRequiredService<IOptions<RequestLocalizationOptions>>();
+            app.UseRequestLocalization(options.Value);
 
             app.UseStaticFiles();
             app.UseRouting();

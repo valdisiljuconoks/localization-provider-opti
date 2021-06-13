@@ -1,13 +1,49 @@
-﻿@using AlloySampleSite.Resources
-@using DbLocalizationProvider.EPiServer
+﻿@using DbLocalizationProvider.EPiServer
+@using AlloySampleSite.Resources
+@using System.Threading
+@using System.Globalization
 @model PageViewModel<StartPage>
 @inject LocalizationService Localization
 
-<div>
-    <span>Localization.GetString(() => PageHeadings.StartPageHeadingTitle)</span>
-    <span>@Localization.GetString(() => PageHeadings.StartPageHeadingTitle)</span>
-    <span>=</span>
-    <span>Start page heading</span>
-</div>
+<style>
+    table {
+        width: 100%;
+    }
+
+    table, th, td {
+        border: 1px solid gray;
+    }
+
+    table th {
+        font-weight: bold
+    }
+</style>
+
+Current UI Culture - @CultureInfo.CurrentUICulture
+
+<table>
+    <thead>
+    <tr>
+        <th>Usage</th>
+        <th>Result</th>
+        <th>Expected Result</th>
+        <th>Passed?</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr>
+        <td>Localization.GetString(() => PageHeadings.StartPageHeadingTitle)</td>
+        <td class="actual-result">@Localization.GetString(() => PageHeadings.StartPageHeadingTitle)</td>
+        <td class="expected-result">Start page heading</td>
+        <td class="test-result">OK</td>
+    </tr>
+    <tr>
+        <td>Localization.GetString("/test/xpath/resource1")</td>
+        <td class="actual-result">@Localization.GetString("/test/xpath/resource1")</td>
+        <td class="expected-result">Resource 1 from XPath</td>
+        <td class="test-result">OK</td>
+    </tr>
+    </tbody>
+</table>
 
 @*@Html.PropertyFor(x => x.CurrentPage.MainContentArea, new { CssClass = "row equal-height", tag = Global.ContentAreaTags.FullWidth })*@
