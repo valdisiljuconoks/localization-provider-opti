@@ -1,39 +1,35 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using EPiServer.PlugIn;
+using System.Collections.Generic;
+using EPiServer.Framework.Localization;
+using EPiServer.Security;
 using EPiServer.Shell;
 using EPiServer.Shell.Navigation;
-using PlugInArea = EPiServer.PlugIn.PlugInArea;
 
 namespace DbLocalizationProvider.AdminUI.EPiServer
 {
-    [GuiPlugIn(DisplayName = "Localization Resources", UrlFromModuleFolder = "LocalizationResources", Area = PlugInArea.AdminMenu)]
-    public class MenuItemRegistration { }
-
     [MenuProvider]
-    public class AdminUIMenuProvider : IMenuProvider
+    public class MenuProvider : IMenuProvider
     {
+        private readonly LocalizationService _localizationService;
+        private readonly IPrincipalAccessor _principalAccessor;
+
+        public MenuProvider(
+            LocalizationService localizationService,
+            IPrincipalAccessor principalAccessor)
+        {
+            _localizationService = localizationService;
+            _principalAccessor = principalAccessor;
+        }
+
         public IEnumerable<MenuItem> GetMenuItems()
         {
-            return new List<MenuItem>
-                   {
-                       new UrlMenuItem("Localization", "/global/cms/localization", Paths.ToResource(typeof(MenuItemRegistration), "LocalizationResources/Main"))
-                       {
-                           IsAvailable = ctx => UiConfigurationContext.Current.AuthorizedEditorRoles.Any(ctx.HttpContext.User.IsInRole)
-                       },
-                       new UrlMenuItem("Localization", "/global/cms/localization", Paths.ToResource(typeof(MenuItemRegistration), "LocalizationResources/ImportResources"))
-                       {
-                           IsAvailable = (ctx) => false
-                       },
-                       new UrlMenuItem("Localization", "/global/cms/localization", Paths.ToResource(typeof(MenuItemRegistration), "LocalizationResources/ImportPreview"))
-                       {
-                           IsAvailable = (ctx) => false
-                       },
-                       new UrlMenuItem("Localization", "/global/cms/localization", Paths.ToResource(typeof(MenuItemRegistration), "LocalizationResources/CommitImportResources"))
-                       {
-                           IsAvailable = (ctx) => false,
-                       }
-                   };
+            var url = Paths.ToResource(GetType(), "uihostpage");
+
+            var link = new UrlMenuItem("Localization", MenuPaths.Global + "/cms/uihostpage", url)
+            {
+                SortIndex = 100, AuthorizationPolicy = "episerver:localizationprovider:adminui"
+            };
+
+            return new List<MenuItem> { link };
         }
     }
 }

@@ -2,8 +2,10 @@
 @using AlloySampleSite.Resources
 @using System.Threading
 @using System.Globalization
+@using Microsoft.AspNetCore.Localization
 @model PageViewModel<StartPage>
 @inject LocalizationService Localization
+@inject IUserInterfaceLanguageAccessor UserInterfaceLanguage
 
 <style>
     table {
@@ -19,7 +21,10 @@
     }
 </style>
 
-Current UI Culture - @CultureInfo.CurrentUICulture
+<div>Current UI Culture - @CultureInfo.CurrentUICulture</div>
+<div>Thread.CurrentUICulture - @Thread.CurrentThread.CurrentUICulture</div>
+<div>IRequestCultureFeature.UICulture - @(Context.Features.Get<IRequestCultureFeature>().RequestCulture.UICulture)</div>
+<div>IUserInterfaceLanguageAccessor.Language - @UserInterfaceLanguage.Language</div>
 
 <table>
     <thead>
@@ -34,6 +39,18 @@ Current UI Culture - @CultureInfo.CurrentUICulture
     <tr>
         <td>Localization.GetString(() => PageHeadings.StartPageHeadingTitle)</td>
         <td class="actual-result">@Localization.GetString(() => PageHeadings.StartPageHeadingTitle)</td>
+        <td class="expected-result">Start page heading</td>
+        <td class="test-result">OK</td>
+    </tr>
+    <tr>
+        <td>Localization.GetStringByCulture(() => PageHeadings.StartPageHeadingTitle, "no")</td>
+        <td class="actual-result">@Localization.GetStringByCulture(() => PageHeadings.StartPageHeadingTitle, new CultureInfo("no"))</td>
+        <td class="expected-result">Start page heading</td>
+        <td class="test-result">OK</td>
+    </tr>
+    <tr>
+        <td>Localization.GetStringByCulture(() => PageHeadings.StartPageHeadingTitle, "fr")</td>
+        <td class="actual-result">@Localization.GetStringByCulture(() => PageHeadings.StartPageHeadingTitle, new CultureInfo("fr"))</td>
         <td class="expected-result">Start page heading</td>
         <td class="test-result">OK</td>
     </tr>

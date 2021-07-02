@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.31321.278
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DbLocalizationProvider.EPiServer", "src\DbLocalizationProvider.EPiServer\DbLocalizationProvider.EPiServer.csproj", "{86CBFEC7-8763-4BBA-B760-0A0C977C8C36}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DbLocalizationProvider.EPiServer", "src\DbLocalizationProvider.EPiServer\DbLocalizationProvider.EPiServer.csproj", "{86CBFEC7-8763-4BBA-B760-0A0C977C8C36}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "shared", "shared", "{D221A112-5BF9-4B2A-9C86-EDA6C79EF187}"
 EndProject
@@ -13,11 +13,15 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DbLocalizationProvider", "l
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "samples", "samples", "{2D37B06F-7FEC-4AF1-A92B-C531A745D35C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AlloySampleSite", "samples\AlloySampleSite\AlloySampleSite.csproj", "{EEE840FE-F1E9-4661-9C6D-5D5EEFF2817C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AlloySampleSite", "samples\AlloySampleSite\AlloySampleSite.csproj", "{EEE840FE-F1E9-4661-9C6D-5D5EEFF2817C}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "netcore", "netcore", "{6DAC8C14-9A97-4262-B58A-CB61C56C18A4}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DbLocalizationProvider.AspNetCore", "lib\netcore\src\DbLocalizationProvider.AspNetCore\DbLocalizationProvider.AspNetCore.csproj", "{0E1BBDF8-2852-48C1-A0B3-076FFFA4D872}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DbLocalizationProvider.AdminUI.EPiServer", "src\DbLocalizationProvider.AdminUI.EPiServer\DbLocalizationProvider.AdminUI.EPiServer.csproj", "{AA5FCD04-8113-4F0B-8E8E-5CF365B3D245}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DbLocalizationProvider.AdminUI.Models", "lib\netcore\lib\localization-provider\src\DbLocalizationProvider.AdminUI.Models\DbLocalizationProvider.AdminUI.Models.csproj", "{3243B929-B3E6-460B-88DA-21C1253C629C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -45,6 +49,14 @@ Global
 		{0E1BBDF8-2852-48C1-A0B3-076FFFA4D872}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0E1BBDF8-2852-48C1-A0B3-076FFFA4D872}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0E1BBDF8-2852-48C1-A0B3-076FFFA4D872}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AA5FCD04-8113-4F0B-8E8E-5CF365B3D245}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AA5FCD04-8113-4F0B-8E8E-5CF365B3D245}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AA5FCD04-8113-4F0B-8E8E-5CF365B3D245}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AA5FCD04-8113-4F0B-8E8E-5CF365B3D245}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3243B929-B3E6-460B-88DA-21C1253C629C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3243B929-B3E6-460B-88DA-21C1253C629C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3243B929-B3E6-460B-88DA-21C1253C629C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3243B929-B3E6-460B-88DA-21C1253C629C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -54,6 +66,7 @@ Global
 		{0DFCEF16-39E9-4AD9-87B5-AA814AAC2E98} = {D221A112-5BF9-4B2A-9C86-EDA6C79EF187}
 		{EEE840FE-F1E9-4661-9C6D-5D5EEFF2817C} = {2D37B06F-7FEC-4AF1-A92B-C531A745D35C}
 		{0E1BBDF8-2852-48C1-A0B3-076FFFA4D872} = {6DAC8C14-9A97-4262-B58A-CB61C56C18A4}
+		{3243B929-B3E6-460B-88DA-21C1253C629C} = {D221A112-5BF9-4B2A-9C86-EDA6C79EF187}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {64868451-1A5E-4608-BCA2-0BBE4B8278DB}
