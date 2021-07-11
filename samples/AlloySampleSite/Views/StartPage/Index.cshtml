@@ -2,10 +2,18 @@
 @using AlloySampleSite.Resources
 @using System.Threading
 @using System.Globalization
+@using DbLocalizationProvider
+@using DbLocalizationProvider.AspNetCore
 @using Microsoft.AspNetCore.Localization
+@using Microsoft.AspNetCore.Mvc.Localization
+
 @model PageViewModel<StartPage>
+
 @inject LocalizationService Localization
 @inject IUserInterfaceLanguageAccessor UserInterfaceLanguage
+@inject IViewLocalizer Localizer
+@inject ILocalizationProvider Provider
+@inject IHtmlLocalizer<SampleResources> Localizer2
 
 <style>
     table {
@@ -26,6 +34,7 @@
 <div>IRequestCultureFeature.UICulture - @(Context.Features.Get<IRequestCultureFeature>().RequestCulture.UICulture)</div>
 <div>IUserInterfaceLanguageAccessor.Language - @UserInterfaceLanguage.Language</div>
 
+<hr/>
 <table>
     <thead>
     <tr>
@@ -60,7 +69,37 @@
         <td class="expected-result">Resource 1 from XPath</td>
         <td class="test-result">OK</td>
     </tr>
+    <tr>
+        <td>IViewLocalizer.GetString(() => PageHeadings.StartPageHeadingTitle)</td>
+        <td class="actual-result">@Localizer.GetString(() => PageHeadings.StartPageHeadingTitle)</td>
+        <td class="expected-result">Start page heading</td>
+        <td class="test-result">OK</td>
+    </tr>
+    <tr>
+        <td>IViewLocalizer["PageHeadings.StartPageHeadingTitle"]</td>
+        <td class="actual-result">@Localizer["AlloySampleSite.Resources.PageHeadings.StartPageHeadingTitle"]</td>
+        <td class="expected-result">Start page heading</td>
+        <td class="test-result">OK</td>
+    </tr>
+    <tr>
+        <td>IHtmlLocalizer&lt;T&gt;.GetString(r => r.InstanceResource4)</td>
+        <td class="actual-result">@Localizer2.GetString(r => r.InstanceResource4)</td>
+        <td class="expected-result">Instance Resource 4</td>
+        <td class="test-result">OK</td>
+    </tr>
+    <tr>
+        <td><span>window.jsl10n.AlloySampleSite.Resources.SampleResources.InstanceResource4</span></td>
+        <td class="actual-result"><span id="theJsPlaceholder1"></span></td>
+        <td class="expected-result">Instance Resource 4</td>
+        <td class="test-result">OK</td>
+    </tr>
     </tbody>
 </table>
 
-@*@Html.PropertyFor(x => x.CurrentPage.MainContentArea, new { CssClass = "row equal-height", tag = Global.ContentAreaTags.FullWidth })*@
+<hr/>
+
+@Html.GetTranslations(typeof(SampleResources))
+
+<script type="text/javascript">
+    document.getElementById('theJsPlaceholder1').innerHTML = window.jsl10n.AlloySampleSite.Resources.SampleResources.InstanceResource4;
+</script>

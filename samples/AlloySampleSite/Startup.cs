@@ -13,9 +13,8 @@ using Microsoft.Extensions.Hosting;
 using System.IO;
 using DbLocalizationProvider.AdminUI.AspNetCore;
 using DbLocalizationProvider.AdminUI.EPiServer;
-using DbLocalizationProvider.AspNetCore;
-using DbLocalizationProvider.AspNetCore.ClientsideProvider.Routing;
 using DbLocalizationProvider.EPiServer;
+using DbLocalizationProvider.EPiServer.ClientsideProvider;
 using DbLocalizationProvider.Storage.SqlServer;
 using EPiServer.Authorization;
 using EPiServer.Framework.Localization;
@@ -119,7 +118,7 @@ namespace AlloySampleSite
 
             app.UseEpiserverDbLocalizationProvider();
             app.UseEpiserverDbLocalizationProviderAdminUI();
-            app.UseDbLocalizationClientsideProvider();
+            app.UseEpiserverDbLocalizationClientsideProvider();
 
             app.UseEndpoints(endpoints =>
             {
@@ -128,7 +127,7 @@ namespace AlloySampleSite
                 endpoints.MapRazorPages();
 
                 endpoints.MapEpiserverDbLocalizationAdminUI();
-                endpoints.MapDbLocalizationClientsideProvider();
+                endpoints.MapEpiserverDbLocalizationClientsideProvider();
             });
         }
     }
