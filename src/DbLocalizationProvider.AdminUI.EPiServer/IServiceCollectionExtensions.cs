@@ -1,5 +1,9 @@
+// Copyright (c) Valdis Iljuconoks. All rights reserved.
+// Licensed under Apache-2.0. See the LICENSE file in the project root for more information
+
 using System;
 using System.Linq;
+using DbLocalizationProvider.AdminUI.AspNetCore;
 using EPiServer.Authorization;
 using EPiServer.Cms.Shell;
 using EPiServer.Shell.Modules;
@@ -7,9 +11,11 @@ using Microsoft.Extensions.DependencyInjection;
 
 namespace DbLocalizationProvider.AdminUI.EPiServer
 {
-    public static class ServiceCollectionExtensions
+    public static class IServiceCollectionExtensions
     {
-        public static IServiceCollection AddLocalizationProviderAdminUI(this IServiceCollection services)
+        public static IServiceCollection AddEpiserverDbLocalizationProviderAdminUI(
+            this IServiceCollection services,
+            Action<UiConfigurationContext> setup = null)
         {
             services.AddCmsUI();
             services.Configure<ProtectedModuleOptions>(
@@ -21,15 +27,7 @@ namespace DbLocalizationProvider.AdminUI.EPiServer
                     }
                 });
 
-            services.AddAuthorization(options =>
-            {
-                if (options.GetPolicy("episerver:localizationprovider:adminui") != null)
-                {
-                    return;
-                }
-
-                options.AddPolicy("episerver:localizationprovider:adminui", policy => policy.RequireRole(Roles.CmsAdmins));
-            });
+            services.AddDbLocalizationProviderAdminUI(setup);
 
             return services;
         }

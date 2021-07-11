@@ -11,11 +11,15 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using System.IO;
+using DbLocalizationProvider.AdminUI.AspNetCore;
+using DbLocalizationProvider.AdminUI.EPiServer;
+using DbLocalizationProvider.AspNetCore;
+using DbLocalizationProvider.AspNetCore.ClientsideProvider.Routing;
 using DbLocalizationProvider.EPiServer;
 using DbLocalizationProvider.Storage.SqlServer;
+using EPiServer.Authorization;
 using EPiServer.Framework.Localization;
 using EPiServer.Web;
-using Microsoft.AspNetCore.Localization;
 using Microsoft.Extensions.Options;
 
 namespace AlloySampleSite
@@ -53,39 +57,47 @@ namespace AlloySampleSite
             });
 
             services.AddMvc();
-            services.AddCms();
-            services.AddAlloy();
 
-            services.Configure<LocalizationOptions>(o =>
-            {
-                o.FallbackBehavior = FallbackBehaviors.FallbackCulture;
-            });
-
-            services.Configure<UIOptions>(uiOptions =>
-            {
-                uiOptions.UIShowGlobalizationUserInterface = true;
-            });
-
-            services.AddEmbeddedLocalization<Startup>();
-
+            // add Episerver stuff
             var supportedCultures = new List<CultureInfo> { new("lv-LV"), new("sv"), new("no"), new("en") };
 
-            services.Configure<RequestLocalizationOptions>(opts =>
-            {
-                //opts.DefaultRequestCulture = new RequestCulture("en");
-                opts.SupportedCultures = supportedCultures;
-                opts.SupportedUICultures = supportedCultures;
-                opts.ApplyCurrentCultureToResponseHeaders = true;
-            });
+            services.AddCms()
+                    .AddAlloy()
+                    .AddEmbeddedLocalization<Startup>()
+                    .Configure<LocalizationOptions>(o =>
+                    {
+                        o.FallbackBehavior = FallbackBehaviors.FallbackCulture;
+                    })
+                    .Configure<UIOptions>(uiOptions =>
+                    {
+                        uiOptions.UIShowGlobalizationUserInterface = true;
+                    })
+                    .Configure<RequestLocalizationOptions>(opts =>
+                    {
+                        opts.SupportedCultures = supportedCultures;
+                        opts.SupportedUICultures = supportedCultures;
+                        opts.ApplyCurrentCultureToResponseHeaders = true;
+                    })
+                    .AddEpiserverDbLocalizationProvider(ctx =>
+                    {
+                        ctx.FallbackLanguages.Try(supportedCultures);
+                        ctx.EnableInvariantCultureFallback = true;
+                        ctx.EnableLegacyMode = () => true;
 
-            services.AddEpiserverDbLocalizationProvider(ctx =>
-            {
-                ctx.FallbackLanguages.Try(supportedCultures);
-                ctx.EnableInvariantCultureFallback = true;
-                ctx.EnableLegacyMode = () => true;
+                        ctx.UseSqlServer(connectionstring);
+                    })
+                    .AddEpiserverDbLocalizationProviderAdminUI(_ =>
+                    {
+                        _.RootUrl = "/localization-admin";
 
-                ctx.UseSqlServer(connectionstring);
-            });
+                        _.AccessPolicyOptions = builder => builder.RequireRole(Roles.CmsAdmins);
+
+                        _.ShowInvariantCulture = true;
+                        _.ShowHiddenResources = false;
+                        _.DefaultView = ResourceListView.Tree;
+                        _.CustomCssPath = "/css/custom-adminui.css";
+                        _.HideDeleteButton = false;
+                    });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -106,12 +118,17 @@ namespace AlloySampleSite
             app.UseAuthorization();
 
             app.UseEpiserverDbLocalizationProvider();
+            app.UseEpiserverDbLocalizationProviderAdminUI();
+            app.UseDbLocalizationClientsideProvider();
 
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapContent();
                 endpoints.MapControllerRoute("Register", "/Register", new { controller = "Register", action = "Index" });
                 endpoints.MapRazorPages();
+
+                endpoints.MapEpiserverDbLocalizationAdminUI();
+                endpoints.MapDbLocalizationClientsideProvider();
             });
         }
     }

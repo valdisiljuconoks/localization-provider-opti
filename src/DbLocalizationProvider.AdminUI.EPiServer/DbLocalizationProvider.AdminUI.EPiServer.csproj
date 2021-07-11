@@ -43,7 +43,9 @@
     <ProjectReference Include="..\..\lib\netcore\lib\localization-provider\src\DbLocalizationProvider.AdminUI.Models\DbLocalizationProvider.AdminUI.Models.csproj" />
     <ProjectReference Include="..\..\lib\netcore\lib\localization-provider\src\DbLocalizationProvider.Abstractions\DbLocalizationProvider.Abstractions.csproj" />
     <ProjectReference Include="..\..\lib\netcore\lib\localization-provider\src\DbLocalizationProvider\DbLocalizationProvider.csproj" />
+    <ProjectReference Include="..\..\lib\netcore\src\DbLocalizationProvider.AdminUI.AspNetCore\DbLocalizationProvider.AdminUI.AspNetCore.csproj" />
     <ProjectReference Include="..\..\lib\netcore\src\DbLocalizationProvider.AspNetCore\DbLocalizationProvider.AspNetCore.csproj" />
+    <ProjectReference Include="..\DbLocalizationProvider.EPiServer\DbLocalizationProvider.EPiServer.csproj" />
   </ItemGroup>
 
   <ItemGroup>

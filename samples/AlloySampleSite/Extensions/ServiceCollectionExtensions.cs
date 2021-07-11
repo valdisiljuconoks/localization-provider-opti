@@ -1,4 +1,4 @@
-﻿using AlloySampleSite.Business;
+using AlloySampleSite.Business;
 using AlloySampleSite.Business.Channels;
 using AlloySampleSite.Business.Rendering;
 using EPiServer.Authorization;
@@ -15,7 +15,7 @@ namespace AlloySampleSite.Extensions
 {
     public static class ServiceCollectionExtensions
     {
-        public static void AddAlloy(this IServiceCollection services)
+        public static IServiceCollection AddAlloy(this IServiceCollection services)
         {
             services.Configure<RazorViewEngineOptions>(options =>
             {
@@ -36,6 +36,8 @@ namespace AlloySampleSite.Extensions
 
             services.AddDisplayResolutions();
             services.AddDetection();
+
+            return services;
         }
 
         private static void AddDisplayResolutions(this IServiceCollection services)

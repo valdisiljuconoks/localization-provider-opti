@@ -1,8 +1,9 @@
+// Copyright (c) Valdis Iljuconoks. All rights reserved.
+// Licensed under Apache-2.0. See the LICENSE file in the project root for more information
+
 using System;
 using DbLocalizationProvider.Sync;
 using EPiServer.Data;
-using EPiServer.Logging;
-using EPiServer.ServiceLocation;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -25,7 +26,7 @@ namespace DbLocalizationProvider.EPiServer
                 throw new ArgumentNullException(nameof(builder));
             }
 
-            UseDbLocalizationProvider(builder.ApplicationServices);
+            UseEpiserverDbLocalizationProvider(builder.ApplicationServices);
 
             return builder;
         }
@@ -35,7 +36,7 @@ namespace DbLocalizationProvider.EPiServer
         /// </summary>
         /// <param name="serviceFactory">Factory of the services (this will be required to get access to previously registered services)</param>
         /// <returns>ASP.NET Core application builder to enable fluent API call chains</returns>
-        public static void UseDbLocalizationProvider(this IServiceProvider serviceFactory)
+        public static void UseEpiserverDbLocalizationProvider(this IServiceProvider serviceFactory)
         {
             if (serviceFactory == null)
             {

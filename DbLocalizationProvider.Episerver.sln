@@ -23,6 +23,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DbLocalizationProvider.Admi
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DbLocalizationProvider.AdminUI.Models", "lib\netcore\lib\localization-provider\src\DbLocalizationProvider.AdminUI.Models\DbLocalizationProvider.AdminUI.Models.csproj", "{3243B929-B3E6-460B-88DA-21C1253C629C}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DbLocalizationProvider.AdminUI.AspNetCore", "lib\netcore\src\DbLocalizationProvider.AdminUI.AspNetCore\DbLocalizationProvider.AdminUI.AspNetCore.csproj", "{BFF48F12-C006-4E73-A8D7-5B6A19829CEB}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -57,6 +59,10 @@ Global
 		{3243B929-B3E6-460B-88DA-21C1253C629C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3243B929-B3E6-460B-88DA-21C1253C629C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3243B929-B3E6-460B-88DA-21C1253C629C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BFF48F12-C006-4E73-A8D7-5B6A19829CEB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BFF48F12-C006-4E73-A8D7-5B6A19829CEB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BFF48F12-C006-4E73-A8D7-5B6A19829CEB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BFF48F12-C006-4E73-A8D7-5B6A19829CEB}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -67,6 +73,7 @@ Global
 		{EEE840FE-F1E9-4661-9C6D-5D5EEFF2817C} = {2D37B06F-7FEC-4AF1-A92B-C531A745D35C}
 		{0E1BBDF8-2852-48C1-A0B3-076FFFA4D872} = {6DAC8C14-9A97-4262-B58A-CB61C56C18A4}
 		{3243B929-B3E6-460B-88DA-21C1253C629C} = {D221A112-5BF9-4B2A-9C86-EDA6C79EF187}
+		{BFF48F12-C006-4E73-A8D7-5B6A19829CEB} = {6DAC8C14-9A97-4262-B58A-CB61C56C18A4}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {64868451-1A5E-4608-BCA2-0BBE4B8278DB}

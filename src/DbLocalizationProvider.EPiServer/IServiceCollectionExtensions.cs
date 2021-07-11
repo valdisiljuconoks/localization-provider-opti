@@ -1,10 +1,12 @@
+// Copyright (c) Valdis Iljuconoks. All rights reserved.
+// Licensed under Apache-2.0. See the LICENSE file in the project root for more information
+
 using System;
 using System.Globalization;
 using System.Linq;
 using DbLocalizationProvider.AspNetCore;
 using DbLocalizationProvider.EPiServer.Queries;
 using DbLocalizationProvider.Queries;
-using EPiServer.Data;
 using EPiServer.Framework.Localization;
 using Microsoft.Extensions.DependencyInjection;
 

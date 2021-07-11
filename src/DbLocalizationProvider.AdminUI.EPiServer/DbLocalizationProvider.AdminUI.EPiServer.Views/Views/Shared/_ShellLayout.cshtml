@@ -9,11 +9,13 @@
     <meta content='width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no' name='viewport'>
     <title>Optimizely Localization Provider</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-    <script>
-        function resizeIframe(obj) {
-            obj.style.height = obj.contentWindow.document.documentElement.scrollHeight + 'px';
+    <style>
+        iframe {
+            height: calc(100vh - 46px);
+            width: 100vw;
+            box-sizing: border-box;
         }
-    </script>
+    </style>
 </head>
 <body>
     @Html.AntiForgeryToken()
