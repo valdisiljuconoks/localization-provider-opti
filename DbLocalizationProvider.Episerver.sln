@@ -25,6 +25,20 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DbLocalizationProvider.Admi
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DbLocalizationProvider.AdminUI.AspNetCore", "lib\netcore\src\DbLocalizationProvider.AdminUI.AspNetCore\DbLocalizationProvider.AdminUI.AspNetCore.csproj", "{BFF48F12-C006-4E73-A8D7-5B6A19829CEB}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DbLocalizationProvider.AdminUI.AspNetCore.Csv", "lib\netcore\src\DbLocalizationProvider.AdminUI.AspNetCore.Csv\DbLocalizationProvider.AdminUI.AspNetCore.Csv.csproj", "{8A9A7203-3C3D-4C68-A4B6-F32CF6CE7838}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DbLocalizationProvider.Csv", "lib\netcore\lib\localization-provider\src\DbLocalizationProvider.Csv\DbLocalizationProvider.Csv.csproj", "{85AAC59F-8CEB-49F6-A40A-EDAC9D8E54B0}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DbLocalizationProvider.Storage.AzureTables", "lib\netcore\lib\localization-provider\src\DbLocalizationProvider.Storage.AzureTables\DbLocalizationProvider.Storage.AzureTables.csproj", "{224A33EE-4C65-4673-BF79-B2D3CFA67A44}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DbLocalizationProvider.Storage.PostgreSql", "lib\netcore\lib\localization-provider\src\DbLocalizationProvider.Storage.PostgreSQL\DbLocalizationProvider.Storage.PostgreSql.csproj", "{9F637A47-5B06-41D4-AA1F-22E691026A1F}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DbLocalizationProvider.Storage.SqlServer", "lib\netcore\lib\localization-provider\src\DbLocalizationProvider.Storage.SqlServer\DbLocalizationProvider.Storage.SqlServer.csproj", "{B8C2FB19-4AD1-467D-A654-37382D5433FC}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DbLocalizationProvider.Xliff", "lib\netcore\lib\localization-provider\src\DbLocalizationProvider.Xliff\DbLocalizationProvider.Xliff.csproj", "{1D9ECB3D-20B2-4B95-8DA8-0DDDAAB3CD9F}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DbLocalizationProvider.AdminUI.AspNetCore.Xliff", "lib\netcore\src\DbLocalizationProvider.AdminUI.AspNetCore.Xliff\DbLocalizationProvider.AdminUI.AspNetCore.Xliff.csproj", "{3D8A3F94-6557-4146-8ED0-C1C047AF8F8D}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -63,6 +77,34 @@ Global
 		{BFF48F12-C006-4E73-A8D7-5B6A19829CEB}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{BFF48F12-C006-4E73-A8D7-5B6A19829CEB}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{BFF48F12-C006-4E73-A8D7-5B6A19829CEB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8A9A7203-3C3D-4C68-A4B6-F32CF6CE7838}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8A9A7203-3C3D-4C68-A4B6-F32CF6CE7838}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8A9A7203-3C3D-4C68-A4B6-F32CF6CE7838}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8A9A7203-3C3D-4C68-A4B6-F32CF6CE7838}.Release|Any CPU.Build.0 = Release|Any CPU
+		{85AAC59F-8CEB-49F6-A40A-EDAC9D8E54B0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{85AAC59F-8CEB-49F6-A40A-EDAC9D8E54B0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{85AAC59F-8CEB-49F6-A40A-EDAC9D8E54B0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{85AAC59F-8CEB-49F6-A40A-EDAC9D8E54B0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{224A33EE-4C65-4673-BF79-B2D3CFA67A44}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{224A33EE-4C65-4673-BF79-B2D3CFA67A44}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{224A33EE-4C65-4673-BF79-B2D3CFA67A44}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{224A33EE-4C65-4673-BF79-B2D3CFA67A44}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9F637A47-5B06-41D4-AA1F-22E691026A1F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9F637A47-5B06-41D4-AA1F-22E691026A1F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9F637A47-5B06-41D4-AA1F-22E691026A1F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9F637A47-5B06-41D4-AA1F-22E691026A1F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B8C2FB19-4AD1-467D-A654-37382D5433FC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B8C2FB19-4AD1-467D-A654-37382D5433FC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B8C2FB19-4AD1-467D-A654-37382D5433FC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B8C2FB19-4AD1-467D-A654-37382D5433FC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1D9ECB3D-20B2-4B95-8DA8-0DDDAAB3CD9F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1D9ECB3D-20B2-4B95-8DA8-0DDDAAB3CD9F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1D9ECB3D-20B2-4B95-8DA8-0DDDAAB3CD9F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1D9ECB3D-20B2-4B95-8DA8-0DDDAAB3CD9F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3D8A3F94-6557-4146-8ED0-C1C047AF8F8D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3D8A3F94-6557-4146-8ED0-C1C047AF8F8D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3D8A3F94-6557-4146-8ED0-C1C047AF8F8D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3D8A3F94-6557-4146-8ED0-C1C047AF8F8D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -74,6 +116,13 @@ Global
 		{0E1BBDF8-2852-48C1-A0B3-076FFFA4D872} = {6DAC8C14-9A97-4262-B58A-CB61C56C18A4}
 		{3243B929-B3E6-460B-88DA-21C1253C629C} = {D221A112-5BF9-4B2A-9C86-EDA6C79EF187}
 		{BFF48F12-C006-4E73-A8D7-5B6A19829CEB} = {6DAC8C14-9A97-4262-B58A-CB61C56C18A4}
+		{8A9A7203-3C3D-4C68-A4B6-F32CF6CE7838} = {6DAC8C14-9A97-4262-B58A-CB61C56C18A4}
+		{85AAC59F-8CEB-49F6-A40A-EDAC9D8E54B0} = {D221A112-5BF9-4B2A-9C86-EDA6C79EF187}
+		{224A33EE-4C65-4673-BF79-B2D3CFA67A44} = {D221A112-5BF9-4B2A-9C86-EDA6C79EF187}
+		{9F637A47-5B06-41D4-AA1F-22E691026A1F} = {D221A112-5BF9-4B2A-9C86-EDA6C79EF187}
+		{B8C2FB19-4AD1-467D-A654-37382D5433FC} = {D221A112-5BF9-4B2A-9C86-EDA6C79EF187}
+		{1D9ECB3D-20B2-4B95-8DA8-0DDDAAB3CD9F} = {D221A112-5BF9-4B2A-9C86-EDA6C79EF187}
+		{3D8A3F94-6557-4146-8ED0-C1C047AF8F8D} = {6DAC8C14-9A97-4262-B58A-CB61C56C18A4}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {64868451-1A5E-4608-BCA2-0BBE4B8278DB}
