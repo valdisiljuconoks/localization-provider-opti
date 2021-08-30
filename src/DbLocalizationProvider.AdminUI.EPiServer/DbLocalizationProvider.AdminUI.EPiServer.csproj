@@ -16,10 +16,10 @@
     <PackageTags>Localization Provider DbLocalization DbLocalizationProvider LocalizationProvider Database Driven AdminUI AspNetCore NetCore Optimizely</PackageTags>
     <PackageId>DbLocalizationProvider.AdminUI.EPiServer</PackageId>
     <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
-    <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
-    <NuspecFile>DbLocalizationProvider.AdminUI.EPiServer.nuspec</NuspecFile>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <!--<NuspecFile>DbLocalizationProvider.AdminUI.EPiServer.nuspec</NuspecFile>
     <NuspecBasePath>$(ProjectDir)</NuspecBasePath>
-    <NuspecProperties>Configuration=$(Configuration);version=$(PackageVersion);description=$(Description)</NuspecProperties>
+    <NuspecProperties>Configuration=$(Configuration);version=$(PackageVersion);description=$(Description)</NuspecProperties>-->
     <SignAssembly>true</SignAssembly>
     <AssemblyOriginatorKeyFile>..\..\lib\netcore\lib\localization-provider\strongname.snk</AssemblyOriginatorKeyFile>
     <PublishRepositoryUrl>true</PublishRepositoryUrl>
@@ -32,6 +32,7 @@
 
   <ItemGroup>
     <Content Remove="modules\_protected\DbLocalizationProvider.AdminUI.EPiServer\module.config" />
+    <Content Remove="module\module.config" />
     <Content Remove="package-lock.json" />
     <Content Remove="package.json" />
   </ItemGroup>
@@ -63,17 +64,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <None Remove="DbLocalizationProvider.AdminUI.EPiServer.zip" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Content Include="modules\_protected\DbLocalizationProvider.AdminUI.EPiServer\DbLocalizationProvider.AdminUI.EPiServer.zip">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-  </ItemGroup>
-
-  <ItemGroup>
-    <None Include="modules\_protected\DbLocalizationProvider.AdminUI.EPiServer\module.config" />
+    <None Include="module\module.config" />
   </ItemGroup>
 
   <Target Name="CopyAssets" AfterTargets="Build">
@@ -87,4 +78,9 @@
     <Copy SourceFiles="@(DocFile)" DestinationFolder="$(PublishDir)" SkipUnchangedFiles="false" />
   </Target>
 
+  <Import Project="$(SolutionDir)\src\pack.proj" Condition="Exists('$(SolutionDir)\src\pack.proj')" />
+
+  <PropertyGroup>
+    <PackagingProjectName>DbLocalizationProvider.AdminUI.EPiServer</PackagingProjectName>
+  </PropertyGroup>
 </Project>
