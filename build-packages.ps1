@@ -4,19 +4,20 @@ cd .\.nuget
 
 # episerver libraries
 
-.\nuget.exe pack ..\src\DbLocalizationProvider.EPiServer\DbLocalizationProvider.EPiServer.csproj -Properties Configuration=Release #-IncludeReferencedProjects
+cd .\..\src\DbLocalizationProvider.EPiServer\
+dotnet build -c Release
+dotnet pack -c Release
+# dotnet pack --include-symbols -p:SymbolPackageFormat=snupkg
+copy .\bin\Release\DbLocalizationProvider.EPiServer.*.nupkg .\..\..\.nuget\
+copy .\bin\Release\DbLocalizationProvider.EPiServer.*.snupkg .\..\..\.nuget\
+cd .\..\..\.nuget\
 
-$moduleName = "DbLocalizationProvider.AdminUI.EPiServer"
-$source = $PSScriptRoot + "\src\" + $moduleName + "\modules\_protected\" + $moduleName
-$destination = $PSScriptRoot + "\src\" + $moduleName + "\" + $moduleName + ".zip"
+cd .\..\src\DbLocalizationProvider.AdminUI.EPiServer\
+dotnet build -c Release
+dotnet pack -c Release
+# dotnet pack --include-symbols -p:SymbolPackageFormat=snupkg
+copy .\bin\Release\DbLocalizationProvider.AdminUI.EPiServer.*.nupkg .\..\..\.nuget\
+copy .\bin\Release\DbLocalizationProvider.AdminUI.EPiServer.*.snupkg .\..\..\.nuget\
+cd .\..\..\.nuget\
 
-If(Test-path $destination) {Remove-item $destination}
-[io.compression.zipfile]::CreateFromDirectory($Source, $destination)
-
-.\nuget.exe pack ..\src\DbLocalizationProvider.AdminUI.EPiServer\DbLocalizationProvider.AdminUI.EPiServer.csproj -Properties Configuration=Release #-IncludeReferencedProjects
-.\nuget.exe pack ..\src\DbLocalizationProvider.EPiServer.JsResourceHandler\DbLocalizationProvider.EPiServer.JsResourceHandler.csproj -Properties Configuration=Release #-IncludeReferencedProjects
-.\nuget.exe pack ..\src\DbLocalizationProvider.AdminUI.EPiServer.Xliff\DbLocalizationProvider.AdminUI.EPiServer.Xliff.csproj -Properties Configuration=Release #-IncludeReferencedProjects
-.\nuget.exe pack ..\src\DbLocalizationProvider.AdminUI.EPiServer.Csv\DbLocalizationProvider.AdminUI.EPiServer.Csv.csproj -Properties Configuration=Release #-IncludeReferencedProjects
-.\nuget.exe pack ..\src\DbLocalizationProvider.MigrationTool\DbLocalizationProvider.MigrationTool.csproj -Properties Configuration=Release -tool
-
-cd ..\
+cd ..

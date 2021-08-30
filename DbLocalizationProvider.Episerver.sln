@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 16
-VisualStudioVersion = 16.0.31321.278
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.31612.314
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DbLocalizationProvider.EPiServer", "src\DbLocalizationProvider.EPiServer\DbLocalizationProvider.EPiServer.csproj", "{86CBFEC7-8763-4BBA-B760-0A0C977C8C36}"
 EndProject
@@ -38,6 +38,15 @@ EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DbLocalizationProvider.Xliff", "lib\netcore\lib\localization-provider\src\DbLocalizationProvider.Xliff\DbLocalizationProvider.Xliff.csproj", "{1D9ECB3D-20B2-4B95-8DA8-0DDDAAB3CD9F}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DbLocalizationProvider.AdminUI.AspNetCore.Xliff", "lib\netcore\src\DbLocalizationProvider.AdminUI.AspNetCore.Xliff\DbLocalizationProvider.AdminUI.AspNetCore.Xliff.csproj", "{3D8A3F94-6557-4146-8ED0-C1C047AF8F8D}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "solution-items", "solution-items", "{4E0E5F42-DD66-439A-AE44-F4814C8B1BF5}"
+	ProjectSection(SolutionItems) = preProject
+		.editorconfig = .editorconfig
+		build-packages.ps1 = build-packages.ps1
+		LICENSE = LICENSE
+		push-packages.ps1 = push-packages.ps1
+		README.md = README.md
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
