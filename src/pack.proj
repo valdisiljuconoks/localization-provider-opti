@@ -39,8 +39,7 @@
       InputPath="$(TmpOutDir)\content"
       OutputFileName="$(OutDir)\$(MSBuildProjectName).zip"
       OverwriteExistingFile="true" />
-
-    <!-- <RemoveDir Directories="$(TmpOutDir)" /> -->
+     <RemoveDir Directories="$(TmpOutDir)" />
   </Target>
 
   <ItemGroup>

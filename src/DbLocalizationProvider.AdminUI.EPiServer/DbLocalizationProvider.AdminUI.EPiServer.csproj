@@ -17,9 +17,6 @@
     <PackageId>DbLocalizationProvider.AdminUI.EPiServer</PackageId>
     <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-    <!--<NuspecFile>DbLocalizationProvider.AdminUI.EPiServer.nuspec</NuspecFile>
-    <NuspecBasePath>$(ProjectDir)</NuspecBasePath>
-    <NuspecProperties>Configuration=$(Configuration);version=$(PackageVersion);description=$(Description)</NuspecProperties>-->
     <SignAssembly>true</SignAssembly>
     <AssemblyOriginatorKeyFile>..\..\lib\netcore\lib\localization-provider\strongname.snk</AssemblyOriginatorKeyFile>
     <PublishRepositoryUrl>true</PublishRepositoryUrl>
@@ -80,7 +77,4 @@
 
   <Import Project="$(SolutionDir)\src\pack.proj" Condition="Exists('$(SolutionDir)\src\pack.proj')" />
 
-  <PropertyGroup>
-    <PackagingProjectName>DbLocalizationProvider.AdminUI.EPiServer</PackagingProjectName>
-  </PropertyGroup>
 </Project>
