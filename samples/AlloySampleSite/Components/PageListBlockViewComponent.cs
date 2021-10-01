@@ -22,7 +22,7 @@ namespace AlloySampleSite.Controllers
             this.contentLoader = contentLoader;
         }
 
-        public override IViewComponentResult Invoke(PageListBlock currentBlock)
+        protected override IViewComponentResult InvokeComponent(PageListBlock currentBlock)
         {
             var pages = FindPages(currentBlock);
 

@@ -1,4 +1,4 @@
-﻿using AlloySampleSite.Helpers;
+using AlloySampleSite.Helpers;
 using AlloySampleSite.Models.Blocks;
 using AlloySampleSite.Models.Pages;
 using AlloySampleSite.Models.ViewModels;
@@ -23,7 +23,7 @@ namespace AlloySampleSite.Controllers
             _permanentLinkMapper = permanentLinkMapper;
         }
 
-        public override IViewComponentResult Invoke(ContactBlock currentBlock)
+        protected override IViewComponentResult InvokeComponent(ContactBlock currentBlock)
         {
             ContactPage contactPage = null;
             if (!ContentReference.IsNullOrEmpty(currentBlock.ContactPageLink))

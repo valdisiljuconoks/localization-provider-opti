@@ -15,12 +15,12 @@
     <tags>Localization EPiServer Provider DbLocalization DbLocalizationProvider LocalizationProvider AdminUI UI</tags>
     <dependencies>
       <group targetFramework="net5.0">
-        <dependency id="LocalizationProvider.Abstractions" version="7.0.0-pre-0003" exclude="Build,Analyzers" />
-        <dependency id="LocalizationProvider.AdminUI.Models" version="7.0.0-pre-0003" exclude="Build,Analyzers" />
-        <dependency id="LocalizationProvider" version="7.0.0-pre-0003" exclude="Build,Analyzers" />
-        <dependency id="LocalizationProvider.AdminUI.AspNetCore" version="7.0.0-pre-0003" exclude="Build,Analyzers" />
-        <dependency id="LocalizationProvider.AspNetCore" version="7.0.0-pre-0003" exclude="Build,Analyzers" />
-        <dependency id="DbLocalizationProvider.EPiServer" version="7.0.0-pre-0003" exclude="Build,Analyzers" />
+        <dependency id="LocalizationProvider.Abstractions" version="7.0.0-pre-0004" exclude="Build,Analyzers" />
+        <dependency id="LocalizationProvider.AdminUI.Models" version="7.0.0-pre-0004" exclude="Build,Analyzers" />
+        <dependency id="LocalizationProvider" version="7.0.0-pre-0004" exclude="Build,Analyzers" />
+        <dependency id="LocalizationProvider.AdminUI.AspNetCore" version="7.0.0-pre-0004" exclude="Build,Analyzers" />
+        <dependency id="LocalizationProvider.AspNetCore" version="7.0.0-pre-0004" exclude="Build,Analyzers" />
+        <dependency id="DbLocalizationProvider.EPiServer" version="7.0.0-pre-0004" exclude="Build,Analyzers" />
         <dependency id="EPiServer.CMS.AspNetCore" version="12.0.2" exclude="Build,Analyzers" />
         <dependency id="EPiServer.CMS.UI.Core" version="12.0.2-pre-022418" exclude="Build,Analyzers" />
       </group>
