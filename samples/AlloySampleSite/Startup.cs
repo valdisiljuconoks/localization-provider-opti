@@ -85,6 +85,7 @@ namespace AlloySampleSite
 
                         ctx.UseSqlServer(connectionstring);
                     })
+                    .AddCsvFormat()
                     .AddEpiserverDbLocalizationProviderAdminUI(_ =>
                     {
                         _.RootUrl = "/localization-admin";

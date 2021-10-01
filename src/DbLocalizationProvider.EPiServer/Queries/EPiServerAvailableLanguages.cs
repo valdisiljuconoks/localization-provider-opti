@@ -8,7 +8,6 @@ using DbLocalizationProvider.Abstractions;
 using DbLocalizationProvider.Queries;
 using EPiServer.DataAbstraction;
 using EPiServer.Security;
-using EPiServer.ServiceLocation;
 
 namespace DbLocalizationProvider.EPiServer.Queries
 {
@@ -27,6 +26,7 @@ namespace DbLocalizationProvider.EPiServer.Queries
             {
                 var currentLanguages = _languageBranchRepository.ListEnabled()
                                                                 .Where(l => l.QueryEditAccessRights(PrincipalInfo.CurrentPrincipal))
+                                                                .OrderByDescending(l => l.Name)
                                                                 .Select(l => new CultureInfo(l.LanguageID));
 
                 if(query.IncludeInvariant)
