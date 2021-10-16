@@ -13,7 +13,7 @@ namespace DbLocalizationProvider.EPiServer.Queries
 {
     public class EPiServerAvailableLanguages
     {
-        public class Handler : IQueryHandler<AvailableLanguages.Query, IEnumerable<CultureInfo>>
+        public class Handler : IQueryHandler<AvailableLanguages.Query, IEnumerable<AvailableLanguage>>
         {
             private readonly ILanguageBranchRepository _languageBranchRepository;
 
@@ -22,15 +22,17 @@ namespace DbLocalizationProvider.EPiServer.Queries
                 _languageBranchRepository = languageBranchRepository;
             }
 
-            public IEnumerable<CultureInfo> Execute(AvailableLanguages.Query query)
+            public IEnumerable<AvailableLanguage> Execute(AvailableLanguages.Query query)
             {
                 var currentLanguages = _languageBranchRepository.ListEnabled()
                                                                 .Where(l => l.QueryEditAccessRights(PrincipalInfo.CurrentPrincipal))
-                                                                .OrderByDescending(l => l.Name)
-                                                                .Select(l => new CultureInfo(l.LanguageID));
+                                                                .Select(l => new AvailableLanguage(l.Name, l.SortIndex, l.Culture))
+                                                                .ToList();
 
-                if(query.IncludeInvariant)
-                    currentLanguages = new[] { CultureInfo.InvariantCulture }.Concat(currentLanguages);
+                if (query.IncludeInvariant)
+                {
+                    currentLanguages.Insert(0, AvailableLanguage.Invariant);
+                }
 
                 return currentLanguages;
             }

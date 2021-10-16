@@ -19,7 +19,15 @@ namespace DbLocalizationProvider.EPiServer
             _queryExecutor = queryExecutor;
         }
 
-        public override IEnumerable<CultureInfo> AvailableLanguages => _queryExecutor.Execute(new AvailableLanguages.Query());
+        public override IEnumerable<CultureInfo> AvailableLanguages
+        {
+            get
+            {
+                return _queryExecutor
+                    .Execute(new AvailableLanguages.Query())
+                    .Select(al => al.CultureInfo);
+            }
+        }
 
         public override string GetString(string originalKey, string[] normalizedKey, CultureInfo culture)
         {
