@@ -1,4 +1,5 @@
 using DbLocalizationProvider.Abstractions;
+using DbLocalizationProvider.Abstractions.Refactoring;
 
 namespace AlloySampleSite.Resources
 {
@@ -6,6 +7,15 @@ namespace AlloySampleSite.Resources
     public class PageHeadings
     {
         public static string StartPageHeadingTitle { get; set; } = "Start page heading";
+    }
+
+    [LocalizedResource]
+    public class RefactoredResource
+    {
+        //public static string Resource1 { get; set; } = "Resource 1";
+
+        [RenamedResource(OldName = "Resource1")]
+        public static string Resource2 { get; set; } = "Resource 1";
     }
 
     [LocalizedResource]

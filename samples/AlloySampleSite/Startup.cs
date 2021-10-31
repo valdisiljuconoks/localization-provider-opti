@@ -84,6 +84,8 @@ namespace AlloySampleSite
                         ctx.EnableLegacyMode = () => true;
 
                         ctx.UseSqlServer(connectionstring);
+
+                        ctx.FlexibleRefactoringMode = true;
                     })
                     .AddCsvFormat()
                     .AddEpiserverDbLocalizationProviderAdminUI(_ =>
