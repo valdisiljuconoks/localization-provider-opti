@@ -5,9 +5,9 @@ using System;
 using System.Globalization;
 using System.Linq.Expressions;
 using DbLocalizationProvider.Internal;
+using DbLocalizationProvider.Sync;
 using EPiServer.Framework.Localization;
 using EPiServer.ServiceLocation;
-using Microsoft.Extensions.DependencyInjection;
 
 namespace DbLocalizationProvider.EPiServer
 {
@@ -20,7 +20,7 @@ namespace DbLocalizationProvider.EPiServer
 
         public static string GetStringByCulture(this LocalizationService service, Expression<Func<object>> resource, CultureInfo culture, params object[] formatArguments)
         {
-            var helper = ServiceLocator.Current.GetRequiredService<ExpressionHelper>();
+            var helper = TryGetExpressionHelper();
             var resourceKey = helper.GetFullMemberName(resource);
 
             return GetStringByCulture(service, resourceKey, culture, formatArguments);
@@ -28,9 +28,24 @@ namespace DbLocalizationProvider.EPiServer
 
         public static string GetStringByCulture(this LocalizationService service, string resourceKey, CultureInfo culture, params object[] formatArguments)
         {
-            var provider = ServiceLocator.Current.GetRequiredService<LocalizationProvider>();
+            var translation = service.GetStringByCulture(resourceKey, culture);
+            if (string.IsNullOrEmpty(translation))
+            {
+                return translation;
+            }
 
-            return provider.GetStringByCulture(resourceKey, culture, formatArguments);
+            return LocalizationProvider.Format(translation, formatArguments);
+        }
+
+        private static ExpressionHelper TryGetExpressionHelper()
+        {
+
+            if (ServiceLocator.Current.TryGetExistingInstance<ExpressionHelper>(out var helper))
+            {
+                return helper;
+            }
+
+            return new ExpressionHelper(new ResourceKeyBuilder(new ScanState()));
         }
     }
 }

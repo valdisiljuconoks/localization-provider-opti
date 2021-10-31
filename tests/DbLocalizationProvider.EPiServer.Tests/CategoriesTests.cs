@@ -1,63 +1,63 @@
-﻿using System.Linq;
+using System.Linq;
 using DbLocalizationProvider.Queries;
 using Xunit;
 
 namespace DbLocalizationProvider.EPiServer.Tests
 {
-    public class CategoriesTests
-    {
-        public CategoriesTests()
-        {
-            ConfigurationContext.Setup(cfg => cfg.TypeFactory.ForQuery<DetermineDefaultCulture.Query>().SetHandler<DetermineDefaultCulture.Handler>());
-        }
+    //public class CategoriesTests
+    //{
+    //    public CategoriesTests()
+    //    {
+    //        ConfigurationContext.Setup(cfg => cfg.TypeFactory.ForQuery<DetermineDefaultCulture.Query>().SetHandler<DetermineDefaultCulture.Handler>());
+    //    }
 
-        [Fact]
-        public void EpiCateogry_ShouldGetProperResourceKey()
-        {
-            var sut = new LocalizedCategoryScanner();
-            var target = typeof(LocalCategory);
+    //    [Fact]
+    //    public void EpiCateogry_ShouldGetProperResourceKey()
+    //    {
+    //        var sut = new LocalizedCategoryScanner();
+    //        var target = typeof(LocalCategory);
 
-            var result = sut.GetClassLevelResources(target, null);
+    //        var result = sut.GetClassLevelResources(target, null);
 
-            Assert.NotEmpty(result);
+    //        Assert.NotEmpty(result);
 
-            var first = result.First();
+    //        var first = result.First();
 
-            Assert.Equal($"/categories/category[@name=\"{nameof(LocalCategory)}\"]/description", first.Key);
-            Assert.Equal("LocalCategory", first.Translations.First().Translation);
-        }
+    //        Assert.Equal($"/categories/category[@name=\"{nameof(LocalCategory)}\"]/description", first.Key);
+    //        Assert.Equal("LocalCategory", first.Translations.First().Translation);
+    //    }
 
-        [Fact]
-        public void EpiCateogry_ShouldGetProperResourceKey_TranslationFromName()
-        {
-            var sut = new LocalizedCategoryScanner();
-            var target = typeof(LocalCategoryWithName);
+    //    [Fact]
+    //    public void EpiCateogry_ShouldGetProperResourceKey_TranslationFromName()
+    //    {
+    //        var sut = new LocalizedCategoryScanner();
+    //        var target = typeof(LocalCategoryWithName);
 
-            var result = sut.GetClassLevelResources(target, null);
-            var first = result.First();
+    //        var result = sut.GetClassLevelResources(target, null);
+    //        var first = result.First();
 
-            Assert.Equal($"/categories/category[@name=\"{nameof(LocalCategoryWithName)}\"]/description", first.Key);
-            Assert.Equal("local category", first.Translations.First().Translation);
-        }
+    //        Assert.Equal($"/categories/category[@name=\"{nameof(LocalCategoryWithName)}\"]/description", first.Key);
+    //        Assert.Equal("local category", first.Translations.First().Translation);
+    //    }
 
-        [Fact]
-        public void ScanEpiCateogry_ShouldRegister()
-        {
-            var sut = new LocalizedCategoryScanner();
+    //    [Fact]
+    //    public void ScanEpiCateogry_ShouldRegister()
+    //    {
+    //        var sut = new LocalizedCategoryScanner();
 
-            var result = sut.ShouldScan(typeof(LocalCategory));
+    //        var result = sut.ShouldScan(typeof(LocalCategory));
 
-            Assert.True(result);
-        }
+    //        Assert.True(result);
+    //    }
 
-        [Fact]
-        public void ScanNonEpiCategory_ShouldNotRegister()
-        {
-            var sut = new LocalizedCategoryScanner();
+    //    [Fact]
+    //    public void ScanNonEpiCategory_ShouldNotRegister()
+    //    {
+    //        var sut = new LocalizedCategoryScanner();
 
-            var result = sut.ShouldScan(typeof(LocalNonEpiCategory));
+    //        var result = sut.ShouldScan(typeof(LocalNonEpiCategory));
 
-            Assert.False(result);
-        }
-    }
+    //        Assert.False(result);
+    //    }
+    //}
 }
