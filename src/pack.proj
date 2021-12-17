@@ -46,10 +46,14 @@
     <Content Include="$(OutDir)\$(MSBuildProjectName).zip" >
       <Pack>true</Pack>
       <PackagePath>content\modules\_protected\$(MSBuildProjectName)\;contentFiles\any\any\modules\_protected\$(MSBuildProjectName)\</PackagePath>
+      <PackageCopyToOutput>true</PackageCopyToOutput>
+      <BuildAction>None</BuildAction>
     </Content>
     <Content Include="$(SolutionDir)\src\$(MSBuildProjectName)\CopyZipFiles.targets" >
       <Pack>true</Pack>
       <PackagePath>build\net5.0\$(MSBuildProjectName).targets</PackagePath>
+      <PackageCopyToOutput>true</PackageCopyToOutput>
+      <BuildAction>None</BuildAction>
     </Content>
   </ItemGroup>
 </Project>
