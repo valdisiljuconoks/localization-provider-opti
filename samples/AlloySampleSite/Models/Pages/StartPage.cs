@@ -1,9 +1,10 @@
-﻿using AlloySampleSite.Models.Blocks;
+using AlloySampleSite.Models.Blocks;
 using EPiServer.Core;
 using EPiServer.DataAbstraction;
 using EPiServer.DataAnnotations;
 using EPiServer.SpecializedProperties;
 using System.ComponentModel.DataAnnotations;
+using DbLocalizationProvider.Abstractions;
 
 namespace AlloySampleSite.Models.Pages
 {
@@ -18,6 +19,7 @@ namespace AlloySampleSite.Models.Pages
         Availability.Specific,
         Include = new[] { typeof(ContainerPage), typeof(ProductPage), typeof(StandardPage), typeof(ISearchPage), typeof(LandingPage), typeof(ContentFolder) }, // Pages we can create under the start page...
         ExcludeOn = new[] { typeof(ContainerPage), typeof(ProductPage), typeof(StandardPage), typeof(ISearchPage), typeof(LandingPage) })] // ...and underneath those we can't create additional start pages
+    [LocalizedResource(KeyPrefix = "/testing/xpath/")]
     public class StartPage : SitePageData
     {
         [Display(
@@ -39,6 +41,8 @@ namespace AlloySampleSite.Models.Pages
         public virtual LinkItemCollection CustomerZonePageLinks { get; set; }
 
         [Display(GroupName = Global.GroupNames.SiteSettings)]
+        [ResourceKey("properties/GlobalNewsPageLink/Help", "Some help text")]
+        [ResourceKey("properties/GlobalNewsPageLink/Caption", "caption of the property")]
         public virtual PageReference GlobalNewsPageLink { get; set; }
 
         [Display(GroupName = Global.GroupNames.SiteSettings)]
