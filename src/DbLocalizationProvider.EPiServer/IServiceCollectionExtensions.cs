@@ -1,7 +1,6 @@
 // Copyright (c) Valdis Iljuconoks. All rights reserved.
 // Licensed under Apache-2.0. See the LICENSE file in the project root for more information
 
-using System;
 using System.Globalization;
 using System.Linq;
 using DbLocalizationProvider.AspNetCore;
@@ -9,41 +8,54 @@ using DbLocalizationProvider.EPiServer.Queries;
 using DbLocalizationProvider.Queries;
 using EPiServer.Framework.Localization;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.DependencyInjection.Extensions;
 
 namespace DbLocalizationProvider.EPiServer
 {
+    /// <summary>
+    /// You have to have this placeholder class to define extension methods
+    /// </summary>
     public static class IServiceCollectionExtensions
     {
-        public static IServiceCollection AddEpiserverDbLocalizationProvider(
-            this IServiceCollection services,
-            Action<ConfigurationContext> setup = null)
+        /// <summary>
+        /// Adds Optimizely support for DbLocalizationProvider.
+        /// </summary>
+        /// <param name="builder">Provider builder interface (to capture context and service collection).</param>
+        /// <returns>Service collection to support fluent API.</returns>
+        public static IDbLocalizationProviderBuilder AddOptimizely(this IDbLocalizationProviderBuilder builder)
         {
-            services.AddDbLocalizationProvider(ctx =>
+            builder.Context.CacheManager = new EPiServerCacheManager();
+
+            // TODO: check if this gets injected properly
+            //ctx.TypeScanners.Insert(0, new LocalizedCategoryScanner());
+
+            // overriding handlers and registering those in DI container (so handler factory can later find them and create instance).
+            builder.Context.TypeFactory.ForQuery<AvailableLanguages.Query>().SetHandler<EPiServerAvailableLanguages.Handler>();
+            builder.Services.AddTransient<EPiServerAvailableLanguages.Handler>();
+
+            builder.Context.TypeFactory.ForQuery<DetermineDefaultCulture.Query>().SetHandler<EPiServerDetermineDefaultCulture.Handler>();
+            builder.Services.AddTransient<EPiServerDetermineDefaultCulture.Handler>();
+
+
+            // if fallback list is empty - meaning that user has not configured anything
+            // we can jump in and initialize config from Episerver settings
+            if (!builder.Context.FallbackLanguages.Any()
+                && LocalizationService.Current.FallbackBehavior.HasFlag(FallbackBehaviors.FallbackCulture)
+                && !Equals(LocalizationService.Current.FallbackCulture, CultureInfo.InvariantCulture))
             {
-                ctx.CacheManager = new EPiServerCacheManager();
+                // read language fallback from the configuration file
+                builder.Context.FallbackLanguages.Try(LocalizationService.Current.FallbackCulture);
+            }
 
-                // TODO: check if this gets injected properly
-                //ctx.TypeScanners.Insert(0, new LocalizedCategoryScanner());
+            builder.Services.AddLocalizationProvider<DatabaseLocalizationProvider>();
 
-                ctx.TypeFactory.ForQuery<AvailableLanguages.Query>().SetHandler<EPiServerAvailableLanguages.Handler>();
-                ctx.TypeFactory.ForQuery<DetermineDefaultCulture.Query>().SetHandler<EPiServerDetermineDefaultCulture.Handler>();
+            builder.Services.Replace(
+                    new ServiceDescriptor(
+                        typeof(IUsageConfigurator),
+                        typeof(OptimizelyUsageConfigurator),
+                        ServiceLifetime.Singleton));
 
-                // if fallback list is empty - meaning that user has not configured anything
-                // we can jump in and initialize config from Episerver settings
-                if (!ctx.FallbackLanguages.Any()
-                    && LocalizationService.Current.FallbackBehavior.HasFlag(FallbackBehaviors.FallbackCulture)
-                    && !Equals(LocalizationService.Current.FallbackCulture, CultureInfo.InvariantCulture))
-                {
-                    // read language fallback from the configuration file
-                    ctx.FallbackLanguages.Try(LocalizationService.Current.FallbackCulture);
-                }
-
-                setup?.Invoke(ctx);
-
-                services.AddLocalizationProvider<DatabaseLocalizationProvider>();
-            });
-
-            return services;
+            return builder;
         }
     }
 }

@@ -5,7 +5,7 @@ using DbLocalizationProvider.Abstractions;
 using DbLocalizationProvider.Queries;
 using EPiServer.Globalization;
 
-namespace DbLocalizationProvider.EPiServer
+namespace DbLocalizationProvider.EPiServer.Queries
 {
     public class EPiServerDetermineDefaultCulture
     {

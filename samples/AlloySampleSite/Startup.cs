@@ -12,9 +12,11 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using System.IO;
 using DbLocalizationProvider.AdminUI.AspNetCore;
+using DbLocalizationProvider.AdminUI.AspNetCore.Routing;
 using DbLocalizationProvider.AdminUI.EPiServer;
+using DbLocalizationProvider.AspNetCore;
+using DbLocalizationProvider.AspNetCore.ClientsideProvider.Routing;
 using DbLocalizationProvider.EPiServer;
-using DbLocalizationProvider.EPiServer.ClientsideProvider;
 using DbLocalizationProvider.Storage.SqlServer;
 using EPiServer.Authorization;
 using EPiServer.Framework.Localization;
@@ -73,11 +75,13 @@ namespace AlloySampleSite
                     })
                     .Configure<RequestLocalizationOptions>(opts =>
                     {
-                        opts.SupportedCultures = supportedCultures;
-                        opts.SupportedUICultures = supportedCultures;
+                        //opts.SupportedCultures = supportedCultures;
+                        //opts.SupportedUICultures = supportedCultures;
                         opts.ApplyCurrentCultureToResponseHeaders = true;
-                    })
-                    .AddEpiserverDbLocalizationProvider(ctx =>
+                    });
+
+                services
+                    .AddDbLocalizationProvider(ctx =>
                     {
                         ctx.FallbackLanguages.Try(supportedCultures);
                         ctx.EnableInvariantCultureFallback = true;
@@ -87,8 +91,10 @@ namespace AlloySampleSite
 
                         ctx.FlexibleRefactoringMode = true;
                     })
-                    .AddCsvFormat()
-                    .AddEpiserverDbLocalizationProviderAdminUI(_ =>
+                    .AddOptimizely();
+
+                services
+                    .AddDbLocalizationProviderAdminUI(_ =>
                     {
                         _.RootUrl = "/localization-admin";
 
@@ -99,7 +105,10 @@ namespace AlloySampleSite
                         _.DefaultView = ResourceListView.Tree;
                         _.CustomCssPath = "/css/custom-adminui.css";
                         _.HideDeleteButton = false;
-                    });
+                    })
+                    .AddOptimizelyAdminUI()
+                    .AddCsvSupport()
+                    .AddXliffSupport();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -111,17 +120,17 @@ namespace AlloySampleSite
                 app.UseMiddleware<AdministratorRegistrationPageMiddleware>();
             }
 
-            var options = app.ApplicationServices.GetRequiredService<IOptions<RequestLocalizationOptions>>();
-            app.UseRequestLocalization(options.Value);
+            //var options = app.ApplicationServices.GetRequiredService<IOptions<RequestLocalizationOptions>>();
+            //app.UseRequestLocalization(options.Value);
 
             app.UseStaticFiles();
             app.UseRouting();
             app.UseAuthentication();
             app.UseAuthorization();
 
-            app.UseEpiserverDbLocalizationProvider();
-            app.UseEpiserverDbLocalizationProviderAdminUI();
-            app.UseEpiserverDbLocalizationClientsideProvider();
+            app.UseDbLocalizationProvider();
+            app.UseDbLocalizationProviderAdminUI();
+            app.UseDbLocalizationClientsideProvider();
 
             app.UseEndpoints(endpoints =>
             {
@@ -129,8 +138,8 @@ namespace AlloySampleSite
                 endpoints.MapControllerRoute("Register", "/Register", new { controller = "Register", action = "Index" });
                 endpoints.MapRazorPages();
 
-                endpoints.MapEpiserverDbLocalizationAdminUI();
-                endpoints.MapEpiserverDbLocalizationClientsideProvider();
+                endpoints.MapDbLocalizationAdminUI();
+                endpoints.MapDbLocalizationClientsideProvider();
             });
         }
     }
