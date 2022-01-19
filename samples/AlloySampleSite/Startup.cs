@@ -96,7 +96,7 @@ namespace AlloySampleSite
                 services
                     .AddDbLocalizationProviderAdminUI(_ =>
                     {
-                        _.RootUrl = "/localization-admin";
+                        _.RootUrl = "/localization-admin-ui";
 
                         _.AccessPolicyOptions = builder => builder.RequireRole(Roles.CmsAdmins);
 

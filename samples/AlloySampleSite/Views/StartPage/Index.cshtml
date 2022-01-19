@@ -31,7 +31,7 @@
 
 <div>Current UI Culture - @CultureInfo.CurrentUICulture</div>
 <div>Thread.CurrentUICulture - @Thread.CurrentThread.CurrentUICulture</div>
-<div>IRequestCultureFeature.UICulture - @(Context.Features.Get<IRequestCultureFeature>().RequestCulture.UICulture)</div>
+<div>IRequestCultureFeature.UICulture - @(Context.Features.Get<IRequestCultureFeature>()?.RequestCulture.UICulture)</div>
 <div>IUserInterfaceLanguageAccessor.Language - @UserInterfaceLanguage.Language</div>
 
 <hr/>
