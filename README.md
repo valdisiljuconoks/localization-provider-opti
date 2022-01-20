@@ -19,7 +19,6 @@ Giving you main following features:
 
 ## Getting Started
 * [Getting Started](docs/getting-started-epi.md)
-* [Customizing Provider](docs/customizing-provider-epi.md)
 
 ## Migrating from v5.x?
 Please visit [blog post](https://blog.tech-fellow.net/2020/02/21/localization-provider-major-6/) to get more information about new features added in v6 and also how to migrate.
