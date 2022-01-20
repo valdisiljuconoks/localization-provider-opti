@@ -36,6 +36,9 @@ namespace DbLocalizationProvider.EPiServer
             builder.Context.TypeFactory.ForQuery<DetermineDefaultCulture.Query>().SetHandler<EPiServerDetermineDefaultCulture.Handler>();
             builder.Services.AddTransient<EPiServerDetermineDefaultCulture.Handler>();
 
+            builder.Context.TypeFactory.ForQuery<GetCurrentUICulture.Query>().SetHandler<EPiServerGetCurrentUICulture.Handler>();
+            builder.Services.AddTransient<EPiServerGetCurrentUICulture.Handler>();
+
 
             // if fallback list is empty - meaning that user has not configured anything
             // we can jump in and initialize config from Episerver settings

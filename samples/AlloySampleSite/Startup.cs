@@ -83,7 +83,7 @@ namespace AlloySampleSite
                 services
                     .AddDbLocalizationProvider(ctx =>
                     {
-                        ctx.FallbackLanguages.Try(supportedCultures);
+                        //ctx.FallbackLanguages.Try(supportedCultures);
                         ctx.EnableInvariantCultureFallback = true;
                         ctx.EnableLegacyMode = () => true;
 
