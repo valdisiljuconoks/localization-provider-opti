@@ -1,19 +1,19 @@
-# DbLocalizationProvider for EPiServer
+# DbLocalizationProvider for Optimizely CMS and Commerce (ex. Episerver)
 
 [<img src="https://tech-fellow-consulting.visualstudio.com/_apis/public/build/definitions/7cf5a00f-7a74-440c-83bd-45d6c8a80602/11/badge"/>](https://tech-fellow-consulting.visualstudio.com/localization-provider-epi/_build/index?definitionId=11)
 [![Platform](https://img.shields.io/badge/Optimizely-%2012-blue.svg?style=flat)](http://world.optimizely.com/)
 
 ## Supporting LocalizationProvider
 
-If you find this library useful, cup of coffee would be awesome! You can support further development of the library via [Paypal](https://paypal.me/valdisiljuconoks).
+If you find this library useful, cup of coffee at late night while library is being hacked around would be awesome! You can support further development via [Paypal](https://paypal.me/valdisiljuconoks).
 
 ## What is the LocalizationProvider project?
 
-LocalizationProvider project is Episerver localization provider on steriods.
+LocalizationProvider project is Optimizely localization provider on steriods.
 
 Giving you main following features:
-* Database driven localization provider for Episerver websites projects
-* Easy resource registrations via code
+* Database driven localization provider for Optimizely websites projects
+* Easy resource registrations via code (code-first apporoach)
 * Supports hierarchical resource organization (with help of child classes)
 * Administration UI for editors to change or add new translations for required languages
 
@@ -27,11 +27,12 @@ Please visit [blog post](https://blog.tech-fellow.net/2020/02/21/localization-pr
 ## Working with DbLocalizationProvider
 * For more info about generic localization provider features read more [here](https://github.com/valdisiljuconoks/LocalizationProvider/blob/master/README.md)
 
-## Integrating with EPiServer
-* [Working with Resources (EPiServer)](docs/working-with-resources-epi.md)
-* [Admin UI (EPiServer)](docs/adminui-epi.md)
-* [EPiServer Frontend Localization](docs/jsresourcehandler-epi.md)
-* [EPiServer Xml File Migration](docs/xml-migration-epi.md)
+## Integrating with Optimizely
+* [Working with Resources (Optimizely)](docs/working-with-resources-epi.md)
+* [Optimizely Frontend Localization](docs/jsresourcehandler-epi.md)
+* [Optimizely Xml File Migration](docs/xml-migration-epi.md)
+
+<!-- * [Admin UI (Optimizely)](docs/adminui-epi.md) -->
 
 # How to Contribute
 
@@ -40,16 +41,16 @@ It's super cool if you read this section and are interesed how to help the libra
 Forking and cloning repo is first step you do. Keep in mind that provider is split into couple repositories to keep thigns separated. Additional repos are pulled in as submodules. If you Git client does not support automatic checkout of the submodules, just execute this command at the root of the checkout directory:
 
 ```
-git clone --recurse-submodules git://github.com/...
+git clone --recurse-submodules git@github.com:valdisiljuconoks/localization-provider-epi.git
 ```
 
-**NB!** As EPiServer repository contains 2 level (`lib/aspnet` and `lib/aspnet/lib/localization-provider`) submodules `--recursive-submodules` sometimes fails to detect 2nd level module. Then you can just step into `aspnet` submodule and execute pull command there:
+**NB!** As Optimizely repository contains 2 level (`lib/netcore` and `lib/netcore/lib/localization-provider`) submodules `--recursive-submodules` sometimes fails to detect 2nd level module. Then you can just step into `netcore` submodule folder and execute pull command there:
 
 ```
 git submodule foreach git pull origin master
 ```
 
-# More Info
+# More Info (Some blog posts)
 
 * [Part 1: Resources and Models](http://blog.tech-fellow.net/2016/03/16/db-localization-provider-part-1-resources-and-models/)
 * [Part 2: Configuration and Extensions](http://blog.tech-fellow.net/2016/04/21/db-localization-provider-part-2-configuration-and-extensions/)

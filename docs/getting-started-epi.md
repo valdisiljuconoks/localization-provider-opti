@@ -1,116 +1,129 @@
-# Getting Started (EPiServer)
+# Getting Started (Optimizely)
 
-## What is LocalzationProvider for EPiServer?
+## What is LocalzationProvider for Optimizely?
 
-LocalizationProvider project is an attempt to improve EPiServer built-in localization provider originally based on collection of Xml files.
+LocalizationProvider project is an attempt to improve Optimizely built-in localization provider originally based on collection of Xml files.
 
-Aside from Asp.Net Mvc features EPiServer integration components gives following additional features:
-* Database driven localization provider for EPiServer projects
+Aside from features for .NET apps Optimizely integration gives following additional features:
+* Database driven localization provider for Optimizely projects
 * Administration UI for editors to change or add new translations for required languages
-* Possibility to add new localized translations while adding new language to the EPiServer site without involving the developer
-* Easy migration tool from built-in default Xml files to your EPiServer database
+* Possibility to add new localized translations while adding new language to the Optimizely site without involving the developer
+* Easy migration tool from built-in default Xml files to your Optimizely database
 
 ## Getting Started
 
-Localization Provider for EPiServer consists from few components:
+Localization Provider for Optimizely consists from few components:
 
-* `DbLocalizationProvider.EPiServer` - core package for EPiServer integration giving you all necessary extension methods for working with resources or models in EPiServer environment.
+* `DbLocalizationProvider.EPiServer` - core package for Optimizely integration giving you all necessary extension methods for working with resources or models in Optimizely environment.
 * `DbLocalizationProvider.AdminUI.EPiServer` - administrator user interface for editors and administrators to overview resources, manage translations, import / export and do other tasks.
-* `LocalizationProvider.MigrationTool` - tool to help migrate from Xml language files (default EPiServer localization approach) to database driven provider.
-* `DbLocalizationProvider.EPiServer.JsResourceHandler` - this package brings localized resources down to client-side as Json object easily accessible in Javascipt.
+* `LocalizationProvider.MigrationTool` - tool to help migrate from Xml language files (default Optimizely localization approach) to database driven provider.
 
 
-### Installing Provider
+### Installing Localization Provider
 
-Installation nowadays can't be more simpler as just adding NuGet package(s).
+Installation nowadays can't be more simpler as just adding NuGet package(s). Add Optimizely integration package trogether with AdminUI:
 
-```
-PM> Install-Package DbLocalizationProvider.EPiServer
-```
-
-Execute this line to install administration user interface:
-
-```
-PM> Install-Package DbLocalizationProvider.AdminUI.EPiServer
+```powershell
+> dotnet add package DbLocalizationProvider.EPiServer
+> dotnet add package DbLocalizationProvider.AdminUI.Optimizely
 ```
 
-And also you might need to install SQL Server storage implementation (if you are using default EPiServer database to store resources):
+And also you might need to install SQL Server storage implementation (if you are using default Optimizely database to store resources):
 
+```powershell
+> dotnet add package LocalizationProvider.Storage.SqlServer
 ```
-PM> Install-Package LocalizationProvider.Storage.SqlServer
-```
-
-### Config File Changes
-
-
-**NB!** Currently `DbLocalizationProvider.EPiServer` package has naïve `web.config` transformation file assuming that `<episerver.framework>` section is not extracted into separate file (this was usual case for older versions of AlloyTech sample sites).
-
-New localization provider needs to be "registered" and added to the list of the localization providers configured for EPiServer Framework. Section may look like this:
-
-```xml
-<episerver.framework>
-  ..
-  <localization>
-    <providers>
-      <add name="db"
-           type="DbLocalizationProvider.EPiServer.DatabaseLocalizationProvider, DbLocalizationProvider.EPiServer" />
-      <add name="languageFiles" virtualPath="~/lang"
-           type="EPiServer.Framework.Localization.XmlResources.FileXmlLocalizationProvider, EPiServer.Framework" />
-    </providers>
-  </localization>
-  ..
-</episerver.framework>
-```
-
-**NB!** If you do have extracted `<episerver.framework>` section into separate file (usually `episerver.framework.config`), please clean-up web.config after NuGet package installation and move content of the `<localization>` section to that separate physical file.
-
 
 ## Setup & Configuration
 
-To get started you need to configure localization provider configuration context. Best place - in EPiServer initialization module:
+### Adding Provider to the Application
+After installing packages you need to configure few things.
 
-```
-using DbLocalizationProvider;
-
-[InitializableModule]
-public class InitializationModule1 : IInitializableModule
-{
-    public void Initialize(InitializationEngine context)
-    {
-        ConfigurationContext.Setup(ctx => ... );
-    }
-
-    public void Uninitialize(InitializationEngine context) { }
-}
-```
-
-## Configuration of SQL Server
-In order to get localization provider to work properly - you might need to point to EPiServer database also.
-This is done by pointing which database to use:
+Adding it to the service collection:
 
 ```csharp
-using DbLocalizationProvider;
-
-[InitializableModule]
-public class InitializationModule1 : IInitializableModule
+public void ConfigureServices(IServiceCollection services)
 {
-    public void Initialize(InitializationEngine context)
-    {
-        ConfigurationContext.Setup(ctx =>
+    services
+        .AddDbLocalizationProvider(ctx =>
         {
-            // instead of `EPiServerDataStoreSection.Instance.DataSettings.ConnectionStringName`
-            // you can also just use "EPiServerDB" if you haven't changed connection string name in your project
-            
-            var connectionString = ConfigurationManager
-                .ConnectionStrings[EPiServerDataStoreSection.Instance.DataSettings.ConnectionStringName]
-                .ConnectionString;
-
-            ctx.UseSqlServer(connectionString);
-        });
-    }
-
-    public void Uninitialize(InitializationEngine context) { }
+            // now you can set different options via configuration context (`ctx`)
+        })
+        .AddOptimizely();  // add Optimizely integration
 }
 ```
 
-For list of available startup configuration options [go here](http://blog.tech-fellow.net/2016/04/21/db-localization-provider-part-2-configuration-and-extensions/#configuringdblocalizationprovider).
+Use provider in the application:
+
+```csharp
+public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+{
+    app.UseDbLocalizationProvider();
+}
+```
+
+### Adding Provider AdminUI to the Application
+
+If you need AdminUI this requires additional setup.
+Adding it to the service collection:
+
+```csharp
+public void ConfigureServices(IServiceCollection services)
+{
+    services
+        .AddDbLocalizationProviderAdminUI(ctx =>
+        {
+            // now you can set different options via configuration context (`ctx`)
+        })
+        .AddOptimizelyAdminUI()  // add Optimizely integration (adds menu items and stuff)
+        .AddCsvSupport()         // you can also add additional export formats if needed
+        .AddXliffSupport();
+}
+```
+
+Use provider in the application:
+
+```csharp
+public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+{
+    app.UseAuthentication();
+    app.UseAuthorization();
+
+    app.UseDbLocalizationProvider();
+    app.UseDbLocalizationProviderAdminUI();
+
+    app.UseEndpoints(endpoints =>
+    {
+        endpoints.MapRazorPages();
+        endpoints.MapDbLocalizationAdminUI();
+    });
+}
+```
+
+### Configure to use SQL Server
+In order to get localization provider to work properly - you might need to point to Optimizely database (where resources will be stored).
+
+This is done by configuring provider to use SQL Server storage implementation:
+
+```csharp
+private readonly IConfiguration _configuration;
+
+public Startup(IConfiguration configuration)
+{
+    _configuration = configuration;
+}
+
+public void ConfigureServices(IServiceCollection services)
+{
+    services
+        .AddDbLocalizationProvider(ctx =>
+        {
+            ctx.UseSqlServer(_configuration.GetConnectionString("EPiServerDB"));
+        })
+        .AddOptimizely();
+}
+```
+
+## Other Configuration Options
+
+For list of available startup configuration options [visit this page](https://github.com/valdisiljuconoks/localization-provider-core/blob/master/docs/getting-started-netcore.md#configure-services).
