@@ -1,4 +1,4 @@
-﻿using AlloySampleSite.Business.Rendering;
+using AlloySampleSite.Business.Rendering;
 using EPiServer.Framework;
 using EPiServer.Framework.Initialization;
 using EPiServer.ServiceLocation;

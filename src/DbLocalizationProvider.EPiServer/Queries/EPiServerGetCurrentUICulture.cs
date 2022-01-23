@@ -5,6 +5,7 @@ using System.Globalization;
 using DbLocalizationProvider.Abstractions;
 using DbLocalizationProvider.Queries;
 using EPiServer.Core;
+using EPiServer.Framework.Localization;
 
 namespace DbLocalizationProvider.EPiServer.Queries
 {
@@ -12,14 +13,14 @@ namespace DbLocalizationProvider.EPiServer.Queries
     {
         public class Handler : IQueryHandler<GetCurrentUICulture.Query, CultureInfo>
         {
-            private readonly IUserInterfaceLanguageAccessor _accessor;
+            private readonly ICurrentCultureAccessor _accessor;
 
-            public Handler(IUserInterfaceLanguageAccessor accessor)
+            public Handler(ICurrentCultureAccessor accessor)
             {
                 _accessor = accessor;
             }
 
-            public CultureInfo Execute(GetCurrentUICulture.Query query) => _accessor.Language;
+            public CultureInfo Execute(GetCurrentUICulture.Query query) => _accessor.CurrentUICulture;
         }
     }
 }

@@ -9,7 +9,7 @@ using DbLocalizationProvider.Abstractions;
 using DbLocalizationProvider.Sync;
 using EPiServer.DataAbstraction;
 
-namespace DbLocalizationProvider.EPiServer
+namespace DbLocalizationProvider.EPiServer.Categories
 {
     public class LocalizedCategoryScanner : IResourceTypeScanner
     {

@@ -10,8 +10,10 @@ using Microsoft.Extensions.DependencyInjection;
 
 namespace DbLocalizationProvider.EPiServer
 {
+    /// <inheritdoc />
     public class LocalizedEnumSelectionFactory<TEnum> : ISelectionFactory where TEnum : struct
     {
+        /// <inheritdoc />
         public IEnumerable<ISelectItem> GetSelections(ExtendedMetadata metadata)
         {
             var values = Enum.GetValues(typeof(TEnum))

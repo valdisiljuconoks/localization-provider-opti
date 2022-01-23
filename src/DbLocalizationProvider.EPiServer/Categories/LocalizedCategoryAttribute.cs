@@ -4,7 +4,7 @@
 using System;
 using DbLocalizationProvider.Abstractions;
 
-namespace DbLocalizationProvider.EPiServer
+namespace DbLocalizationProvider.EPiServer.Categories
 {
     [AttributeUsage(AttributeTargets.Class)]
     public class LocalizedCategoryAttribute : LocalizedResourceAttribute { }

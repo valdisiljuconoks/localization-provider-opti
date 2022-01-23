@@ -5,6 +5,9 @@ using EPiServer.DataAnnotations;
 using EPiServer.SpecializedProperties;
 using System.ComponentModel.DataAnnotations;
 using DbLocalizationProvider.Abstractions;
+using DbLocalizationProvider.EPiServer;
+using EPiServer.Cms.Shell.UI.ObjectEditing.EditorDescriptors.SelectionFactories;
+using EPiServer.Shell.ObjectEditing;
 
 namespace AlloySampleSite.Models.Pages
 {
@@ -54,5 +57,26 @@ namespace AlloySampleSite.Models.Pages
         [Display(GroupName = Global.GroupNames.SiteSettings)]
         public virtual SiteLogotypeBlock SiteLogotype { get; set; }
 
+        //[SelectOne(SelectionFactoryType = typeof(LocalizedEnumSelectionFactory<SomeValuesEnum>))]
+        [LocalizedSelectOneEnum(typeof(SomeValuesEnum))]
+        public virtual SomeValuesEnum SomeValue { get; set; }
+
+        //[SelectMany(SelectionFactoryType = typeof(LocalizedEnumSelectionFactory<SomeValuesEnum>))]
+        [LocalizedSelectManyEnum(typeof(SomeValuesEnum))]
+        public virtual string SomeMultipleValue { get; set; }
+
+    }
+
+    [LocalizedResource]
+    public enum SomeValuesEnum
+    {
+        [Display(Name = "NOONE!")]
+        None = 0,
+        [Display(Name = "1st value")]
+        FirstValue = 1,
+        [Display(Name = "This is second")]
+        SecondValue = 2,
+        [Display(Name = "And here comes last (3rd)")]
+        ThirdOne = 3
     }
 }

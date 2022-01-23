@@ -53,6 +53,17 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{1DC4B0BA
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DbLocalizationProvider.EPiServer.Tests", "tests\DbLocalizationProvider.EPiServer.Tests\DbLocalizationProvider.EPiServer.Tests.csproj", "{48D3DE64-6BF1-4031-99F4-A60E7F7D28C2}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "docs", "docs", "{9B9DE9B7-A588-44B1-8D74-B557CC27816A}"
+	ProjectSection(SolutionItems) = preProject
+		docs\adminui-epi.md = docs\adminui-epi.md
+		docs\adminui-import.png = docs\adminui-import.png
+		docs\getting-started-epi.md = docs\getting-started-epi.md
+		docs\jsresourcehandler-epi.md = docs\jsresourcehandler-epi.md
+		docs\working-with-resources-epi.md = docs\working-with-resources-epi.md
+		docs\working-with-submodules.md = docs\working-with-submodules.md
+		docs\xml-migration-epi.md = docs\xml-migration-epi.md
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU

@@ -4,8 +4,10 @@
 using System.Globalization;
 using System.Linq;
 using DbLocalizationProvider.AspNetCore;
+using DbLocalizationProvider.EPiServer.Categories;
 using DbLocalizationProvider.EPiServer.Queries;
 using DbLocalizationProvider.Queries;
+using DbLocalizationProvider.Sync;
 using EPiServer.Framework.Localization;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
@@ -26,8 +28,7 @@ namespace DbLocalizationProvider.EPiServer
         {
             builder.Context.CacheManager = new EPiServerCacheManager();
 
-            // TODO: check if this gets injected properly
-            //ctx.TypeScanners.Insert(0, new LocalizedCategoryScanner());
+            builder.Services.AddTransient<IResourceTypeScanner, LocalizedCategoryScanner>();
 
             // overriding handlers and registering those in DI container (so handler factory can later find them and create instance).
             builder.Context.TypeFactory.ForQuery<AvailableLanguages.Query>().SetHandler<EPiServerAvailableLanguages.Handler>();
