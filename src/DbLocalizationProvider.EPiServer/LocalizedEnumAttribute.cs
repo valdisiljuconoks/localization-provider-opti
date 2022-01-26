@@ -2,12 +2,12 @@
 // Licensed under Apache-2.0. See the LICENSE file in the project root for more information
 
 using System;
-using System.Web.Mvc;
+using System.Collections.Generic;
 using EPiServer.Shell.ObjectEditing;
 
 namespace DbLocalizationProvider.EPiServer
 {
-    public class LocalizedEnumAttribute : Attribute, IMetadataAware
+    public class LocalizedEnumAttribute : Attribute, IMetadataExtender
     {
         public LocalizedEnumAttribute(Type enumType, bool isManySelection = false)
         {
@@ -18,13 +18,11 @@ namespace DbLocalizationProvider.EPiServer
         public Type EnumType { get; set; }
         public bool IsManySelection { get; }
 
-        public void OnMetadataCreated(ModelMetadata metadata)
+        /// <inheritdoc />
+        public void ModifyMetadata(ExtendedMetadata metadata, IEnumerable<Attribute> attributes)
         {
-            if(!(metadata is ExtendedMetadata extendedMetadata))
-                return;
-
-            extendedMetadata.ClientEditingClass = "epi-cms/contentediting/editors/" + (IsManySelection ? "CheckBoxListEditor" : "SelectionEditor");
-            extendedMetadata.SelectionFactoryType = typeof(LocalizedEnumSelectionFactory<>).MakeGenericType(EnumType);
+            metadata.ClientEditingClass = "epi-cms/contentediting/editors/" + (IsManySelection ? "CheckBoxListEditor" : "SelectionEditor");
+            metadata.SelectionFactoryType = typeof(LocalizedEnumSelectionFactory<>).MakeGenericType(EnumType);
         }
     }
 }

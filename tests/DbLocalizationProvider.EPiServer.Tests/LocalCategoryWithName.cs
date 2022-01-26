@@ -1,4 +1,5 @@
-﻿using EPiServer.DataAbstraction;
+﻿using DbLocalizationProvider.EPiServer.Categories;
+using EPiServer.DataAbstraction;
 
 namespace DbLocalizationProvider.EPiServer.Tests
 {

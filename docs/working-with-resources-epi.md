@@ -1,6 +1,4 @@
-# Working with Resources (EPiServer)
-
-By default translations in `CultureInfo.CurrentUICulture` will be returned.
+# Working with Resources (Optimizely)
 
 Following resource used in samples:
 
@@ -49,7 +47,11 @@ using EPiServer.Framework.Localization;
 
 ...
 
-var t = LocalizationService.Current.GetString(() => MySampleProject.MyResources.SampleResource);
+private Injected<LocalizationService> LocalizationService { get; set; }
+
+...
+
+var t = LocalizationService.Service.GetString(() => MySampleProject.MyResources.SampleResource);
 ```
 
 Retrieve translation by specific culture ("Norsk" in this case):
@@ -60,25 +62,45 @@ using EPiServer.Framework.Localization;
 
 ...
 
-var t2 = LocalizationService.Current.GetStringByCulture(
+private Injected<LocalizationService> LocalizationService { get; set; }
+
+...
+
+var t2 = LocalizationService.Service.GetStringByCulture(
     () => MySampleProject.MyResources.SampleResource,
     CultureInfo.GetCultureInfo("no"));
 ```
 
-## EPiServer Page Property of Type System.Enum
+## System.Enum as Optimizely Content Property
 
-If you want to have content type property of `System.Enum` and at the same time have it localized, then you should decorate your property with `[LocalizedEnum]` attribute:
+If you want to have content type property of `System.Enum` and at the same time have it localized, then you should use `LocalizedEnumSelectionFactory<T>` as selection factory for `[SelectOne]` or `[SelectMany]` attribute:
 
 ```csharp
 [ContentType(...
 [LocalizedModel(OnlyIncluded = true)]
 public class StartPage : PageData
 {
-    [LocalizedEnum(typeof(SomeValuesEnum))]
-    [BackingType(typeof(PropertyNumber))]
+    ...
+
+    [SelectOne(SelectionFactoryType = typeof(LocalizedEnumSelectionFactory<SomeValuesEnum>))]
     public virtual SomeValuesEnum SomeValue { get; set; }
 }
 ```
+
+Or you can use short-cut attribute (of course `[LocalizedSelectMany]` is also supported):
+
+```csharp
+[ContentType(...
+[LocalizedModel(OnlyIncluded = true)]
+public class StartPage : PageData
+{
+    ...
+
+    [LocalizedSelectOneEnum(typeof(SomeValuesEnum))]
+    public virtual SomeValuesEnum SomeValue { get; set; }
+}
+```
+
 Enum type itself should have expected attributes when working with [basic Enum translations](https://github.com/valdisiljuconoks/LocalizationProvider/blob/master/docs/translate-enum-net.md):
 
 ```csharp
@@ -99,11 +121,11 @@ public enum SomeValuesEnum
 }
 ```
 
-`[LocalizedEnum]` attribute will make sure to tell EPiServer to setup things accordingly and assign specific localized selection factory type to provide correctly translated enum values.
+`[LocalizedEnum]` attribute will make sure to tell Optimizely to setup things accordingly and assign specific localized selection factory type to provide correctly translated enum values.
 
-## Translating EPiServer Categories
+## Translating Optimizely Categories
 
-If you need to translate categories in EPiServer you need to decorate category definition with `[LocalizedCategory]`.
+If you need to translate categories in Optimizely you need to decorate category definition with `[LocalizedCategory]`.
 
 For example:
 
