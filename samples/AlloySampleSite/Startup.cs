@@ -16,7 +16,6 @@ using DbLocalizationProvider.AdminUI.AspNetCore;
 using DbLocalizationProvider.AdminUI.AspNetCore.Routing;
 using DbLocalizationProvider.AdminUI.EPiServer;
 using DbLocalizationProvider.AspNetCore;
-using DbLocalizationProvider.AspNetCore.ClientsideProvider.Routing;
 using DbLocalizationProvider.EPiServer;
 using DbLocalizationProvider.Storage.SqlServer;
 using EPiServer.Authorization;
@@ -56,6 +55,9 @@ namespace AlloySampleSite
                     };
                 }
             });
+
+            services.AddOpenIDConnect<ApplicationUser>(true);
+            services.AddOpenIDConnectUI();
 
             services.AddMvc();
 
@@ -128,6 +130,7 @@ namespace AlloySampleSite
             app.UseRouting();
             app.UseAuthentication();
             app.UseAuthorization();
+            app.UseCors();
 
             app.UseDbLocalizationProvider();
             app.UseDbLocalizationProviderAdminUI();
@@ -135,12 +138,13 @@ namespace AlloySampleSite
 
             app.UseEndpoints(endpoints =>
             {
-                endpoints.MapContent();
                 endpoints.MapControllerRoute("Register", "/Register", new { controller = "Register", action = "Index" });
+                endpoints.MapControllerRoute("TestView", "/TestView", new { controller = "Test", action = "TestView" });
+
+                endpoints.MapContent();
                 endpoints.MapRazorPages();
 
-                endpoints.MapDbLocalizationAdminUI();
-                endpoints.MapDbLocalizationClientsideProvider();
+                //endpoints.MapDbLocalizationClientsideProvider();
             });
         }
     }
