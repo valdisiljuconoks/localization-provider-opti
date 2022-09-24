@@ -11,6 +11,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using System.IO;
+using AlloySampleSite.Resources;
 using DbLocalizationProvider.AdminUI.AspNetCore;
 using DbLocalizationProvider.AdminUI.AspNetCore.Routing;
 using DbLocalizationProvider.AdminUI.EPiServer;
@@ -21,7 +22,6 @@ using DbLocalizationProvider.Storage.SqlServer;
 using EPiServer.Authorization;
 using EPiServer.Framework.Localization;
 using EPiServer.Web;
-using Microsoft.Extensions.Options;
 
 namespace AlloySampleSite
 {
@@ -87,6 +87,7 @@ namespace AlloySampleSite
                         ctx.EnableInvariantCultureFallback = true;
                         ctx.EnableLegacyMode = () => true;
 
+                        ctx.ManualResourceProviders.Add<SomeManualResourceProvider>();
                         ctx.UseSqlServer(connectionstring);
 
                         ctx.FlexibleRefactoringMode = true;
