@@ -11,7 +11,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DbLocalizationProvider.Abst
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DbLocalizationProvider", "lib\netcore\lib\localization-provider\src\DbLocalizationProvider\DbLocalizationProvider.csproj", "{0DFCEF16-39E9-4AD9-87B5-AA814AAC2E98}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "samples", "samples", "{2D37B06F-7FEC-4AF1-A92B-C531A745D35C}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "sandbox", "sandbox", "{2D37B06F-7FEC-4AF1-A92B-C531A745D35C}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AlloySampleSite", "samples\AlloySampleSite\AlloySampleSite.csproj", "{EEE840FE-F1E9-4661-9C6D-5D5EEFF2817C}"
 EndProject
