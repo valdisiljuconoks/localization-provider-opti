@@ -81,7 +81,7 @@ public void ConfigureServices(IServiceCollection services)
 }
 ```
 
-Use provider in the application:
+Use localization provider in the application (make sure you call also `UseStaticFiles()`):
 
 ```csharp
 public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
