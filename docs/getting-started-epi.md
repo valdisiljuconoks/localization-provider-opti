@@ -86,6 +86,8 @@ Use provider in the application:
 ```csharp
 public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
 {
+    app.UseStaticFiles();
+
     app.UseAuthentication();
     app.UseAuthorization();
 
