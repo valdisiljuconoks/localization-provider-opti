@@ -82,7 +82,12 @@ namespace AlloySampleSite
                         opts.ApplyCurrentCultureToResponseHeaders = true;
                     });
 
-                services
+            services.AddLocalization(options =>
+            {
+                options.ResourcesPath = Path.Combine(_webHostingEnvironment.ContentRootPath, "lang");
+            });
+
+            services
                     .AddDbLocalizationProvider(ctx =>
                     {
                         //ctx.FallbackLanguages.Try(supportedCultures);
