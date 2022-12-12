@@ -16,6 +16,7 @@ using DbLocalizationProvider.AdminUI.AspNetCore;
 using DbLocalizationProvider.AdminUI.AspNetCore.Routing;
 using DbLocalizationProvider.AdminUI.EPiServer;
 using DbLocalizationProvider.AspNetCore;
+using DbLocalizationProvider.AspNetCore.ClientsideProvider.Routing;
 using DbLocalizationProvider.EPiServer;
 using DbLocalizationProvider.Storage.SqlServer;
 using EPiServer.Authorization;
@@ -149,7 +150,7 @@ namespace AlloySampleSite
                 endpoints.MapContent();
                 endpoints.MapRazorPages();
 
-                //endpoints.MapDbLocalizationClientsideProvider();
+                endpoints.MapDbLocalizationClientsideProvider();
             });
         }
     }
