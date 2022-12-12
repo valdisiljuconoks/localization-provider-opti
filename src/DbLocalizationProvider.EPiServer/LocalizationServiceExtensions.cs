@@ -67,7 +67,7 @@ namespace DbLocalizationProvider.EPiServer
         {
             return ServiceLocator.Current.TryGetExistingInstance<ExpressionHelper>(out var helper)
                 ? helper
-                : new ExpressionHelper(new ResourceKeyBuilder(new ScanState()));
+                : new ExpressionHelper(new ResourceKeyBuilder(new ScanState(), new ConfigurationContext()));
         }
 
         private static IQueryExecutor TryGetQueryExecutor()
