@@ -1,12 +1,12 @@
 using System.ComponentModel.DataAnnotations;
 using DbLocalizationProvider.Abstractions;
 
-namespace AlloySampleSite.Models.Register;
+namespace AlloySampleSite.Models.FeedbackForm;
 
 [LocalizedModel]
-public class RegisterViewModel
+public class FeedbackFormViewModel
 {
-    [Required]
+    [Required(ErrorMessage = "Username is REQUIRED!!!")]
     [Display(Name = "Username")]
     [RegularExpression(@"^[a-zA-Z0-9_-]+$", ErrorMessage = "Username can only contain letters a-z, numbers, underscores and hyphens.")]
     [StringLength(20, ErrorMessage = "The {0} field can not be more than {1} characters long.")]
