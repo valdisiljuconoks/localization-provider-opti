@@ -5,35 +5,34 @@ using System;
 using EPiServer.Logging;
 using ILogger = DbLocalizationProvider.Logging.ILogger;
 
-namespace DbLocalizationProvider.EPiServer
+namespace DbLocalizationProvider.EPiServer;
+
+public class LoggerAdapter : ILogger
 {
-    public class LoggerAdapter : ILogger
+    private readonly global::EPiServer.Logging.ILogger _logger;
+
+    public LoggerAdapter()
     {
-        private readonly global::EPiServer.Logging.ILogger _logger;
+        _logger = LogManager.GetLogger(typeof(LoggerAdapter));
+    }
 
-        public LoggerAdapter()
-        {
-            _logger = LogManager.GetLogger(typeof(LoggerAdapter));
-        }
+    public void Debug(string message)
+    {
+        _logger.Debug(message);
+    }
 
-        public void Debug(string message)
-        {
-            _logger.Debug(message);
-        }
+    public void Info(string message)
+    {
+        _logger.Information(message);
+    }
 
-        public void Info(string message)
-        {
-            _logger.Information(message);
-        }
+    public void Error(string message)
+    {
+        _logger.Error(message);
+    }
 
-        public void Error(string message)
-        {
-            _logger.Error(message);
-        }
-
-        public void Error(string message, Exception exception)
-        {
-            _logger.Error(message, exception);
-        }
+    public void Error(string message, Exception exception)
+    {
+        _logger.Error(message, exception);
     }
 }

@@ -8,27 +8,26 @@ using EPiServer.ServiceLocation;
 using EPiServer.Shell.ObjectEditing;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace DbLocalizationProvider.EPiServer
+namespace DbLocalizationProvider.EPiServer;
+
+/// <inheritdoc />
+public class LocalizedEnumSelectionFactory<TEnum> : ISelectionFactory where TEnum : struct
 {
     /// <inheritdoc />
-    public class LocalizedEnumSelectionFactory<TEnum> : ISelectionFactory where TEnum : struct
+    public IEnumerable<ISelectItem> GetSelections(ExtendedMetadata metadata)
     {
-        /// <inheritdoc />
-        public IEnumerable<ISelectItem> GetSelections(ExtendedMetadata metadata)
+        var values = Enum.GetValues(typeof(TEnum))
+                         .Cast<Enum>();
+
+        var provider = ServiceLocator.Current.GetRequiredService<ILocalizationProvider>();
+
+        foreach(var value in values)
         {
-            var values = Enum.GetValues(typeof(TEnum))
-                             .Cast<Enum>();
-
-            var provider = ServiceLocator.Current.GetRequiredService<ILocalizationProvider>();
-
-            foreach(var value in values)
+            yield return new SelectItem
             {
-                yield return new SelectItem
-                             {
-                                 Text = provider.Translate(value),
-                                 Value = value
-                             };
-            }
+                Text = provider.Translate(value),
+                Value = value
+            };
         }
     }
 }

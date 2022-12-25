@@ -7,20 +7,19 @@ using DbLocalizationProvider.Queries;
 using EPiServer.Core;
 using EPiServer.Framework.Localization;
 
-namespace DbLocalizationProvider.EPiServer.Queries
+namespace DbLocalizationProvider.EPiServer.Queries;
+
+public class EPiServerGetCurrentUICulture
 {
-    public class EPiServerGetCurrentUICulture
+    public class Handler : IQueryHandler<GetCurrentUICulture.Query, CultureInfo>
     {
-        public class Handler : IQueryHandler<GetCurrentUICulture.Query, CultureInfo>
+        private readonly ICurrentCultureAccessor _accessor;
+
+        public Handler(ICurrentCultureAccessor accessor)
         {
-            private readonly ICurrentCultureAccessor _accessor;
-
-            public Handler(ICurrentCultureAccessor accessor)
-            {
-                _accessor = accessor;
-            }
-
-            public CultureInfo Execute(GetCurrentUICulture.Query query) => _accessor.CurrentUICulture;
+            _accessor = accessor;
         }
+
+        public CultureInfo Execute(GetCurrentUICulture.Query query) => _accessor.CurrentUICulture;
     }
 }

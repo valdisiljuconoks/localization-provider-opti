@@ -12,54 +12,53 @@ using EPiServer.Framework.Localization;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 
-namespace DbLocalizationProvider.EPiServer
+namespace DbLocalizationProvider.EPiServer;
+
+/// <summary>
+/// You have to have this placeholder class to define extension methods
+/// </summary>
+public static class IServiceCollectionExtensions
 {
     /// <summary>
-    /// You have to have this placeholder class to define extension methods
+    /// Adds Optimizely support for DbLocalizationProvider.
     /// </summary>
-    public static class IServiceCollectionExtensions
+    /// <param name="builder">Provider builder interface (to capture context and service collection).</param>
+    /// <returns>Service collection to support fluent API.</returns>
+    public static IDbLocalizationProviderBuilder AddOptimizely(this IDbLocalizationProviderBuilder builder)
     {
-        /// <summary>
-        /// Adds Optimizely support for DbLocalizationProvider.
-        /// </summary>
-        /// <param name="builder">Provider builder interface (to capture context and service collection).</param>
-        /// <returns>Service collection to support fluent API.</returns>
-        public static IDbLocalizationProviderBuilder AddOptimizely(this IDbLocalizationProviderBuilder builder)
+        builder.Context.CacheManager = new EPiServerCacheManager();
+
+        builder.Services.AddTransient<IResourceTypeScanner, LocalizedCategoryScanner>();
+
+        // overriding handlers and registering those in DI container (so handler factory can later find them and create instance).
+        builder.Context.TypeFactory.ForQuery<AvailableLanguages.Query>().SetHandler<EPiServerAvailableLanguages.Handler>();
+        builder.Services.AddTransient<EPiServerAvailableLanguages.Handler>();
+
+        builder.Context.TypeFactory.ForQuery<DetermineDefaultCulture.Query>().SetHandler<EPiServerDetermineDefaultCulture.Handler>();
+        builder.Services.AddTransient<EPiServerDetermineDefaultCulture.Handler>();
+
+        builder.Context.TypeFactory.ForQuery<GetCurrentUICulture.Query>().SetHandler<EPiServerGetCurrentUICulture.Handler>();
+        builder.Services.AddTransient<EPiServerGetCurrentUICulture.Handler>();
+
+
+        // if fallback list is empty - meaning that user has not configured anything
+        // we can jump in and initialize config from Episerver settings
+        if (!builder.Context.FallbackLanguages.Any()
+            && LocalizationService.Current.FallbackBehavior.HasFlag(FallbackBehaviors.FallbackCulture)
+            && !Equals(LocalizationService.Current.FallbackCulture, CultureInfo.InvariantCulture))
         {
-            builder.Context.CacheManager = new EPiServerCacheManager();
-
-            builder.Services.AddTransient<IResourceTypeScanner, LocalizedCategoryScanner>();
-
-            // overriding handlers and registering those in DI container (so handler factory can later find them and create instance).
-            builder.Context.TypeFactory.ForQuery<AvailableLanguages.Query>().SetHandler<EPiServerAvailableLanguages.Handler>();
-            builder.Services.AddTransient<EPiServerAvailableLanguages.Handler>();
-
-            builder.Context.TypeFactory.ForQuery<DetermineDefaultCulture.Query>().SetHandler<EPiServerDetermineDefaultCulture.Handler>();
-            builder.Services.AddTransient<EPiServerDetermineDefaultCulture.Handler>();
-
-            builder.Context.TypeFactory.ForQuery<GetCurrentUICulture.Query>().SetHandler<EPiServerGetCurrentUICulture.Handler>();
-            builder.Services.AddTransient<EPiServerGetCurrentUICulture.Handler>();
-
-
-            // if fallback list is empty - meaning that user has not configured anything
-            // we can jump in and initialize config from Episerver settings
-            if (!builder.Context.FallbackLanguages.Any()
-                && LocalizationService.Current.FallbackBehavior.HasFlag(FallbackBehaviors.FallbackCulture)
-                && !Equals(LocalizationService.Current.FallbackCulture, CultureInfo.InvariantCulture))
-            {
-                // read language fallback from the configuration file
-                builder.Context.FallbackLanguages.Try(LocalizationService.Current.FallbackCulture);
-            }
-
-            builder.Services.AddLocalizationProvider<DatabaseLocalizationProvider>();
-
-            builder.Services.Replace(
-                    new ServiceDescriptor(
-                        typeof(IUsageConfigurator),
-                        typeof(OptimizelyUsageConfigurator),
-                        ServiceLifetime.Singleton));
-
-            return builder;
+            // read language fallback from the configuration file
+            builder.Context.FallbackLanguages.Try(LocalizationService.Current.FallbackCulture);
         }
+
+        builder.Services.AddLocalizationProvider<DatabaseLocalizationProvider>();
+
+        builder.Services.Replace(
+            new ServiceDescriptor(
+                typeof(IUsageConfigurator),
+                typeof(OptimizelyUsageConfigurator),
+                ServiceLifetime.Singleton));
+
+        return builder;
     }
 }

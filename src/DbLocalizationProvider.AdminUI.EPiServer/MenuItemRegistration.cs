@@ -8,30 +8,29 @@ using EPiServer.Framework.Localization;
 using EPiServer.Shell;
 using EPiServer.Shell.Navigation;
 
-namespace DbLocalizationProvider.AdminUI.EPiServer
+namespace DbLocalizationProvider.AdminUI.EPiServer;
+
+[MenuProvider]
+public class MenuProvider : IMenuProvider
 {
-    [MenuProvider]
-    public class MenuProvider : IMenuProvider
+    private readonly LocalizationService _localizationService;
+
+    public MenuProvider(LocalizationService localizationService)
     {
-        private readonly LocalizationService _localizationService;
+        _localizationService = localizationService;
+    }
 
-        public MenuProvider(LocalizationService localizationService)
+    public IEnumerable<MenuItem> GetMenuItems()
+    {
+        var url = Paths.ToResource(GetType(), "uihostpage");
+
+        var link = new UrlMenuItem(_localizationService.GetString(() => EPiServerResources.MenuTitle),
+            MenuPaths.Global + "/cms/uihostpage",
+            url)
         {
-            _localizationService = localizationService;
-        }
+            SortIndex = 100, AuthorizationPolicy = AccessPolicy.Name
+        };
 
-        public IEnumerable<MenuItem> GetMenuItems()
-        {
-            var url = Paths.ToResource(GetType(), "uihostpage");
-
-            var link = new UrlMenuItem(_localizationService.GetString(() => EPiServerResources.MenuTitle),
-                MenuPaths.Global + "/cms/uihostpage",
-                url)
-            {
-                SortIndex = 100, AuthorizationPolicy = AccessPolicy.Name
-            };
-
-            return new List<MenuItem> { link };
-        }
+        return new List<MenuItem> { link };
     }
 }

@@ -3,13 +3,12 @@
 
 using DbLocalizationProvider.Abstractions;
 
-namespace DbLocalizationProvider.AdminUI.EPiServer
-{
-    [LocalizedResource]
-    [Hidden]
-    public class EPiServerResources
-    {
-        public static string MenuTitle => "Localization";
+namespace DbLocalizationProvider.AdminUI.EPiServer;
 
-    }
+[LocalizedResource]
+[Hidden]
+public class EPiServerResources
+{
+    public static string MenuTitle => "Localization";
+
 }

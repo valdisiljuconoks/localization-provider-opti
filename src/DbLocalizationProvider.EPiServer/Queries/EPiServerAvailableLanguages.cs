@@ -9,33 +9,32 @@ using DbLocalizationProvider.Queries;
 using EPiServer.DataAbstraction;
 using EPiServer.Security;
 
-namespace DbLocalizationProvider.EPiServer.Queries
+namespace DbLocalizationProvider.EPiServer.Queries;
+
+public class EPiServerAvailableLanguages
 {
-    public class EPiServerAvailableLanguages
+    public class Handler : IQueryHandler<AvailableLanguages.Query, IEnumerable<AvailableLanguage>>
     {
-        public class Handler : IQueryHandler<AvailableLanguages.Query, IEnumerable<AvailableLanguage>>
+        private readonly ILanguageBranchRepository _languageBranchRepository;
+
+        public Handler(ILanguageBranchRepository languageBranchRepository)
         {
-            private readonly ILanguageBranchRepository _languageBranchRepository;
+            _languageBranchRepository = languageBranchRepository;
+        }
 
-            public Handler(ILanguageBranchRepository languageBranchRepository)
+        public IEnumerable<AvailableLanguage> Execute(AvailableLanguages.Query query)
+        {
+            var currentLanguages = _languageBranchRepository.ListEnabled()
+                                                            .Where(l => l.QueryEditAccessRights(PrincipalInfo.CurrentPrincipal))
+                                                            .Select(l => new AvailableLanguage(l.Name, l.SortIndex, l.Culture))
+                                                            .ToList();
+
+            if (query.IncludeInvariant)
             {
-                _languageBranchRepository = languageBranchRepository;
+                currentLanguages.Insert(0, AvailableLanguage.Invariant);
             }
 
-            public IEnumerable<AvailableLanguage> Execute(AvailableLanguages.Query query)
-            {
-                var currentLanguages = _languageBranchRepository.ListEnabled()
-                                                                .Where(l => l.QueryEditAccessRights(PrincipalInfo.CurrentPrincipal))
-                                                                .Select(l => new AvailableLanguage(l.Name, l.SortIndex, l.Culture))
-                                                                .ToList();
-
-                if (query.IncludeInvariant)
-                {
-                    currentLanguages.Insert(0, AvailableLanguage.Invariant);
-                }
-
-                return currentLanguages;
-            }
+            return currentLanguages;
         }
     }
 }

@@ -9,58 +9,57 @@ using DbLocalizationProvider.Abstractions;
 using DbLocalizationProvider.Sync;
 using EPiServer.DataAbstraction;
 
-namespace DbLocalizationProvider.EPiServer.Categories
+namespace DbLocalizationProvider.EPiServer.Categories;
+
+public class LocalizedCategoryScanner : IResourceTypeScanner
 {
-    public class LocalizedCategoryScanner : IResourceTypeScanner
+    private readonly DiscoveredTranslationBuilder _builder;
+
+    public LocalizedCategoryScanner(DiscoveredTranslationBuilder builder)
     {
-        private readonly DiscoveredTranslationBuilder _builder;
+        _builder = builder;
+    }
 
-        public LocalizedCategoryScanner(DiscoveredTranslationBuilder builder)
+    public bool ShouldScan(Type target)
+    {
+        return typeof(Category).IsAssignableFrom(target)
+               && target.GetCustomAttribute<LocalizedCategoryAttribute>() != null;
+    }
+
+    public string GetResourceKeyPrefix(Type target, string keyPrefix = null)
+    {
+        return null;
+    }
+
+    public ICollection<DiscoveredResource> GetClassLevelResources(Type target, string resourceKeyPrefix)
+    {
+        var translation = target.Name;
+
+        try
         {
-            _builder = builder;
-        }
-
-        public bool ShouldScan(Type target)
-        {
-            return typeof(Category).IsAssignableFrom(target)
-                   && target.GetCustomAttribute<LocalizedCategoryAttribute>() != null;
-        }
-
-        public string GetResourceKeyPrefix(Type target, string keyPrefix = null)
-        {
-            return null;
-        }
-
-        public ICollection<DiscoveredResource> GetClassLevelResources(Type target, string resourceKeyPrefix)
-        {
-            var translation = target.Name;
-
-            try
+            var category = Activator.CreateInstance(target) as Category;
+            if (!string.IsNullOrEmpty(category?.Name))
             {
-                var category = Activator.CreateInstance(target) as Category;
-                if (!string.IsNullOrEmpty(category?.Name))
-                {
-                    translation = category.Name;
-                }
+                translation = category.Name;
             }
-            catch (Exception) { }
-
-
-            return new List<DiscoveredResource>
-            {
-                new(null,
-                    $"/categories/category[@name=\"{target.Name}\"]/description",
-                    _builder.FromSingle(translation),
-                    target.Name,
-                    target,
-                    typeof(string),
-                    true)
-            };
         }
+        catch (Exception) { }
 
-        public ICollection<DiscoveredResource> GetResources(Type target, string resourceKeyPrefix)
+
+        return new List<DiscoveredResource>
         {
-            return Enumerable.Empty<DiscoveredResource>().ToList();
-        }
+            new(null,
+                $"/categories/category[@name=\"{target.Name}\"]/description",
+                _builder.FromSingle(translation),
+                target.Name,
+                target,
+                typeof(string),
+                true)
+        };
+    }
+
+    public ICollection<DiscoveredResource> GetResources(Type target, string resourceKeyPrefix)
+    {
+        return Enumerable.Empty<DiscoveredResource>().ToList();
     }
 }

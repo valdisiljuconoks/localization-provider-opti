@@ -10,69 +10,68 @@ using DbLocalizationProvider.Sync;
 using EPiServer.Framework.Localization;
 using EPiServer.ServiceLocation;
 
-namespace DbLocalizationProvider.EPiServer
+namespace DbLocalizationProvider.EPiServer;
+
+/// <summary>
+/// None reads these docs anyways..
+/// </summary>
+public static class LocalizationServiceExtensions
 {
     /// <summary>
-    /// None reads these docs anyways..
+    /// If you want to use strongly-typed API to work with translations in Optimizely context - this method might come handy.
     /// </summary>
-    public static class LocalizationServiceExtensions
+    /// <param name="service">Optimizely localization service.</param>
+    /// <param name="resource">Expression to the resource.</param>
+    /// <param name="formatArguments">If you need some formatting afterwards - pass in parameters here.</param>
+    /// <returns>Translation for the resource for current language; if this fails - <c>null</c> obviously.</returns>
+    public static string GetString(this LocalizationService service, Expression<Func<object>> resource, params object[] formatArguments)
     {
-        /// <summary>
-        /// If you want to use strongly-typed API to work with translations in Optimizely context - this method might come handy.
-        /// </summary>
-        /// <param name="service">Optimizely localization service.</param>
-        /// <param name="resource">Expression to the resource.</param>
-        /// <param name="formatArguments">If you need some formatting afterwards - pass in parameters here.</param>
-        /// <returns>Translation for the resource for current language; if this fails - <c>null</c> obviously.</returns>
-        public static string GetString(this LocalizationService service, Expression<Func<object>> resource, params object[] formatArguments)
-        {
-            return GetStringByCulture(service,
-                resource,
-                TryGetQueryExecutor()?.Execute(new GetCurrentUICulture.Query()) ?? CultureInfo.CurrentUICulture,
-                formatArguments);
-        }
+        return GetStringByCulture(service,
+            resource,
+            TryGetQueryExecutor()?.Execute(new GetCurrentUICulture.Query()) ?? CultureInfo.CurrentUICulture,
+            formatArguments);
+    }
 
-        /// <summary>
-        /// If you want to use strongly-typed API to work with translations in Optimizely context - this method might come handy.
-        /// </summary>
-        /// <param name="service">Optimizely localization service.</param>
-        /// <param name="resource">Expression to the resource.</param>
-        /// <param name="culture">If you need translation for other language as current one.</param>
-        /// <param name="formatArguments">If you need some formatting afterwards - pass in parameters here.</param>
-        /// <returns>Translation for the resource for given language; if this fails - <c>null</c> obviously.</returns>
-        public static string GetStringByCulture(this LocalizationService service, Expression<Func<object>> resource, CultureInfo culture, params object[] formatArguments)
-        {
-            var helper = TryGetExpressionHelper();
-            var resourceKey = helper.GetFullMemberName(resource);
+    /// <summary>
+    /// If you want to use strongly-typed API to work with translations in Optimizely context - this method might come handy.
+    /// </summary>
+    /// <param name="service">Optimizely localization service.</param>
+    /// <param name="resource">Expression to the resource.</param>
+    /// <param name="culture">If you need translation for other language as current one.</param>
+    /// <param name="formatArguments">If you need some formatting afterwards - pass in parameters here.</param>
+    /// <returns>Translation for the resource for given language; if this fails - <c>null</c> obviously.</returns>
+    public static string GetStringByCulture(this LocalizationService service, Expression<Func<object>> resource, CultureInfo culture, params object[] formatArguments)
+    {
+        var helper = TryGetExpressionHelper();
+        var resourceKey = helper.GetFullMemberName(resource);
 
-            return GetStringByCulture(service, resourceKey, culture, formatArguments);
-        }
+        return GetStringByCulture(service, resourceKey, culture, formatArguments);
+    }
 
-        /// <summary>
-        /// If you want to use strongly-typed API to work with translations in Optimizely context - this method might come handy.
-        /// </summary>
-        /// <param name="service">Optimizely localization service.</param>
-        /// <param name="resourceKey">Key of the resource.</param>
-        /// <param name="culture">If you need translation for other language as current one.</param>
-        /// <param name="formatArguments">If you need some formatting afterwards - pass in parameters here.</param>
-        /// <returns>Translation for the resource for given language; if this fails - <c>null</c> obviously.</returns>
-        public static string GetStringByCulture(this LocalizationService service, string resourceKey, CultureInfo culture, params object[] formatArguments)
-        {
-            var translation = service.GetStringByCulture(resourceKey, culture);
+    /// <summary>
+    /// If you want to use strongly-typed API to work with translations in Optimizely context - this method might come handy.
+    /// </summary>
+    /// <param name="service">Optimizely localization service.</param>
+    /// <param name="resourceKey">Key of the resource.</param>
+    /// <param name="culture">If you need translation for other language as current one.</param>
+    /// <param name="formatArguments">If you need some formatting afterwards - pass in parameters here.</param>
+    /// <returns>Translation for the resource for given language; if this fails - <c>null</c> obviously.</returns>
+    public static string GetStringByCulture(this LocalizationService service, string resourceKey, CultureInfo culture, params object[] formatArguments)
+    {
+        var translation = service.GetStringByCulture(resourceKey, culture);
 
-            return string.IsNullOrEmpty(translation) ? translation : LocalizationProvider.Format(translation, formatArguments);
-        }
+        return string.IsNullOrEmpty(translation) ? translation : LocalizationProvider.Format(translation, formatArguments);
+    }
 
-        private static ExpressionHelper TryGetExpressionHelper()
-        {
-            return ServiceLocator.Current.TryGetExistingInstance<ExpressionHelper>(out var helper)
-                ? helper
-                : new ExpressionHelper(new ResourceKeyBuilder(new ScanState(), new ConfigurationContext()));
-        }
+    private static ExpressionHelper TryGetExpressionHelper()
+    {
+        return ServiceLocator.Current.TryGetExistingInstance<ExpressionHelper>(out var helper)
+            ? helper
+            : new ExpressionHelper(new ResourceKeyBuilder(new ScanState(), new ConfigurationContext()));
+    }
 
-        private static IQueryExecutor TryGetQueryExecutor()
-        {
-            return ServiceLocator.Current.TryGetExistingInstance<IQueryExecutor>(out var queryExecutor) ? queryExecutor : default;
-        }
+    private static IQueryExecutor TryGetQueryExecutor()
+    {
+        return ServiceLocator.Current.TryGetExistingInstance<IQueryExecutor>(out var queryExecutor) ? queryExecutor : default;
     }
 }

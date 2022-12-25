@@ -1,35 +1,34 @@
 using System;
 using EPiServer.Shell.ObjectEditing;
 
-namespace DbLocalizationProvider.EPiServer
+namespace DbLocalizationProvider.EPiServer;
+
+/// <inheritdoc />
+public class LocalizedSelectOneEnumAttribute : SelectOneAttribute
 {
+    private readonly Type _enumType;
+
     /// <inheritdoc />
-    public class LocalizedSelectOneEnumAttribute : SelectOneAttribute
+    public LocalizedSelectOneEnumAttribute(Type enumType)
     {
-        private readonly Type _enumType;
-
-        /// <inheritdoc />
-        public LocalizedSelectOneEnumAttribute(Type enumType)
+        if (!enumType.IsEnum)
         {
-            if (!enumType.IsEnum)
-            {
-                throw new ArgumentException($"Type of the argument '{enumType}' is not 'System.Enum'.", nameof(enumType));
-            }
-
-            _enumType = enumType;
+            throw new ArgumentException($"Type of the argument '{enumType}' is not 'System.Enum'.", nameof(enumType));
         }
 
-        /// <inheritdoc />
-        public override Type SelectionFactoryType
+        _enumType = enumType;
+    }
+
+    /// <inheritdoc />
+    public override Type SelectionFactoryType
+    {
+        get
         {
-            get
-            {
-                return typeof(LocalizedEnumSelectionFactory<>).MakeGenericType(_enumType);
-            }
-            set
-            {
-                base.SelectionFactoryType = value;
-            }
+            return typeof(LocalizedEnumSelectionFactory<>).MakeGenericType(_enumType);
+        }
+        set
+        {
+            base.SelectionFactoryType = value;
         }
     }
 }

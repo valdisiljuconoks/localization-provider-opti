@@ -5,24 +5,23 @@ using System;
 using System.Collections.Generic;
 using EPiServer.Shell.ObjectEditing;
 
-namespace DbLocalizationProvider.EPiServer
+namespace DbLocalizationProvider.EPiServer;
+
+public class LocalizedEnumAttribute : Attribute, IMetadataExtender
 {
-    public class LocalizedEnumAttribute : Attribute, IMetadataExtender
+    public LocalizedEnumAttribute(Type enumType, bool isManySelection = false)
     {
-        public LocalizedEnumAttribute(Type enumType, bool isManySelection = false)
-        {
-            EnumType = enumType ?? throw new ArgumentNullException(nameof(enumType));
-            IsManySelection = isManySelection;
-        }
+        EnumType = enumType ?? throw new ArgumentNullException(nameof(enumType));
+        IsManySelection = isManySelection;
+    }
 
-        public Type EnumType { get; set; }
-        public bool IsManySelection { get; }
+    public Type EnumType { get; set; }
+    public bool IsManySelection { get; }
 
-        /// <inheritdoc />
-        public void ModifyMetadata(ExtendedMetadata metadata, IEnumerable<Attribute> attributes)
-        {
-            metadata.ClientEditingClass = "epi-cms/contentediting/editors/" + (IsManySelection ? "CheckBoxListEditor" : "SelectionEditor");
-            metadata.SelectionFactoryType = typeof(LocalizedEnumSelectionFactory<>).MakeGenericType(EnumType);
-        }
+    /// <inheritdoc />
+    public void ModifyMetadata(ExtendedMetadata metadata, IEnumerable<Attribute> attributes)
+    {
+        metadata.ClientEditingClass = "epi-cms/contentediting/editors/" + (IsManySelection ? "CheckBoxListEditor" : "SelectionEditor");
+        metadata.SelectionFactoryType = typeof(LocalizedEnumSelectionFactory<>).MakeGenericType(EnumType);
     }
 }

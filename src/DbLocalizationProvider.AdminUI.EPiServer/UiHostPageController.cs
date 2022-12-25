@@ -3,14 +3,13 @@
 
 using Microsoft.AspNetCore.Mvc;
 
-namespace DbLocalizationProvider.AdminUI.EPiServer
+namespace DbLocalizationProvider.AdminUI.EPiServer;
+
+public class UiHostPageController : Controller
 {
-    public class UiHostPageController : Controller
+    [HttpGet]
+    public IActionResult Index()
     {
-        [HttpGet]
-        public IActionResult Index()
-        {
-            return View();
-        }
+        return View();
     }
 }
