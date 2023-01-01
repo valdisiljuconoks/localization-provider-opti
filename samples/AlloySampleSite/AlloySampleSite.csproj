@@ -5,11 +5,11 @@
   </PropertyGroup>
   <ItemGroup>
     <PackageReference Include="BuildBundlerMinifier" Version="3.2.449" />
-    <PackageReference Include="EPiServer.OpenIDConnect.UI" Version="3.5.0" />
+    <PackageReference Include="EPiServer.OpenIDConnect.UI" Version="3.6.0" />
     <PackageReference Include="EPiServer.ServiceApi" Version="6.2.0" />
     <PackageReference Include="Microsoft.Data.SqlClient" Version="5.0.1" />
     <PackageReference Include="Wangkanai.Detection" Version="5.7.1" />
-    <PackageReference Include="EPiServer.CMS" Version="12.15.0" />
+    <PackageReference Include="EPiServer.CMS" Version="12.15.1" />
     <PackageReference Include="EPiServer.CMS.AspNetCore.HtmlHelpers" Version="12.11.0" />
     <PackageReference Include="EPiServer.Hosting" Version="12.11.0" />
   </ItemGroup>
