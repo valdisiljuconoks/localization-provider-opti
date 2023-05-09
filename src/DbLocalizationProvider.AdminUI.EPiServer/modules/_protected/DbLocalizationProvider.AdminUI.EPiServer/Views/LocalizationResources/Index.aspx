@@ -333,6 +333,19 @@
                     <%
                        } %>
                 </div>
+                
+                <% if (Model.IsDbSearchEnabled)
+                   { %>
+
+                    <form id="resourceQueryFilterForm">
+                        <span>
+                            <label><%: Html.Translate(() => Resources.TotalRowCount) %> <%: Model.TotalRowCount %></label>
+                        </span>
+                        <div class="form-group">
+                            <input type="search" name="query" value="<%: Model.Query%>"  class="form-control search-input" placeholder="<%: Html.Translate(() => Resources.SearchQueryPlaceholder) %>" />
+                        </div>
+                    </form>
+                <% } %>
 
                 <form id="resourceFilterForm">
                     <div class="form-group">
@@ -359,6 +372,7 @@
                         <% } %>
                             &nbsp;]</label></span>
                     <% } %>
+
                     <span>
                         <input type="checkbox" name="showEmptyResources" id="showEmptyResources"/>
                         <label for="showEmptyResources"><%: Html.Translate(() => Resources.ShowEmpty) %></label>
