@@ -333,26 +333,25 @@
                     <%
                        } %>
                 </div>
-                
+
                 <% if (Model.IsDbSearchEnabled)
                    { %>
 
                     <form id="resourceQueryFilterForm">
-                        <div class="form-group">
-                            <input type="search" name="query" value="<%: Model.Query%>"  class="form-control search-input" placeholder="<%: Html.Translate(() => Resources.SearchQueryPlaceholder) %>" />
-                        </div>
                         <span>
                             <label><%: Html.Translate(() => Resources.TotalRowCount) %> <%: Model.TotalRowCount %></label>
                         </span>
+                        <div class="form-group">
+                            <input type="search" name="query" value="<%: Model.Query %>"  class="form-control search-input" placeholder="<%: Html.Translate(() => Resources.SearchQueryPlaceholder) %>" />
+                        </div>
+                    </form>
+                <% } else { %>
+                    <form id="resourceFilterForm">
+                        <div class="form-group">
+                            <input type="search" value="" class="form-control search-input" placeholder="<%: Html.Translate(() => Resources.SearchPlaceholder) %>" />
+                        </div>
                     </form>
                 <% } %>
-
-                <form id="resourceFilterForm">
-                    <div class="form-group">
-                        <input type="search" value="" class="form-control search-input" placeholder="<%: Html.Translate(() => Resources.SearchPlaceholder) %>" />
-                    </div>
-                </form>
-
                 <div class="epi-buttonContainer">
                     <% if (Model.IsTreeViewEnabled && Model.IsTableViewEnabled)
                        { %>

@@ -50,6 +50,8 @@ namespace DbLocalizationProvider.EPiServer.Sample
                 _.DisableRemoveTranslationButton = false;
                 _.Events.OnNewResourceCreated += OnNewResourceCreated;
                 _.HideDeleteButton = false;
+                _.EnableDbSearch = true;
+                _.PageSize = 50;
             });
         }
 
