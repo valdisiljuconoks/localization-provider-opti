@@ -38,6 +38,9 @@ namespace DbLocalizationProvider.AdminUI.EPiServer
 
         private void FinalizeSetup(object sender, EventArgs e)
         {
+            UiConfigurationContext.Current.EnableDbSearch = true;
+            UiConfigurationContext.Current.PageSize = 50;
+
             if (!((IDirtyList)UiConfigurationContext.Current.AuthorizedAdminRoles).IsDirty)
             {
                 foreach (var role in _adminRoles)
