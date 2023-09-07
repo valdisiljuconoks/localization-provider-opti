@@ -2,5 +2,11 @@
 @model dynamic
 @inject UiConfigurationContext uiConfiguration
 
-<iframe src="@uiConfiguration.RootUrl" style="border:none;" frameborder="0">
+<style>
+    #sideBarNavigationRoot {
+        height: 100vh !important;
+    }
+</style>
+
+<iframe src="@uiConfiguration.RootUrl" width="100%" height="500" style="border:none;" onload="resizeIframe(this)" title="Localization Provider Admin UI" id="provider-container-iframe">
 </iframe>

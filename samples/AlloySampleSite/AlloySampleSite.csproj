@@ -5,13 +5,14 @@
   </PropertyGroup>
   <ItemGroup>
     <PackageReference Include="BuildBundlerMinifier" Version="3.2.449" />
-    <PackageReference Include="EPiServer.OpenIDConnect.UI" Version="3.6.0" />
-    <PackageReference Include="EPiServer.ServiceApi" Version="6.2.0" />
-    <PackageReference Include="Microsoft.Data.SqlClient" Version="5.0.1" />
-    <PackageReference Include="Wangkanai.Detection" Version="5.7.1" />
-    <PackageReference Include="EPiServer.CMS" Version="12.15.1" />
-    <PackageReference Include="EPiServer.CMS.AspNetCore.HtmlHelpers" Version="12.11.0" />
-    <PackageReference Include="EPiServer.Hosting" Version="12.11.0" />
+    <PackageReference Include="EPiServer.CMS.AspNetCore.TagHelpers" Version="12.17.1" />
+    <PackageReference Include="EPiServer.OpenIDConnect.UI" Version="3.8.1" />
+    <PackageReference Include="EPiServer.ServiceApi" Version="7.0.2" />
+    <PackageReference Include="Microsoft.Data.SqlClient" Version="5.1.1" />
+    <PackageReference Include="Wangkanai.Detection" Version="6.11.3" />
+    <PackageReference Include="EPiServer.CMS" Version="12.22.5" />
+    <PackageReference Include="EPiServer.CMS.AspNetCore.HtmlHelpers" Version="12.17.1" />
+    <PackageReference Include="EPiServer.Hosting" Version="12.17.1" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\lib\netcore\lib\localization-provider\src\DbLocalizationProvider.Storage.AzureTables\DbLocalizationProvider.Storage.AzureTables.csproj" />
@@ -20,9 +21,5 @@
     <ProjectReference Include="..\..\lib\netcore\src\DbLocalizationProvider.AdminUI.AspNetCore.Xliff\DbLocalizationProvider.AdminUI.AspNetCore.Xliff.csproj" />
     <ProjectReference Include="..\..\src\DbLocalizationProvider.AdminUI.EPiServer\DbLocalizationProvider.AdminUI.EPiServer.csproj" />
     <ProjectReference Include="..\..\src\DbLocalizationProvider.EPiServer\DbLocalizationProvider.EPiServer.csproj" />
-  </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Models\Categories\" />
-    <Folder Include="Pages\" />
   </ItemGroup>
 </Project>
