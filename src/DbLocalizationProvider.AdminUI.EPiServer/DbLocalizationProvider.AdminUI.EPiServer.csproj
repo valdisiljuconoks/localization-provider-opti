@@ -9,10 +9,10 @@
     <Company>Valdis Iljuconoks, https://tech-fellow.net</Company>
     <Product>DbLocalizationProvider</Product>
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
-    <Description>Database driven localization provider. Admin UI hosting support package for Optimizely / Episerver sites.</Description>
+    <Description>Database-driven localization provider. Admin UI hosting support package for Optimizely / Episerver sites.</Description>
     <Copyright>Tech Fellow Consulting, Copyright © 2022</Copyright>
-    <PackageProjectUrl>https://github.com/valdisiljuconoks/localization-provider-epi/</PackageProjectUrl>
-    <RepositoryUrl>https://github.com/valdisiljuconoks/localization-provider-epi/</RepositoryUrl>
+    <PackageProjectUrl>https://github.com/valdisiljuconoks/localization-provider-opti/</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/valdisiljuconoks/localization-provider-opti/</RepositoryUrl>
     <PackageTags>Localization Provider DbLocalization DbLocalizationProvider LocalizationProvider Database Driven AdminUI AspNetCore NetCore Optimizely</PackageTags>
     <PackageId>DbLocalizationProvider.AdminUI.EPiServer</PackageId>
     <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
