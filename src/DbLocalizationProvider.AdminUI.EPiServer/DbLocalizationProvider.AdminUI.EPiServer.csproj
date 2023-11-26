@@ -37,9 +37,9 @@
 
   <ItemGroup>
     <FrameworkReference Include="Microsoft.AspNetCore.App" />
-    <PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.1.1" PrivateAssets="All" />
+    <PackageReference Include="Microsoft.SourceLink.GitHub" Version="8.0.0" PrivateAssets="All" />
     <PackageReference Include="EPiServer.CMS.AspNetCore" Version="12.19.1" />
-    <PackageReference Include="EPiServer.CMS.UI.Core" Version="12.24.0" />
+    <PackageReference Include="EPiServer.CMS.UI.Core" Version="12.25.1" />
   </ItemGroup>
 
   <ItemGroup>

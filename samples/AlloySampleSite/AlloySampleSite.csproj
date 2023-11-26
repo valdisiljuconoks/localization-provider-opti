@@ -10,7 +10,7 @@
     <PackageReference Include="EPiServer.ServiceApi" Version="7.0.2" />
     <PackageReference Include="Microsoft.Data.SqlClient" Version="5.1.2" />
     <PackageReference Include="Wangkanai.Detection" Version="6.11.3" />
-    <PackageReference Include="EPiServer.CMS" Version="12.24.0" />
+    <PackageReference Include="EPiServer.CMS" Version="12.25.1" />
     <PackageReference Include="EPiServer.CMS.AspNetCore.HtmlHelpers" Version="12.19.1" />
     <PackageReference Include="EPiServer.Hosting" Version="12.19.1" />
   </ItemGroup>

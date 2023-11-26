@@ -18,7 +18,8 @@
                 Math.max(innerDoc.body.scrollHeight, innerDoc.documentElement.scrollHeight),
                 Math.max(document.body.clientHeight, document.documentElement.clientHeight)
             );
-            obj.style.height = newHeight + 'px';
+
+            obj.style.height = (newHeight - 45) + 'px';
         }
 
         window.addEventListener('DOMContentLoaded', (event) => {
