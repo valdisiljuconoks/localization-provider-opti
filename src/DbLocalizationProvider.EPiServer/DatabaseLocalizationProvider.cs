@@ -1,6 +1,7 @@
 // Copyright (c) Valdis Iljuconoks. All rights reserved.
 // Licensed under Apache-2.0. See the LICENSE file in the project root for more information
 
+using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
@@ -61,7 +62,7 @@ public class DatabaseLocalizationProvider : global::EPiServer.Framework.Localiza
         var allResources = _queryExecutor
                            .Execute(q)
                            .Where(r =>
-                               r.ResourceKey.StartsWith(originalKey)
+                               r.ResourceKey.StartsWith(originalKey, StringComparison.Ordinal)
                                && r.Translations != null
                                && r.Translations.Exists(t => t.Language == culture.Name))
                            .ToList();
