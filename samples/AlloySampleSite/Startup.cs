@@ -12,6 +12,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using System.IO;
 using AlloySampleSite.Resources;
+using DbLocalizationProvider;
 using DbLocalizationProvider.AdminUI.AspNetCore;
 using DbLocalizationProvider.AdminUI.AspNetCore.Routing;
 using DbLocalizationProvider.AdminUI.EPiServer;
@@ -102,18 +103,20 @@ namespace AlloySampleSite
                     })
                     .AddOptimizely();
 
+            services.Configure<ConfigurationContext>(ctx => ctx.DiagnosticsEnabled = true);
+
                 services
-                    .AddDbLocalizationProviderAdminUI(_ =>
+                    .AddDbLocalizationProviderAdminUI(ctx =>
                     {
-                        _.RootUrl = "/localization-admin-ui";
+                        ctx.RootUrl = "/localization-admin-ui";
 
-                        _.AccessPolicyOptions = builder => builder.RequireRole(Roles.CmsAdmins);
+                        ctx.AccessPolicyOptions = builder => builder.RequireRole(Roles.CmsAdmins);
 
-                        _.ShowInvariantCulture = true;
-                        _.ShowHiddenResources = false;
-                        _.DefaultView = ResourceListView.Tree;
-                        _.CustomCssPath = "/css/custom-adminui.css";
-                        _.HideDeleteButton = false;
+                        ctx.ShowInvariantCulture = true;
+                        ctx.ShowHiddenResources = false;
+                        ctx.DefaultView = ResourceListView.Tree;
+                        ctx.CustomCssPath = "/css/custom-adminui.css";
+                        ctx.HideDeleteButton = false;
                     })
                     .AddOptimizelyAdminUI()
                     .AddCsvSupport()

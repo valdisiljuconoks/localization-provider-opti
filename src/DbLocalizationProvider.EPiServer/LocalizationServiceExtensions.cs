@@ -9,6 +9,7 @@ using DbLocalizationProvider.Queries;
 using DbLocalizationProvider.Sync;
 using EPiServer.Framework.Localization;
 using EPiServer.ServiceLocation;
+using Microsoft.Extensions.Options;
 
 namespace DbLocalizationProvider.EPiServer;
 
@@ -40,7 +41,10 @@ public static class LocalizationServiceExtensions
     /// <param name="culture">If you need translation for other language as current one.</param>
     /// <param name="formatArguments">If you need some formatting afterwards - pass in parameters here.</param>
     /// <returns>Translation for the resource for given language; if this fails - <c>null</c> obviously.</returns>
-    public static string GetStringByCulture(this LocalizationService service, Expression<Func<object>> resource, CultureInfo culture, params object[] formatArguments)
+    public static string GetStringByCulture(this LocalizationService service,
+        Expression<Func<object>> resource,
+        CultureInfo culture,
+        params object[] formatArguments)
     {
         var helper = TryGetExpressionHelper();
         var resourceKey = helper.GetFullMemberName(resource);
@@ -56,7 +60,10 @@ public static class LocalizationServiceExtensions
     /// <param name="culture">If you need translation for other language as current one.</param>
     /// <param name="formatArguments">If you need some formatting afterwards - pass in parameters here.</param>
     /// <returns>Translation for the resource for given language; if this fails - <c>null</c> obviously.</returns>
-    public static string GetStringByCulture(this LocalizationService service, string resourceKey, CultureInfo culture, params object[] formatArguments)
+    public static string GetStringByCulture(this LocalizationService service,
+        string resourceKey,
+        CultureInfo culture,
+        params object[] formatArguments)
     {
         var translation = service.GetStringByCulture(resourceKey, culture);
 
@@ -67,7 +74,10 @@ public static class LocalizationServiceExtensions
     {
         return ServiceLocator.Current.TryGetExistingInstance<ExpressionHelper>(out var helper)
             ? helper
-            : new ExpressionHelper(new ResourceKeyBuilder(new ScanState(), new ConfigurationContext()));
+            : new ExpressionHelper(
+                new ResourceKeyBuilder(
+                    new ScanState(),
+                    new OptionsWrapper<ConfigurationContext>(new ConfigurationContext())));
     }
 
     private static IQueryExecutor TryGetQueryExecutor()

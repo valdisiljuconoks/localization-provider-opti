@@ -7,32 +7,32 @@ using ILogger = DbLocalizationProvider.Logging.ILogger;
 
 namespace DbLocalizationProvider.EPiServer;
 
+/// <inheritdoc />
 public class LoggerAdapter : ILogger
 {
-    private readonly global::EPiServer.Logging.ILogger _logger;
+    private readonly global::EPiServer.Logging.ILogger _logger = LogManager.GetLogger(typeof(LoggerAdapter));
 
-    public LoggerAdapter()
+    /// <inheritdoc />
+    public void Debug(string message, params object?[] args)
     {
-        _logger = LogManager.GetLogger(typeof(LoggerAdapter));
+        _logger.Debug(message, args);
     }
 
-    public void Debug(string message)
+    /// <inheritdoc />
+    public void Info(string message, params object?[] args)
     {
-        _logger.Debug(message);
+        _logger.Information(message, args);
     }
 
-    public void Info(string message)
+    /// <inheritdoc />
+    public void Error(string message, params object?[] args)
     {
-        _logger.Information(message);
+        _logger.Error(message, args);
     }
 
-    public void Error(string message)
+    /// <inheritdoc />
+    public void Error(string message, Exception exception, params object?[] args)
     {
-        _logger.Error(message);
-    }
-
-    public void Error(string message, Exception exception)
-    {
-        _logger.Error(message, exception);
+        _logger.Error(message, exception, args);
     }
 }
