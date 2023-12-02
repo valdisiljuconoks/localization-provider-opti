@@ -105,22 +105,24 @@ namespace AlloySampleSite
 
             services.Configure<ConfigurationContext>(ctx => ctx.DiagnosticsEnabled = true);
 
-                services
-                    .AddDbLocalizationProviderAdminUI(ctx =>
-                    {
-                        ctx.RootUrl = "/localization-admin-ui";
+            services
+                .AddDbLocalizationProviderAdminUI(ctx =>
+                {
+                    ctx.RootUrl = "/localization-admin-ui";
 
-                        ctx.AccessPolicyOptions = builder => builder.RequireRole(Roles.CmsAdmins);
+                    ctx.AccessPolicyOptions = builder => builder.RequireRole(Roles.CmsAdmins);
 
-                        ctx.ShowInvariantCulture = true;
-                        ctx.ShowHiddenResources = false;
-                        ctx.DefaultView = ResourceListView.Tree;
-                        ctx.CustomCssPath = "/css/custom-adminui.css";
-                        ctx.HideDeleteButton = false;
-                    })
-                    .AddOptimizelyAdminUI()
-                    .AddCsvSupport()
-                    .AddXliffSupport();
+                    ctx.ShowInvariantCulture = true;
+                    ctx.ShowHiddenResources = false;
+                    ctx.DefaultView = ResourceListView.Tree;
+                    ctx.CustomCssPath = "/css/custom-adminui.css";
+                    ctx.HideDeleteButton = false;
+                })
+                .AddOptimizelyAdminUI()
+                .AddCsvSupport()
+                .AddXliffSupport();
+
+            services.Configure<UiConfigurationContext>(ctx => ctx.DefaultView = ResourceListView.Table);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
