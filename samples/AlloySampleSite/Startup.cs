@@ -117,6 +117,8 @@ namespace AlloySampleSite
                     ctx.DefaultView = ResourceListView.Tree;
                     ctx.CustomCssPath = "/css/custom-adminui.css";
                     ctx.HideDeleteButton = false;
+                    ctx.EnableDbSearch = true;
+                    ctx.PageSize = 5;
                 })
                 .AddOptimizelyAdminUI()
                 .AddCsvSupport()

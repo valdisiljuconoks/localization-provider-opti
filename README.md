@@ -3,7 +3,11 @@
 [<img src="https://tech-fellow-consulting.visualstudio.com/_apis/public/build/definitions/7cf5a00f-7a74-440c-83bd-45d6c8a80602/11/badge"/>](https://tech-fellow-consulting.visualstudio.com/localization-provider-epi/_build/index?definitionId=11)
 [![Platform](https://img.shields.io/badge/Optimizely-%2012-blue.svg?style=flat)](http://world.optimizely.com/)
 
-# v7.0 is FINALLY OUT!
+# v8.x IS COMING!
+
+vNext for LocalizationProvider is coming up! Stay tuned...
+
+# v7.0 is OUT!
 
 Please read more in [this blog post](https://blog.tech-fellow.net/2022/01/23/dblocalizationprovider-for-optimizely/)!
 
