@@ -17,6 +17,7 @@
   <ItemGroup>
     <ProjectReference Include="..\..\lib\netcore\lib\localization-provider\src\DbLocalizationProvider.Storage.AzureTables\DbLocalizationProvider.Storage.AzureTables.csproj" />
     <ProjectReference Include="..\..\lib\netcore\lib\localization-provider\src\DbLocalizationProvider.Storage.SqlServer\DbLocalizationProvider.Storage.SqlServer.csproj" />
+    <ProjectReference Include="..\..\lib\netcore\lib\localization-provider\src\DbLocalizationProvider.Translator.Azure\DbLocalizationProvider.Translator.Azure.csproj" />
     <ProjectReference Include="..\..\lib\netcore\src\DbLocalizationProvider.AdminUI.AspNetCore.Csv\DbLocalizationProvider.AdminUI.AspNetCore.Csv.csproj" />
     <ProjectReference Include="..\..\lib\netcore\src\DbLocalizationProvider.AdminUI.AspNetCore.Xliff\DbLocalizationProvider.AdminUI.AspNetCore.Xliff.csproj" />
     <ProjectReference Include="..\..\src\DbLocalizationProvider.AdminUI.EPiServer\DbLocalizationProvider.AdminUI.EPiServer.csproj" />
