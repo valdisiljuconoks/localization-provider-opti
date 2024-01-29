@@ -30,7 +30,7 @@ Giving you the main following features:
 * [Getting Started](docs/getting-started-epi.md)
 
 ## Migrating from v5.x?
-Please visit [blog post](https://tech-fellow.eu/2020/02/21/localization-provider-major-6/) to get more information about new features added in v6 and also how to migrate.
+Please visit [blog post](https://tech-fellow.eu/2020/02/22/localization-provider-major-6/) to get more information about new features added in v6 and also how to migrate.
 
 ## Working with DbLocalizationProvider
 * For more info about generic localization provider features read more [here](https://github.com/valdisiljuconoks/LocalizationProvider/blob/master/README.md)
