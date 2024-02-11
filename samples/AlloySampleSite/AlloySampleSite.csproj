@@ -5,14 +5,14 @@
   </PropertyGroup>
   <ItemGroup>
     <PackageReference Include="BuildBundlerMinifier" Version="3.2.449" />
-    <PackageReference Include="EPiServer.CMS.AspNetCore.TagHelpers" Version="12.20.0" />
-    <PackageReference Include="EPiServer.OpenIDConnect.UI" Version="3.9.1" />
-    <PackageReference Include="EPiServer.ServiceApi" Version="7.0.2" />
-    <PackageReference Include="Microsoft.Data.SqlClient" Version="5.1.2" />
+    <PackageReference Include="EPiServer.CMS.AspNetCore.TagHelpers" Version="12.20.3" />
+    <PackageReference Include="EPiServer.OpenIDConnect.UI" Version="3.10.2" />
+    <PackageReference Include="EPiServer.ServiceApi" Version="7.0.4" />
+    <PackageReference Include="Microsoft.Data.SqlClient" Version="5.1.5" />
     <PackageReference Include="Wangkanai.Detection" Version="6.11.3" />
-    <PackageReference Include="EPiServer.CMS" Version="12.25.1" />
-    <PackageReference Include="EPiServer.CMS.AspNetCore.HtmlHelpers" Version="12.20.0" />
-    <PackageReference Include="EPiServer.Hosting" Version="12.20.0" />
+    <PackageReference Include="EPiServer.CMS" Version="12.27.0" />
+    <PackageReference Include="EPiServer.CMS.AspNetCore.HtmlHelpers" Version="12.20.3" />
+    <PackageReference Include="EPiServer.Hosting" Version="12.20.3" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\lib\netcore\lib\localization-provider\src\DbLocalizationProvider.Storage.AzureTables\DbLocalizationProvider.Storage.AzureTables.csproj" />
