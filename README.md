@@ -1,17 +1,14 @@
-# DbLocalizationProvider for Optimizely (ex. Episerver) CMS and Commerce
+[![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=valdisiljuconoks_localization-provider-opti&metric=alert_status)](https://sonarcloud.io/summary/new_code?id=valdisiljuconoks_localization-provider-opti)
 
-[<img src="https://tech-fellow-consulting.visualstudio.com/_apis/public/build/definitions/7cf5a00f-7a74-440c-83bd-45d6c8a80602/11/badge"/>](https://tech-fellow-consulting.visualstudio.com/localization-provider-epi/_build/index?definitionId=11)
-[![Platform](https://img.shields.io/badge/Optimizely-%2012-blue.svg?style=flat)](http://world.optimizely.com/)
+# Supporting Localization Provider
 
-# v7.0 is OUT
+If you find this library useful, cup of coffee would be awesome! You can support further development of the library via [Paypal](https://paypal.me/valdisiljuconoks).
 
-Please read more in [this blog post](https://tech-fellow.eu/2022/01/23/dblocalizationprovider-for-optimizely/)!
+# Localization Provider v8.0 IS OUT!
 
-## Supporting LocalizationProvider
+Read more about v8.0 release [here](https://github.com/valdisiljuconoks/LocalizationProvider/?tab=readme-ov-file#localization-provider-v80-is-out).
 
-If you find this library useful, cup of coffee at late night while the library is being hacked around would be awesome! You can support further development via [Paypal](https://paypal.me/valdisiljuconoks).
-
-## What is the LocalizationProvider project?
+# What is the LocalizationProvider project?
 
 LocalizationProvider project is Optimizely localization provider on steroids.
 
@@ -23,9 +20,6 @@ Giving you the main following features:
 
 ## Getting Started
 * [Getting Started](docs/getting-started-epi.md)
-
-## Migrating from v5.x?
-Please visit [blog post](https://tech-fellow.eu/2020/02/22/localization-provider-major-6/) to get more information about new features added in v6 and also how to migrate.
 
 ## Working with DbLocalizationProvider
 * For more info about generic localization provider features read more [here](https://github.com/valdisiljuconoks/LocalizationProvider/blob/master/README.md)
@@ -52,6 +46,16 @@ git clone --recurse-submodules git@github.com:valdisiljuconoks/localization-prov
 ```
 git submodule foreach git pull origin master
 ```
+
+# Other Versions
+
+## v7.0 is OUT
+
+Please read more in [this blog post](https://tech-fellow.eu/2022/01/23/dblocalizationprovider-for-optimizely/)!
+
+## Migrating from v5.x?
+Please visit [blog post](https://tech-fellow.eu/2020/02/22/localization-provider-major-6/) to get more information about new features added in v6 and also how to migrate.
+
 
 # More Info
 
