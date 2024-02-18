@@ -5,6 +5,7 @@ using System;
 using DbLocalizationProvider.AspNetCore;
 using EPiServer.Data;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Options;
 
 namespace DbLocalizationProvider.EPiServer;
 
@@ -12,17 +13,17 @@ namespace DbLocalizationProvider.EPiServer;
 public class OptimizelyUsageConfigurator : IUsageConfigurator
 {
     /// <inheritdoc />
-    public void Configure(ConfigurationContext context, IServiceProvider serviceProvider)
+    public void Configure(IOptions<ConfigurationContext> context, IServiceProvider serviceProvider)
     {
         // here (after container creation) we can "finalize" some of the service setup procedures
-        context.Logger = new LoggerAdapter();
+        context.Value.Logger = new LoggerAdapter();
 
         // respect configuration whether we should sync and register resources
         // skip if application currently is in read-only mode
         var dbMode = serviceProvider.GetRequiredService<IDatabaseMode>().DatabaseMode;
-        if (context.DiscoverAndRegisterResources)
+        if (context.Value.DiscoverAndRegisterResources)
         {
-            context.DiscoverAndRegisterResources = dbMode != DatabaseMode.ReadOnly;
+            context.Value.DiscoverAndRegisterResources = dbMode != DatabaseMode.ReadOnly;
         }
     }
 }

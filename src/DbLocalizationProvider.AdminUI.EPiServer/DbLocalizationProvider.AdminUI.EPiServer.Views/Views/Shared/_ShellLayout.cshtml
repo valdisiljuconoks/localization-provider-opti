@@ -6,6 +6,7 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta content='width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no' name='viewport'>
+    <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
     @ClientResources.RenderResources("ShellCore")
     @ClientResources.RenderResources("ShellCoreLightTheme")
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
@@ -18,7 +19,8 @@
                 Math.max(innerDoc.body.scrollHeight, innerDoc.documentElement.scrollHeight),
                 Math.max(document.body.clientHeight, document.documentElement.clientHeight)
             );
-            obj.style.height = newHeight + 'px';
+
+            obj.style.height = (newHeight - 45) + 'px';
         }
 
         window.addEventListener('DOMContentLoaded', (event) => {

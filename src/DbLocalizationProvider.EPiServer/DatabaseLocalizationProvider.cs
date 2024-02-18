@@ -1,24 +1,29 @@
 // Copyright (c) Valdis Iljuconoks. All rights reserved.
 // Licensed under Apache-2.0. See the LICENSE file in the project root for more information
 
+using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
 using DbLocalizationProvider.Queries;
+using Microsoft.Extensions.Options;
 
 namespace DbLocalizationProvider.EPiServer;
 
+/// <inheritdoc />
 public class DatabaseLocalizationProvider : global::EPiServer.Framework.Localization.LocalizationProvider
 {
     private readonly ConfigurationContext _context;
     private readonly IQueryExecutor _queryExecutor;
 
-    public DatabaseLocalizationProvider(ConfigurationContext context, IQueryExecutor queryExecutor)
+    /// <inheritdoc />
+    public DatabaseLocalizationProvider(IOptions<ConfigurationContext> context, IQueryExecutor queryExecutor)
     {
-        _context = context;
+        _context = context.Value;
         _queryExecutor = queryExecutor;
     }
 
+    /// <inheritdoc />
     public override IEnumerable<CultureInfo> AvailableLanguages
     {
         get
@@ -29,6 +34,7 @@ public class DatabaseLocalizationProvider : global::EPiServer.Framework.Localiza
         }
     }
 
+    /// <inheritdoc />
     public override string GetString(string originalKey, string[] normalizedKey, CultureInfo culture)
     {
         // this is special case for Episerver ;)
@@ -39,6 +45,7 @@ public class DatabaseLocalizationProvider : global::EPiServer.Framework.Localiza
             : null;
     }
 
+    /// <inheritdoc />
     public override IEnumerable<global::EPiServer.Framework.Localization.ResourceItem> GetAllStrings(
         string originalKey,
         string[] normalizedKey,
@@ -55,9 +62,9 @@ public class DatabaseLocalizationProvider : global::EPiServer.Framework.Localiza
         var allResources = _queryExecutor
                            .Execute(q)
                            .Where(r =>
-                               r.ResourceKey.StartsWith(originalKey)
+                               r.ResourceKey.StartsWith(originalKey, StringComparison.Ordinal)
                                && r.Translations != null
-                               && r.Translations.Any(t => t.Language == culture.Name))
+                               && r.Translations.Exists(t => t.Language == culture.Name))
                            .ToList();
 
         if (!allResources.Any())

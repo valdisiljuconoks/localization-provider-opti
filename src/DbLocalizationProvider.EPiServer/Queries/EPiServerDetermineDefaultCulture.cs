@@ -4,20 +4,32 @@
 using DbLocalizationProvider.Abstractions;
 using DbLocalizationProvider.Queries;
 using EPiServer.Globalization;
+using Microsoft.Extensions.Options;
 
 namespace DbLocalizationProvider.EPiServer.Queries;
 
+/// <summary>
+/// Determine default culture the Opti way
+/// </summary>
 public class EPiServerDetermineDefaultCulture
 {
+    /// <summary>
+    /// What do you think this method (ctor) does, eh?
+    /// </summary>
     public class Handler : IQueryHandler<DetermineDefaultCulture.Query, string>
     {
         private readonly ConfigurationContext _context;
 
-        public Handler(ConfigurationContext context)
+        /// <summary>
+        /// Create new instance of the command handler
+        /// </summary>
+        /// <param name="context">Configuration context</param>
+        public Handler(IOptions<ConfigurationContext> context)
         {
-            _context = context;
+            _context = context.Value;
         }
 
+        /// <inheritdoc />
         public string Execute(DetermineDefaultCulture.Query query)
         {
             return _context.DefaultResourceCulture != null
