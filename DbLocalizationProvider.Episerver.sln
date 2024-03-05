@@ -45,7 +45,6 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "solution-items", "solution-
 		build-packages.ps1 = build-packages.ps1
 		LICENSE = LICENSE
 		src\pack.proj = src\pack.proj
-		push-packages.ps1 = push-packages.ps1
 		README.md = README.md
 	EndProjectSection
 EndProject

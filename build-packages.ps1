@@ -1,4 +1,3 @@
-mkdir .\.nuget
 cd .\.nuget
 
 # episerver libraries
