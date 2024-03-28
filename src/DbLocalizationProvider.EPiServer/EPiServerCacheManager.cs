@@ -10,6 +10,7 @@ internal class EPiServerCacheManager : ICacheManager
 {
     public void Insert(string key, object value, bool insertIntoKnownResourceKeys)
     {
+        CacheManager.Remove(key);
         CacheManager.Insert(key, value);
     }
 
