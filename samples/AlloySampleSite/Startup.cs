@@ -14,10 +14,10 @@ using System.IO;
 using AlloySampleSite.Resources;
 using DbLocalizationProvider;
 using DbLocalizationProvider.AdminUI.AspNetCore;
-using DbLocalizationProvider.AdminUI.AspNetCore.Routing;
 using DbLocalizationProvider.AdminUI.EPiServer;
 using DbLocalizationProvider.AspNetCore;
 using DbLocalizationProvider.AspNetCore.ClientsideProvider.Routing;
+using DbLocalizationProvider.Cache;
 using DbLocalizationProvider.EPiServer;
 using DbLocalizationProvider.Storage.SqlServer;
 using EPiServer.Authorization;
@@ -100,6 +100,8 @@ namespace AlloySampleSite
                         ctx.UseSqlServer(connectionstring);
 
                         ctx.FlexibleRefactoringMode = true;
+
+                        ctx.CacheManager.OnInsert += CacheManagerOnOnInsert;
                     })
                     .AddOptimizely();
 
@@ -125,6 +127,11 @@ namespace AlloySampleSite
                 .AddXliffSupport();
 
             services.Configure<UiConfigurationContext>(ctx => ctx.DefaultView = ResourceListView.Table);
+        }
+
+        private void CacheManagerOnOnInsert(CacheEventArgs e)
+        {
+            
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
