@@ -5,14 +5,14 @@
   </PropertyGroup>
   <ItemGroup>
     <PackageReference Include="BuildBundlerMinifier" Version="3.2.449" />
-    <PackageReference Include="EPiServer.CMS.AspNetCore.TagHelpers" Version="12.21.2" />
-    <PackageReference Include="EPiServer.OpenIDConnect.UI" Version="3.10.2" />
+    <PackageReference Include="EPiServer.CMS.AspNetCore.TagHelpers" Version="12.21.3" />
+    <PackageReference Include="EPiServer.OpenIDConnect.UI" Version="3.11.0" />
     <PackageReference Include="EPiServer.ServiceApi" Version="7.0.4" />
     <PackageReference Include="Microsoft.Data.SqlClient" Version="5.2.0" />
     <PackageReference Include="Wangkanai.Detection" Version="6.11.3" />
-    <PackageReference Include="EPiServer.CMS" Version="12.28.0" />
-    <PackageReference Include="EPiServer.CMS.AspNetCore.HtmlHelpers" Version="12.21.2" />
-    <PackageReference Include="EPiServer.Hosting" Version="12.21.2" />
+    <PackageReference Include="EPiServer.CMS" Version="12.29.1" />
+    <PackageReference Include="EPiServer.CMS.AspNetCore.HtmlHelpers" Version="12.21.3" />
+    <PackageReference Include="EPiServer.Hosting" Version="12.21.3" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\lib\netcore\lib\localization-provider\src\DbLocalizationProvider.Storage.AzureTables\DbLocalizationProvider.Storage.AzureTables.csproj" />
