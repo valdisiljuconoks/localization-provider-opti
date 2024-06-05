@@ -26,7 +26,7 @@ public static class IServiceCollectionExtensions
     /// <returns>Service collection to support fluent API.</returns>
     public static IDbLocalizationProviderBuilder AddOptimizely(this IDbLocalizationProviderBuilder builder)
     {
-        builder.Context.CacheManager = new EPiServerCacheManager();
+        builder.Context._baseCacheManager.SetInnerManager(new EPiServerCache());
 
         builder.Services.AddTransient<IResourceTypeScanner, LocalizedCategoryScanner>();
 

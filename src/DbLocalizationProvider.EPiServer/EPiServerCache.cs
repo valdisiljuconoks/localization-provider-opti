@@ -6,11 +6,10 @@ using EPiServer;
 
 namespace DbLocalizationProvider.EPiServer;
 
-internal class EPiServerCacheManager : ICacheManager
+internal class EPiServerCache : ICache
 {
     public void Insert(string key, object value, bool insertIntoKnownResourceKeys)
     {
-        CacheManager.Remove(key);
         CacheManager.Insert(key, value);
     }
 
@@ -23,7 +22,4 @@ internal class EPiServerCacheManager : ICacheManager
     {
         CacheManager.Remove(key);
     }
-
-    public event CacheEventHandler OnInsert;
-    public event CacheEventHandler OnRemove;
 }

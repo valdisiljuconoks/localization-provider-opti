@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Globalization;
 using AlloySampleSite.Extensions;
@@ -22,7 +23,11 @@ using DbLocalizationProvider.EPiServer;
 using DbLocalizationProvider.Storage.SqlServer;
 using EPiServer.Authorization;
 using EPiServer.Framework.Localization;
+using EPiServer.Logging.Compatibility;
 using EPiServer.Web;
+using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Options;
+using Serilog;
 
 namespace AlloySampleSite
 {
@@ -41,6 +46,19 @@ namespace AlloySampleSite
         {
             var dbPath = Path.Combine(_webHostingEnvironment.ContentRootPath, "App_Data\\Alloy.mdf");
             var connectionstring = _configuration.GetConnectionString("EPiServerDB") ?? $"Data Source=(LocalDb)\\MSSQLLocalDB;AttachDbFilename={dbPath};Initial Catalog=alloy_mvc_netcore;Integrated Security=True;Connect Timeout=30;MultipleActiveResultSets=True";
+
+
+            var logger = new LoggerConfiguration()
+                         .ReadFrom.Configuration(_configuration)
+                         .Enrich.FromLogContext()
+                         .CreateLogger();
+
+            services.AddLogging(builder =>
+            {
+                builder.ClearProviders();
+                builder.AddSimpleConsole();
+                builder.AddSerilog(logger);
+            });
 
             services.Configure<DataAccessOptions>(o =>
             {
@@ -100,11 +118,10 @@ namespace AlloySampleSite
                         ctx.UseSqlServer(connectionstring);
 
                         ctx.FlexibleRefactoringMode = true;
-
-                        ctx.CacheManager.OnInsert += CacheManagerOnOnInsert;
                     })
                     .AddOptimizely();
 
+            // post setup configuration
             services.Configure<ConfigurationContext>(ctx => ctx.DiagnosticsEnabled = true);
 
             services
@@ -129,9 +146,14 @@ namespace AlloySampleSite
             services.Configure<UiConfigurationContext>(ctx => ctx.DefaultView = ResourceListView.Table);
         }
 
-        private void CacheManagerOnOnInsert(CacheEventArgs e)
+        private void CacheManagerOnOnInsert(CacheEventArgs e, ILogger<Startup> logger)
         {
-            
+            logger.LogInformation($"CACHE ADDED: {e.ResourceKey}");
+        }
+
+        private void CacheManagerOnOnRemove(CacheEventArgs e, ILogger<Startup> logger)
+        {
+            logger.LogInformation($"CACHE REMOVED: {e.ResourceKey}");
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -155,6 +177,13 @@ namespace AlloySampleSite
             app.UseDbLocalizationProvider();
             app.UseDbLocalizationProviderAdminUI();
             app.UseDbLocalizationClientsideProvider();
+
+            var cache = app.ApplicationServices.GetRequiredService<IOptions<ConfigurationContext>>().Value.CacheManager;
+            var cache2 = app.ApplicationServices.GetRequiredService<ICacheManager>();
+
+            cache.OnInsert += e => CacheManagerOnOnInsert(e, app.ApplicationServices.GetRequiredService<ILogger<Startup>>());
+            cache.OnRemove += e => CacheManagerOnOnRemove(e, app.ApplicationServices.GetRequiredService<ILogger<Startup>>());
+
 
             app.UseEndpoints(endpoints =>
             {
