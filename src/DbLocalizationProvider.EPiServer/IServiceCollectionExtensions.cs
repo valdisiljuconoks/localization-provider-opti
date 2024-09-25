@@ -1,6 +1,7 @@
 // Copyright (c) Valdis Iljuconoks. All rights reserved.
 // Licensed under Apache-2.0. See the LICENSE file in the project root for more information
 
+using System;
 using System.Globalization;
 using System.Linq;
 using DbLocalizationProvider.AspNetCore;
@@ -23,10 +24,15 @@ public static class IServiceCollectionExtensions
     /// Adds Optimizely support for DbLocalizationProvider.
     /// </summary>
     /// <param name="builder">Provider builder interface (to capture context and service collection).</param>
+    /// <param name="setup">If required, modify configurations using the <see cref="DbLocalizationConfigurationContext"/></param>
     /// <returns>Service collection to support fluent API.</returns>
-    public static IDbLocalizationProviderBuilder AddOptimizely(this IDbLocalizationProviderBuilder builder)
+    public static IDbLocalizationProviderBuilder AddOptimizely(this IDbLocalizationProviderBuilder builder, Action<DbLocalizationConfigurationContext>? setup = null)
     {
-        builder.Context._baseCacheManager.SetInnerManager(new EPiServerCache());
+        var configContext = new DbLocalizationConfigurationContext();
+
+        setup?.Invoke(configContext);
+
+        builder.Context._baseCacheManager.SetInnerManager(configContext.InnerCache);
 
         builder.Services.AddTransient<IResourceTypeScanner, LocalizedCategoryScanner>();
 
