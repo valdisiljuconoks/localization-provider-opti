@@ -18,6 +18,12 @@ Giving you the main following features:
 * Supports hierarchical resource organization (with the help of child classes)
 * Administration UI for editors to change or add new translations for required languages
 
+## Source Code Repos
+The whole package of libraries is split into multiple git repos (with submodule linkage in between). Below is list of all related repositories:
+* [Main Repository](https://github.com/valdisiljuconoks/LocalizationProvider/)
+* [.NET Runtime Repository](https://github.com/valdisiljuconoks/localization-provider-core)
+* [Optimizely Integration Repository](https://github.com/valdisiljuconoks/localization-provider-epi)
+
 ## Getting Started
 * [Getting Started](docs/getting-started-epi.md)
 
