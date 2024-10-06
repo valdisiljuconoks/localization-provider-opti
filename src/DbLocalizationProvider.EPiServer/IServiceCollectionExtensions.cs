@@ -26,7 +26,9 @@ public static class IServiceCollectionExtensions
     /// <param name="builder">Provider builder interface (to capture context and service collection).</param>
     /// <param name="setup">If required, modify configurations using the <see cref="DbLocalizationConfigurationContext"/></param>
     /// <returns>Service collection to support fluent API.</returns>
-    public static IDbLocalizationProviderBuilder AddOptimizely(this IDbLocalizationProviderBuilder builder, Action<DbLocalizationConfigurationContext>? setup = null)
+    public static IDbLocalizationProviderBuilder AddOptimizely(
+        this IDbLocalizationProviderBuilder builder,
+        Action<DbLocalizationConfigurationContext>? setup = null)
     {
         var configContext = new DbLocalizationConfigurationContext();
 
